@@ -1,0 +1,31 @@
+package_rename_config:
+  android:
+    app_name: Edtech App
+    package_name: com.edtech.app
+    override_old_package: # (Optional) (String) Use this to delete the old folder structure of MainActivity or to use the existing code with the new package name
+    lang: # (Optional) (String) The android development language {kotlin(default) or java}
+
+  ios:
+    app_name: Edtech App
+    bundle_name: eduket-online
+    package_name: com.edtech.app
+
+  linux:
+    app_name: Edtech App
+    package_name: com.edtech.app
+    exe_name: eduket-online-linux-x64
+
+  macos:
+    app_name: Edtech App
+    package_name: com.edtech.app
+    copyright_notice: Copyright ©️ 2025 Innovatrix Infotech. All rights reserved.
+
+  web:
+    app_name: Edtech App
+    description: The only edtech app you need
+
+  windows:
+    app_name: Edtech App
+    organization: InnovatrixInfotech
+    copyright_notice: Copyright ©️ 2025 Innovatrix Infotech. All rights reserved.
+    exe_name: eduket-online-windows
