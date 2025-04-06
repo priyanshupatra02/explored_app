@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:edtech_app/shared/exception/base_exception.dart';
 import 'package:flutter/foundation.dart';
+import 'package:edtech_app/shared/exception/base_exception.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 typedef Mapper<T> = T Function(dynamic data);

@@ -1,9 +1,10 @@
-import 'package:edtech_app/core/local_storage/app_storage_pod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:edtech_app/core/local_storage/app_storage_pod.dart';
 
 ///This provider stores the ThemeModeController
-final themecontrollerProvider = NotifierProvider.autoDispose<ThemeModeController, ThemeMode>(
+final themecontrollerProvider =
+    NotifierProvider.autoDispose<ThemeModeController, ThemeMode>(
   ThemeModeController.new,
   name: 'themecontrollerProvider',
 );

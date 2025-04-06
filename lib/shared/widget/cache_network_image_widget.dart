@@ -34,12 +34,12 @@ class CacheNetworkImageWidget extends StatelessWidget {
             placeholder: (context, url) => const Center(
               child: CupertinoActivityIndicator(),
             ),
-            errorWidget: (context, url, error) => const HugeIcon(
+            errorWidget: (context, url, error) =>  HugeIcon(
               icon: AppIcons.strokeRoundedWifiError02,
               color: AppColors.kGrey700,
             ),
           )
-        : const HugeIcon(
+        :  HugeIcon(
             icon: AppIcons.strokeRoundedWifiError02,
             color: AppColors.kGrey700,
           );

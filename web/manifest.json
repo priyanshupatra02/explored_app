@@ -1,11 +1,11 @@
 {
-    "name": "Edtech App",
-    "short_name": "Edtech App",
+    "name": "edtech_app",
+    "short_name": "edtech_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "The only edtech app you need",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

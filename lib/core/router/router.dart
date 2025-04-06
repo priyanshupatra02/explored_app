@@ -48,10 +48,6 @@ class AppRouter extends RootStackRouter {
       path: '/profile',
     ),
     AutoRoute(
-      page: ProfileRoute.page,
-      path: '/profile',
-    ),
-    AutoRoute(
       page: ForumsRoute.page,
       path: '/forums',
     ),

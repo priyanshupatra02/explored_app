@@ -15,7 +15,7 @@ class Themes {
         displaySmall: GoogleFonts.spaceGrotesk(),
         headlineLarge: GoogleFonts.spaceGrotesk(),
         headlineMedium: GoogleFonts.spaceGrotesk(),
-        headlineSmall: GoogleFonts.spaceGrotesk(),
+        headlineSmall: GoogleFonts.spaceGrotesk(), 
 
         // Titles with Urbanist
         titleLarge: GoogleFonts.urbanist(),

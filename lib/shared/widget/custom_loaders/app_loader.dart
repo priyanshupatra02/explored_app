@@ -17,7 +17,7 @@ class AppLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (Platform.I.isAndroid)
+    return (Platform.I.android)
         ? SizedBox(
             height: size,
             width: size,

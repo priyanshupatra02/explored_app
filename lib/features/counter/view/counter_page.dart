@@ -1,8 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:edtech_app/features/counter/controller/counter_state_pod.dart';
 import 'package:edtech_app/features/theme_segmented_btn/view/theme_segmented_btn.dart';
-import 'package:edtech_app/l10n/l10n.dart';
-import 'package:edtech_app/shared/widget/app_locale_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,12 +22,12 @@ class CounterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const CounterAppBarTitle(),
-        actions: const [
-          AppLocalePopUp(),
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: const CounterAppBarTitle(),
+      //   actions: const [
+      //     AppLocalePopUp(),
+      //   ],
+      // ),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -69,15 +67,15 @@ class CounterView extends StatelessWidget {
   }
 }
 
-class CounterAppBarTitle extends StatelessWidget {
-  const CounterAppBarTitle({super.key});
+// class CounterAppBarTitle extends StatelessWidget {
+//   const CounterAppBarTitle({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return Text(l10n.counterAppBarTitle);
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     final l10n = context.l10n;
+//     return Text(l10n.counterAppBarTitle);
+//   }
+// }
 
 class CounterText extends ConsumerWidget {
   const CounterText({super.key});

@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "question": "If she _________ about his financial situation, she would have helped him out.",
+      "options": [
+        "had known",
+        "knew",
+        "would have known"
+      ],
+      "correct_answer_index": 0,
+      "explaination": "If she had known about his financial situation, she would have helped him out. Use the past perfect (had + past participle) in the clause of the third conditional to talk about unreal past situations."
+    },
+    {
+      "id": 2,
+      "question": "Another sample question goes here",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C"
+      ],
+      "correct_answer_index": 1,
+      "explaination": "If she had known about his financial situation, she would have helped him out. Use the past perfect (had + past participle) in the clause of the third conditional to talk about unreal past situations."
+    }
+  ]
+}

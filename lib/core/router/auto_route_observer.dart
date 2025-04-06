@@ -1,8 +1,9 @@
 // ignore_for_file: strict_raw_type
 
 import 'package:auto_route/auto_route.dart';
-import 'package:edtech_app/bootstrap.dart';
+
 import 'package:flutter/material.dart';
+import 'package:edtech_app/bootstrap.dart';
 
 /// This class observers all events happening in routing/navigation
 class RouterObserver extends AutoRouterObserver {
@@ -20,7 +21,8 @@ class RouterObserver extends AutoRouterObserver {
 
   @override
   void didReplace({Route? newRoute, Route? oldRoute}) {
-    talker.debug('Route ${newRoute?.settings.name} is replaced with ${oldRoute?.settings.name}');
+    talker.debug(
+        'Route ${newRoute?.settings.name} is replaced with ${oldRoute?.settings.name}');
   }
 
   @override
@@ -32,11 +34,13 @@ class RouterObserver extends AutoRouterObserver {
   // only override to observer tab routes
   @override
   void didInitTabRoute(TabPageRoute route, TabPageRoute? previousRoute) {
-    talker.debug('Tab route visited: ${route.name} Previous route is: ${previousRoute?.name}');
+    talker.debug(
+        'Tab route visited: ${route.name} Previous route is: ${previousRoute?.name}');
   }
 
   @override
   void didChangeTabRoute(TabPageRoute route, TabPageRoute previousRoute) {
-    talker.debug('Tab route re-visited: ${route.name} Previous route is: ${previousRoute.name}');
+    talker.debug(
+        'Tab route re-visited: ${route.name} Previous route is: ${previousRoute.name}');
   }
 }

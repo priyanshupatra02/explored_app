@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:edtech_app/app/view/app.dart';
 import 'package:edtech_app/bootstrap.dart';
 import 'package:edtech_app/features/splash/view/splash_view.dart';
-import 'package:flutter/material.dart';
 
 class Splasher extends StatelessWidget {
   const Splasher({super.key});

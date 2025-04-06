@@ -1,15 +1,16 @@
 import 'package:animated_float_action_button/animated_floating_action_button.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:edtech_app/const/app_icons/app_icons.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/features/blogs_details/controller/pod/text_magnifier_pod.dart';
 import 'package:edtech_app/shared/animation/animated_paragraph.dart';
 import 'package:edtech_app/shared/widget/app_icons_widget.dart';
 import 'package:edtech_app/shared/widget/buttons/back_button_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hugeicons/hugeicons.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
 class BlogDetailsPage extends StatelessWidget {

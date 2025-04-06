@@ -16,6 +16,13 @@ class ForumsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Forums'),
+      ),
+      body: Center(
+        child: Text('Forums Page'),
+      ),
+    );
   }
-} 
+}

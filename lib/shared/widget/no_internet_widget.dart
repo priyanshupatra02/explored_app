@@ -1,8 +1,8 @@
-import 'package:edtech_app/shared/api_client/dio/dio_client_provider.dart';
-import 'package:edtech_app/shared/pods/internet_checker_pod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:edtech_app/shared/api_client/dio/dio_client_provider.dart';
+import 'package:edtech_app/shared/pods/internet_checker_pod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 ///No internet extension widget
@@ -58,7 +58,8 @@ class DefaultNoInternetWidget extends ConsumerStatefulWidget {
   });
   final Widget? noInternetWidget;
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _DefaultNoInternetState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _DefaultNoInternetState();
 }
 
 class _DefaultNoInternetState extends ConsumerState<DefaultNoInternetWidget> {
@@ -123,17 +124,17 @@ class _DefaultNoInternetState extends ConsumerState<DefaultNoInternetWidget> {
               : const SizedBox.shrink(),
         );
       },
-      error: (error, stackTrace) => MaterialBanner(
-        content: Text("Unable to check internet due to $error").text.red500.make(),
-        actions: [
+      error: (error, stackTrace) => Row(
+        children: [
+          "$error".text.red500.make().expand(),
           ElevatedButton(
             onPressed: () {
               ref.invalidate(internetCheckerNotifierPod);
             },
             child: const Text('Retry').text.red500.make(),
-          ),
+          ).flexible(),
         ],
-      ).safeArea(),
+      ),
       loading: () => const LinearProgressIndicator(),
     );
   }

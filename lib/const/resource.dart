@@ -43,4 +43,7 @@ class R {
   /// ![preview](file:///Users/priyanshupatra/Desktop/Developer/Flutter Resources & Projects/MacBook/flutter projects/edtech_app/assets/illustration/physics_illustration.svg)
   static const String ASSETS_ILLUSTRATION_PHYSICS_ILLUSTRATION_SVG =
       'assets/illustration/physics_illustration.svg';
+
+  /// ![preview](file:///Users/priyanshupatra/Desktop/Developer/Flutter Resources & Projects/MacBook/flutter projects/edtech_app/assets/quiz_data.json)
+  static const String ASSETS_QUIZ_DATA_JSON = 'assets/quiz_data.json';
 }
