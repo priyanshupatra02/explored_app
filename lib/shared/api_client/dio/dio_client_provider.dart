@@ -14,7 +14,7 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 final dioProvider = Provider.autoDispose<Dio>(
   (ref) {
     final dio = Dio();
-    dio.options.baseUrl = 'https://randomuser.me/api/';
+    dio.options.baseUrl = 'https://api.explored.co.in';
     if (kDebugMode) {
       dio.interceptors.add(TimeResponseInterceptor());
       dio.interceptors.add(FormDataInterceptor());

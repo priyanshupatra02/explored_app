@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 class QuizModel {
-    final List<Datum> data;
+    final List<QuizData> data;
 
     QuizModel({
         required this.data,
     });
 
     QuizModel copyWith({
-        List<Datum>? data,
+        List<QuizData>? data,
     }) => 
         QuizModel(
             data: data ?? this.data,
@@ -19,7 +19,7 @@ class QuizModel {
     String toJson() => json.encode(toMap());
 
     factory QuizModel.fromMap(Map<String, dynamic> json) => QuizModel(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
+        data: List<QuizData>.from(json["data"].map((x) => QuizData.fromMap(x))),
     );
 
     Map<String, dynamic> toMap() => {
@@ -27,14 +27,14 @@ class QuizModel {
     };
 }
 
-class Datum {
+class QuizData {
     final int id;
     final String question;
     final List<String> options;
     final int correctAnswerIndex;
     final String explaination;
 
-    Datum({
+    QuizData({
         required this.id,
         required this.question,
         required this.options,
@@ -42,14 +42,14 @@ class Datum {
         required this.explaination,
     });
 
-    Datum copyWith({
+    QuizData copyWith({
         int? id,
         String? question,
         List<String>? options,
         int? correctAnswerIndex,
         String? explaination,
     }) => 
-        Datum(
+        QuizData(
             id: id ?? this.id,
             question: question ?? this.question,
             options: options ?? this.options,
@@ -57,11 +57,11 @@ class Datum {
             explaination: explaination ?? this.explaination,
         );
 
-    factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
+    factory QuizData.fromJson(String str) => QuizData.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory Datum.fromMap(Map<String, dynamic> json) => Datum(
+    factory QuizData.fromMap(Map<String, dynamic> json) => QuizData(
         id: json["id"],
         question: json["question"],
         options: List<String>.from(json["options"].map((x) => x)),

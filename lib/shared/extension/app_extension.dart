@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 extension HardCodedString on String {
   //INFO
@@ -68,5 +70,22 @@ extension ColorExtension on Widget {
       count,
       (index) => withRandomColor(),
     );
+  }
+}
+
+extension StringFieldHeaderExtension on String {
+  /// Extension to directly transform a string to a styled TextField header widget
+  ///
+  /// Example usage:
+  /// 'Email'.textFieldHeader(context)
+  ///
+  Widget textFieldHeader(BuildContext context) {
+    return Text(
+      this,
+      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: AppColors.kPrimaryColor,
+          ),
+    ).objectCenterLeft();
   }
 }

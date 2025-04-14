@@ -5,7 +5,6 @@ class AppIcons {
   AppIcons._();
 
   static const IconData strokeRoundedHome05 = HugeIcons.strokeRoundedHome05;
-  static const IconData strokeRoundedMail01 = HugeIcons.strokeRoundedMail01;
   static const IconData strokeRoundedCircleLock02 = HugeIcons.strokeRoundedCircleLock02;
   static const IconData strokeRoundedView = HugeIcons.strokeRoundedView;
   static const IconData strokeRoundedViewOff = HugeIcons.strokeRoundedViewOff;
@@ -25,4 +24,5 @@ class AppIcons {
   static const IconData strokeRoundedWifiError02 = HugeIcons.strokeRoundedWifiError02;
   static const IconData strokeRoundedHeartAdd = HugeIcons.strokeRoundedHeartAdd;
   static const IconData strokeRoundedFavourite = HugeIcons.strokeRoundedFavourite;
+  static const IconData strokeRoundedMail01 = HugeIcons.strokeRoundedMail01;
 }

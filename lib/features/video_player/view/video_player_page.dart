@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:chewie/chewie.dart';
 import 'package:edtech_app/const/app_icons/app_icons.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
+import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/shared/algorithms/algorithms.dart';
 import 'package:edtech_app/shared/extension/app_extension.dart';
 import 'package:edtech_app/shared/widget/buttons/back_button_widget.dart';
@@ -286,6 +287,10 @@ class _ChewieDemoState extends State<ChewieDemo> {
           ),
           onPressed: () {
             // if (loginFormKey.currentState!.validate()) {}
+            // ref.read(quizControllerProvider.notifier).fetchQuizData();
+            // Initial navigation to quiz wrapper
+            context.router.navigate(const QuizWrapperRoute());
+
           },
         ).px32(),
       ],

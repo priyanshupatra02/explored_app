@@ -8,9 +8,5 @@ class ApiHelper {
   final Dio dio;
 
   ApiHelper({required this.dio});
-  Future<List<QuizModel>> loadQuizQuestions() async {
-    final String jsonString = await rootBundle.loadString('assets/quiz_data.json');
-    final List<dynamic> jsonList = json.decode(jsonString);
-    return jsonList.map((json) => QuizModel.fromJson(json)).toList();
-  }
+ 
 }

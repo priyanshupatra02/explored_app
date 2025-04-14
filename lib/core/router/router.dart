@@ -13,7 +13,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: NavbarRoute.page,
       path: '/navbar',
-      initial: true,
     ),
     AutoRoute(
       page: OnboardingRoute.page,
@@ -34,6 +33,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: UpdateUserRoute.page,
       path: '/update-user',
+      initial: true,
     ),
     AutoRoute(
       page: BlogsRoute.page,
@@ -67,5 +67,19 @@ class AppRouter extends RootStackRouter {
       page: PrivacyAndPolicyRoute.page,
       path: '/privacy-and-policy',
     ),
+    // AutoRoute(
+    //   path: '/quiz',
+    //   page: QuizWrapperRoute.page,
+    //   children: [
+    //     AutoRoute(
+    //       path: 'question/:questionId',
+    //       page: QuizQuestionRoute.page,
+    //     ),
+    //     AutoRoute(
+    //       path: '/quiz-progress',
+    //       page: QuizProgressRoute.page,
+    //     ),
+    //   ],
+    // ),
   ];
 }
