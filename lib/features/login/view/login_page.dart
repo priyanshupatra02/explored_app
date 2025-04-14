@@ -46,7 +46,8 @@ class _LoginViewState extends ConsumerState<LoginView> with SingleTickerProvider
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: MediaQuery.of(context).size.height * 0.2,
-        backgroundColor: AppColors.kPrimaryWhiteColor,
+        backgroundColor: Colors.transparent,
+        foregroundColor: AppColors.kPrimaryColor,
         centerTitle: true,
         title: Column(
           children: [
