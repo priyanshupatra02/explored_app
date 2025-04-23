@@ -10,6 +10,32 @@ class DefaultAPIInterceptor extends Interceptor {
     required this.dio,
   });
   final Dio dio;
+  @override
+
+  // void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  //   _handleDefaultRequest(options, handler);
+  // }
+
+  // void _handleDefaultRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  //   final verifiedUserModel = verifyOtpDbService.getVerifyOtpModel();
+  //   bool includeAuthToken = true;
+
+  //   Map<String, dynamic> requestHeaders = {};
+
+  //   if (options.path.endsWith('/false')) {
+  //     includeAuthToken = false;
+  //     String formattedURL = options.path.replaceAll('/false', '');
+  //     options.path = formattedURL;
+  //   }
+
+  //   if (includeAuthToken && verifiedUserModel != null) {
+  //     talker.debug("token in request - ${verifiedUserModel.token}");
+  //     requestHeaders.putIfAbsent('Authorization', () => 'Bearer ${verifiedUserModel.token}');
+  //   }
+
+  //   options.headers.addAll(requestHeaders);
+  //   handler.next(options);
+  // }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {

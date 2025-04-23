@@ -28,6 +28,13 @@ class R {
   static const String ASSETS_ICON_PROFILE_UNSELECTED_ICON_SVG =
       'assets/icon/profile-unselected-icon.svg';
 
+  /// ![preview](file:///Users/priyanshupatra/Desktop/Developer/Flutter Resources & Projects/MacBook/flutter projects/edtech_app/assets/icon/student.svg)
+  static const String ASSETS_ICON_STUDENT_SVG = 'assets/icon/student.svg';
+
+  /// ![preview](file:///Users/priyanshupatra/Desktop/Developer/Flutter Resources & Projects/MacBook/flutter projects/edtech_app/assets/icon/working-professional.svg)
+  static const String ASSETS_ICON_WORKING_PROFESSIONAL_SVG =
+      'assets/icon/working-professional.svg';
+
   /// ![preview](file:///Users/priyanshupatra/Desktop/Developer/Flutter Resources & Projects/MacBook/flutter projects/edtech_app/assets/illustration/chemistry_illustration.svg)
   static const String ASSETS_ILLUSTRATION_CHEMISTRY_ILLUSTRATION_SVG =
       'assets/illustration/chemistry_illustration.svg';

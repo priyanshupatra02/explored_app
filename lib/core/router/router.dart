@@ -25,7 +25,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: LoginRoute.page,
       path: '/login',
-      initial: true,
     ),
     AutoRoute(
       page: VerifyCodeRoute.page,
@@ -33,8 +32,8 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(
       page: UpdateUserRoute.page,
+      initial: true,
       path: '/update-user',
-
     ),
     AutoRoute(
       page: BlogsRoute.page,

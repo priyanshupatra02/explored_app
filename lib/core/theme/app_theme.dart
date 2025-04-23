@@ -15,7 +15,7 @@ class Themes {
         displaySmall: GoogleFonts.spaceGrotesk(),
         headlineLarge: GoogleFonts.spaceGrotesk(),
         headlineMedium: GoogleFonts.spaceGrotesk(),
-        headlineSmall: GoogleFonts.spaceGrotesk(), 
+        headlineSmall: GoogleFonts.spaceGrotesk(),
 
         // Titles with Urbanist
         titleLarge: GoogleFonts.urbanist(),
@@ -49,8 +49,8 @@ class Themes {
         ),
         colorScheme: const ColorScheme.light(
           surface: AppColors.kSecondaryWhiteColor, //for scaffold bg
-          // primary:
-          //     AppColors.kPrimaryColor, //buttons (floating action button), text-field border color
+          primary: AppColors
+              .kPrimaryColor, //buttons (floating action button), text-field border color, stepper widget,
           // onPrimary: AppColors.kOnPrimaryColor, //text on floating action button
           // secondary: AppColors.kSecondaryColor, //buttons (elevated buttons)
           // onSecondary: AppColors.kOnSecondaryColor, //text & icon on segmented buttons
@@ -65,7 +65,6 @@ class Themes {
         subThemesData: const FlexSubThemesData(
           appBarBackgroundSchemeColor: SchemeColor.transparent,
           appBarForegroundSchemeColor: SchemeColor.transparent,
-
           interactionEffects: true,
           tintedDisabledControls: true,
           useM2StyleDividerInM3: true,
