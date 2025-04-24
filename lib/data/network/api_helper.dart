@@ -16,7 +16,7 @@ class ApiHelper {
     required String password,
   }) async {
     final result = await dio.post(
-      "${AppUrls.signInUser}/false",
+      AppUrls.signInUser,
       data: {
         "identifier": email,
         "password": password,

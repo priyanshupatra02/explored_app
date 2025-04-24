@@ -40,12 +40,12 @@ class User {
     final String? email;
     final bool? confirmed;
     final bool? blocked;
-    final String? phone;
-    final String? firstName;
-    final String? lastName;
-    final String? resetCode;
-    final DateTime? expiryTime;
-    final bool? isAdmin;
+    final dynamic phone;
+    final dynamic firstName;
+    final dynamic lastName;
+    final dynamic resetCode;
+    final dynamic expiryTime;
+    final dynamic isAdmin;
 
     User({
         this.id,
@@ -69,12 +69,12 @@ class User {
         String? email,
         bool? confirmed,
         bool? blocked,
-        String? phone,
-        String? firstName,
-        String? lastName,
-        String? resetCode,
-        DateTime? expiryTime,
-        bool? isAdmin,
+        dynamic phone,
+        dynamic firstName,
+        dynamic lastName,
+        dynamic resetCode,
+        dynamic expiryTime,
+        dynamic isAdmin,
     }) => 
         User(
             id: id ?? this.id,
@@ -106,7 +106,7 @@ class User {
         firstName: json["firstName"],
         lastName: json["lastName"],
         resetCode: json["resetCode"],
-        expiryTime: json["expiryTime"] == null ? null : DateTime.parse(json["expiryTime"]),
+        expiryTime: json["expiryTime"],
         isAdmin: json["isAdmin"],
     );
 
@@ -121,7 +121,7 @@ class User {
         "firstName": firstName,
         "lastName": lastName,
         "resetCode": resetCode,
-        "expiryTime": expiryTime?.toIso8601String(),
+        "expiryTime": expiryTime,
         "isAdmin": isAdmin,
     };
 }

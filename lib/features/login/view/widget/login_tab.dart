@@ -1,30 +1,69 @@
+import 'package:edtech_app/bootstrap.dart';
 import 'package:edtech_app/const/app_icons/app_icons.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/features/login/const/login_constants.dart';
 import 'package:edtech_app/features/login/controller/pod/is_obscuring_text_pod.dart';
-import 'package:edtech_app/shared/widget/buttons/primary_action_button.dart';
+import 'package:edtech_app/features/login/controller/pod/login_user_pod.dart';
+import 'package:edtech_app/features/login/view/widget/login_button.dart';
+import 'package:edtech_app/shared/helper/global_helper.dart';
 import 'package:edtech_app/shared/widget/forms/custom_text_formfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class LoginTab extends ConsumerWidget {
+class LoginTab extends ConsumerStatefulWidget {
+  final GlobalKey<FormBuilderState> loginFormKey;
   const LoginTab({
     super.key,
     required this.loginFormKey,
   });
 
-  final GlobalKey<FormBuilderState> loginFormKey;
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginTabState();
+}
+
+class _LoginTabState extends ConsumerState<LoginTab> with GlobalHelper {
+  void loginUser() {
+    HapticFeedback.lightImpact();
+    Feedback.forTap(context);
+    if (widget.loginFormKey.currentState?.validate() ?? false) {
+      final email = widget.loginFormKey.currentState!.fields[LoginConstants.email]!.value as String;
+      final password =
+          widget.loginFormKey.currentState!.fields[LoginConstants.password]!.value as String;
+      ref
+          .read(
+            loginUserProvider(
+              LoginUserParams(email: email, password: password),
+            ).notifier,
+          )
+          .loginUser(
+            email: email,
+            password: password,
+            onUserLoggedIn: (loginModelResponse) {
+              // if (loginModelResponse.user?.firstName == null) {
+              //   context.router.replaceAll([UpdateUserRoute()]);
+              // } else {
+              //   context.router.replaceAll([const NavbarRoute()]);
+              // }
+              showSuccessSnack(
+                child: Text('Welcome'),
+              );
+            },
+          );
+      talker.debug(email + password);
+    }
+  }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final isObscureText = ref.watch(isObscuringTextProvider);
     return FormBuilder(
-      key: loginFormKey,
+      key: widget.loginFormKey,
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -85,16 +124,15 @@ class LoginTab extends ConsumerWidget {
               child: Text('Forgot Password ?').objectCenterRight(),
             ),
             50.heightBox,
-            PrimaryActionButton(
-              labelText: 'Login',
-              isIcon: true,
-              icon: HugeIcon(
-                icon: AppIcons.strokeRoundedArrowRight02,
-                color: AppColors.kLightSecondaryColor,
-              ),
-              onPressed: () {
-                if (loginFormKey.currentState!.validate()) {}
-              },
+            LoginButton(
+              loginUser: loginUser,
+              // Use null-aware operators with fallback to empty string
+              email: widget.loginFormKey.currentState?.fields[LoginConstants.email]?.value
+                      as String? ??
+                  '',
+              password: widget.loginFormKey.currentState?.fields[LoginConstants.password]?.value
+                      as String? ??
+                  '',
             ),
             30.heightBox,
             RichText(
