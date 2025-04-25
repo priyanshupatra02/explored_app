@@ -82,8 +82,8 @@ class _SeeExplanationTileState extends State<SeeExplanationTile>
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        InkWell(
+      children: [
+        GestureDetector(
           onTap: _handleTap,
           child: Padding(
             padding: widget.padding ?? const EdgeInsets.symmetric(vertical: 8.0, horizontal: 0.0),

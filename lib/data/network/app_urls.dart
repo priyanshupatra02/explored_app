@@ -15,4 +15,6 @@ class AppUrls {
   static const String getBlogCategories = "/v1/categories";
   static const String getBlogs = "/v1/blogs";
   static const String getVideosBySubjectId = "/v1/videos?filters[subject][documentId]=";
+  static const String getQuizByVideoId = "/v1/quizzes?filters[video][documentId]=";
+  static const String getQuizProgressByVideoId = "/v1/quiz-progresses?filters[video][documentId]=";
 }

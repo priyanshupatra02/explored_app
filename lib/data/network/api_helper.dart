@@ -60,18 +60,26 @@ class ApiHelper {
       defaultSuccessCode: [200, 201],
     );
   }
+
   //get blogs by id
   //get blogs comments
   //get quiz
   Future<Result<QuizModel, APIException>> getQuizByVideoId({required String videoId}) async {
-    final result = await dio.get(AppUrls.getBlogs);
+    final result = await dio.get(AppUrls.getQuizByVideoId + videoId);
     return result.successErrorHandler<QuizModel>(
       successMapper: (data) => QuizModel.fromMap(data),
       defaultSuccessCode: [200, 201],
     );
   }
 
-  //get quiz progress
+  //get quiz progress by video id
+  // Future<Result<VideosModel, APIException>> getQuizProgressByVideoId({required String videoId}) async {
+  //   final result = await dio.get('${AppUrls.getQuizProgressByVideoId}$videoId');
+  //   return result.successErrorHandler<VideosModel>(
+  //     successMapper: (data) => VideosModel.fromMap(data),
+  //     defaultSuccessCode: [200, 201],
+  //   );
+  // }
   //get videos by subject id
   Future<Result<VideosModel, APIException>> getVideosBySubject({required String subjectId}) async {
     final result = await dio.get('${AppUrls.getVideosBySubjectId}$subjectId');
@@ -80,5 +88,42 @@ class ApiHelper {
       defaultSuccessCode: [200, 201],
     );
   }
+
   //get videos by id
+  //submit quiz results
+  // Future<Result<bool, AppException>> submitQuizResults({
+  //   required Map<String, bool> results,
+  // }) async {
+  //   try {
+  //     final response = await dio.post(
+  //       QuizApiConstants.submitQuiz,
+  //       data: {
+  //         'data': results,
+  //       },
+  //     );
+
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       return Result.success(true);
+  //     } else {
+  //       return Result.error(
+  //         AppException(
+  //           errorMessage: 'Failed to submit quiz. Status: ${response.statusCode}',
+  //         ),
+  //       );
+  //     }
+  //   } on DioException catch (e) {
+  //     return Result.error(
+  //       AppException(
+  //         errorMessage: 'Network error: ${e.message}',
+  //         statusCode: e.response?.statusCode,
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     return Result.error(
+  //       AppException(
+  //         errorMessage: 'An error occurred while submitting quiz: ${e.toString()}',
+  //       ),
+  //     );
+  //   }
+  // }
 }

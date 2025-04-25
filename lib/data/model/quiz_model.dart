@@ -39,7 +39,7 @@ class QuizDataList {
   final String question;
   final String explanation;
   final int correctAnswerIndex;
-  final List<Option> options;
+  final List<QuizOption> quizOptions;
   final Video video;
 
   QuizDataList({
@@ -48,7 +48,7 @@ class QuizDataList {
     required this.question,
     required this.explanation,
     required this.correctAnswerIndex,
-    required this.options,
+    required this.quizOptions,
     required this.video,
   });
 
@@ -58,7 +58,7 @@ class QuizDataList {
     String? question,
     String? explanation,
     int? correctAnswerIndex,
-    List<Option>? options,
+    List<QuizOption>? options,
     Video? video,
   }) =>
       QuizDataList(
@@ -67,7 +67,7 @@ class QuizDataList {
         question: question ?? this.question,
         explanation: explanation ?? this.explanation,
         correctAnswerIndex: correctAnswerIndex ?? this.correctAnswerIndex,
-        options: options ?? this.options,
+        quizOptions: options ?? quizOptions,
         video: video ?? this.video,
       );
 
@@ -81,7 +81,7 @@ class QuizDataList {
         question: json["question"],
         explanation: json["explanation"],
         correctAnswerIndex: json["correct_answer_index"],
-        options: List<Option>.from(json["options"].map((x) => Option.fromMap(x))),
+        quizOptions: List<QuizOption>.from(json["options"].map((x) => QuizOption.fromMap(x))),
         video: Video.fromMap(json["video"]),
       );
 
@@ -91,34 +91,34 @@ class QuizDataList {
         "question": question,
         "explanation": explanation,
         "correct_answer_index": correctAnswerIndex,
-        "options": List<dynamic>.from(options.map((x) => x.toMap())),
+        "options": List<dynamic>.from(quizOptions.map((x) => x.toMap())),
         "video": video.toMap(),
       };
 }
 
-class Option {
+class QuizOption {
   final int id;
   final String name;
 
-  Option({
+  QuizOption({
     required this.id,
     required this.name,
   });
 
-  Option copyWith({
+  QuizOption copyWith({
     int? id,
     String? name,
   }) =>
-      Option(
+      QuizOption(
         id: id ?? this.id,
         name: name ?? this.name,
       );
 
-  factory Option.fromJson(String str) => Option.fromMap(json.decode(str));
+  factory QuizOption.fromJson(String str) => QuizOption.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Option.fromMap(Map<String, dynamic> json) => Option(
+  factory QuizOption.fromMap(Map<String, dynamic> json) => QuizOption(
         id: json["id"],
         name: json["name"],
       );
