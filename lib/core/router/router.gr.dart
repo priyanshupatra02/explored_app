@@ -400,7 +400,7 @@ class VideoPlayerRoute extends _i19.PageRouteInfo<VideoPlayerRouteArgs> {
     _i20.Key? key,
     required String videoTitle,
     required String videoUrl,
-    required List<String> whatYouWillLearn,
+    required String whatYouWillLearn,
     List<_i19.PageRouteInfo>? children,
   }) : super(
          VideoPlayerRoute.name,
@@ -443,7 +443,7 @@ class VideoPlayerRouteArgs {
 
   final String videoUrl;
 
-  final List<String> whatYouWillLearn;
+  final String whatYouWillLearn;
 
   @override
   String toString() {
@@ -457,10 +457,15 @@ class VideosRoute extends _i19.PageRouteInfo<VideosRouteArgs> {
   VideosRoute({
     _i20.Key? key,
     required String subject,
+    required String subjectId,
     List<_i19.PageRouteInfo>? children,
   }) : super(
          VideosRoute.name,
-         args: VideosRouteArgs(key: key, subject: subject),
+         args: VideosRouteArgs(
+           key: key,
+           subject: subject,
+           subjectId: subjectId,
+         ),
          initialChildren: children,
        );
 
@@ -470,20 +475,30 @@ class VideosRoute extends _i19.PageRouteInfo<VideosRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<VideosRouteArgs>();
-      return _i18.VideosPage(key: args.key, subject: args.subject);
+      return _i18.VideosPage(
+        key: args.key,
+        subject: args.subject,
+        subjectId: args.subjectId,
+      );
     },
   );
 }
 
 class VideosRouteArgs {
-  const VideosRouteArgs({this.key, required this.subject});
+  const VideosRouteArgs({
+    this.key,
+    required this.subject,
+    required this.subjectId,
+  });
 
   final _i20.Key? key;
 
   final String subject;
 
+  final String subjectId;
+
   @override
   String toString() {
-    return 'VideosRouteArgs{key: $key, subject: $subject}';
+    return 'VideosRouteArgs{key: $key, subject: $subject, subjectId: $subjectId}';
   }
 }

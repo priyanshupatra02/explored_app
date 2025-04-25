@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:edtech_app/bootstrap.dart';
 import 'package:edtech_app/const/env/env.dart';
+import 'package:edtech_app/data/services/login_db_service/login_db_service_pod.dart';
 import 'package:edtech_app/shared/api_client/dio/bad_certificate_fixer.dart';
 import 'package:edtech_app/shared/api_client/dio/default_api_interceptor.dart';
 import 'package:edtech_app/shared/api_client/dio/default_time_response_interceptor.dart';
@@ -30,7 +31,10 @@ final dioProvider = Provider.autoDispose<Dio>(
     }
 
     dio.interceptors.addAll([
-      DefaultAPIInterceptor(dio: dio),
+      DefaultAPIInterceptor(
+        dio: dio,
+        loginDbService: ref.read(loginDbProvider),
+      ),
       // RetryInterceptor(
       //   dio: dio,
       //   logPrint: talker.log, // specify log function (optional)

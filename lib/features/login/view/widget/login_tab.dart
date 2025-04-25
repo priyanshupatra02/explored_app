@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/bootstrap.dart';
 import 'package:edtech_app/const/app_icons/app_icons.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
+import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/features/login/const/login_constants.dart';
 import 'package:edtech_app/features/login/controller/pod/is_obscuring_text_pod.dart';
 import 'package:edtech_app/features/login/controller/pod/login_user_pod.dart';
@@ -45,14 +47,14 @@ class _LoginTabState extends ConsumerState<LoginTab> with GlobalHelper {
             email: email,
             password: password,
             onUserLoggedIn: (loginModelResponse) {
-              // if (loginModelResponse.user?.firstName == null) {
-              //   context.router.replaceAll([UpdateUserRoute()]);
-              // } else {
-              //   context.router.replaceAll([const NavbarRoute()]);
-              // }
-              showSuccessSnack(
-                child: Text('Welcome'),
-              );
+              if (loginModelResponse.user?.firstName == null) {
+                context.router.replaceAll([UpdateUserRoute()]);
+              } else {
+                context.router.replaceAll([const NavbarRoute()]);
+              }
+              // showSuccessSnack(
+              //   child: Text('Welcome'),
+              // );
             },
           );
       talker.debug(email + password);

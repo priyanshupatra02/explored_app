@@ -11,4 +11,8 @@ class AppUrls {
   static const String baseURL = devBaseUrl;
 
   static const String signInUser = "/v1/auth/local";
+  static const String getSubjects = "/v1/subjects";
+  static const String getBlogCategories = "/v1/categories";
+  static const String getBlogs = "/v1/blogs";
+  static const String getVideosBySubjectId = "/v1/videos?filters[subject][documentId]=";
 }

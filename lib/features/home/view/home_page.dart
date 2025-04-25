@@ -4,11 +4,14 @@ import 'package:edtech_app/const/resource.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/features/blogs/view/widget/search_bar_widget.dart';
+import 'package:edtech_app/features/home/controller/pod/subjects_pod.dart';
 import 'package:edtech_app/shared/algorithms/algorithms.dart';
 import 'package:edtech_app/shared/extension/app_extension.dart';
+import 'package:edtech_app/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:edtech_app/shared/widget/app_icons_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -123,46 +126,58 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               20.heightBox,
-              GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                primary: false,
-                itemCount: 10,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
-                ),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      context.navigateTo(VideosRoute(
-                        subject: 'Literature',
-                      ));
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.width * 0.16,
-                      width: MediaQuery.of(context).size.width * 0.11,
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        color: AppColors.kLightSecondaryColor,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset(R.ASSETS_ILLUSTRATION_PHYSICS_ILLUSTRATION_SVG),
-                          30.heightBox,
-                          Text(
-                            'Mathematics',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: AppColors.kPrimaryColor,
-                                  fontWeight: FontWeight.bold,
+              Consumer(
+                builder: (context, ref, child) {
+                  final subjectsAsync = ref.watch(subjectProvider);
+                  return subjectsAsync.easyWhen(
+                    data: (subjectsModel) {
+                      return GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        primary: false,
+                        itemCount: subjectsModel.subjectList.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 15,
+                        ),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              context.navigateTo(
+                                VideosRoute(
+                                  subject: subjectsModel.subjectList[index].name,
+                                  subjectId: subjectsModel.subjectList[index].documentId,
                                 ),
-                          ),
-                        ],
-                      ),
-                    ),
+                              );
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.width * 0.16,
+                              width: MediaQuery.of(context).size.width * 0.11,
+                              padding: EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                color: AppColors.kLightSecondaryColor,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SvgPicture.asset(R.ASSETS_ILLUSTRATION_PHYSICS_ILLUSTRATION_SVG),
+                                  30.heightBox,
+                                  Text(
+                                    subjectsModel.subjectList[index].name,
+                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                          color: AppColors.kPrimaryColor,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   );
                 },
               ),
