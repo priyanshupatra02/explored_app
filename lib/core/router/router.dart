@@ -80,19 +80,9 @@ class AppRouter extends RootStackRouter {
       page: PrivacyAndPolicyRoute.page,
       path: '/privacy-and-policy',
     ),
-    // AutoRoute(
-    //   path: '/quiz',
-    //   page: QuizWrapperRoute.page,
-    //   children: [
-    //     AutoRoute(
-    //       path: 'question/:questionId',
-    //       page: QuizQuestionRoute.page,
-    //     ),
-    //     AutoRoute(
-    //       path: '/quiz-progress',
-    //       page: QuizProgressRoute.page,
-    //     ),
-    //   ],
-    // ),
+    AutoRoute(
+      page: QuizRoute.page,
+      path: '/quiz',
+    ),
   ];
 }

@@ -11,18 +11,21 @@ import 'package:flutter/material.dart';
 class VideoPlayerPage extends StatelessWidget {
   final String videoTitle;
   final String videoUrl;
+  final String videoId;
   final String whatYouWillLearn;
   const VideoPlayerPage({
     super.key,
     required this.videoTitle,
     required this.videoUrl,
     required this.whatYouWillLearn,
+    required this.videoId,
   });
 
   @override
   Widget build(BuildContext context) {
     return VideoPlayerView(
       videoTitle: videoTitle,
+      videoId: videoId,
       videoUrl:
           'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', //TODO: make this dynamic
       whatYouWillLearn: whatYouWillLearn,
@@ -33,12 +36,14 @@ class VideoPlayerPage extends StatelessWidget {
 class VideoPlayerView extends StatefulWidget {
   final String videoTitle;
   final String videoUrl;
+  final String videoId;
   final String whatYouWillLearn;
   const VideoPlayerView({
     super.key,
     required this.videoTitle,
     required this.videoUrl,
     required this.whatYouWillLearn,
+    required this.videoId,
   });
 
   @override
@@ -85,6 +90,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
       body: ChewieDemo(
         videoTitle: widget.videoTitle,
         videoUrl: widget.videoUrl,
+        videoId: widget.videoId,
         whatYouWillLearn: widget.whatYouWillLearn,
       ),
     );

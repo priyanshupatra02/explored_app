@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:edtech_app/data/model/blog_categories_model.dart';
 import 'package:edtech_app/data/model/blog_model.dart';
 import 'package:edtech_app/data/model/login_user_response_model.dart';
+import 'package:edtech_app/data/model/quiz_model.dart';
 import 'package:edtech_app/data/model/subject_list_model.dart';
 import 'package:edtech_app/data/model/videos_list_model.dart';
 import 'package:edtech_app/data/network/app_urls.dart';
@@ -62,6 +63,14 @@ class ApiHelper {
   //get blogs by id
   //get blogs comments
   //get quiz
+  Future<Result<QuizModel, APIException>> getQuizByVideoId({required String videoId}) async {
+    final result = await dio.get(AppUrls.getBlogs);
+    return result.successErrorHandler<QuizModel>(
+      successMapper: (data) => QuizModel.fromMap(data),
+      defaultSuccessCode: [200, 201],
+    );
+  }
+
   //get quiz progress
   //get videos by subject id
   Future<Result<VideosModel, APIException>> getVideosBySubject({required String subjectId}) async {

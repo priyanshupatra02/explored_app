@@ -41,11 +41,6 @@ class _VideosViewState extends State<VideosView> {
   bool _isFavorite = false;
   @override
   Widget build(BuildContext context) {
-    // final List<String> sampleItems = [
-    //   'First bullet point',
-    //   'Second bullet point',
-    //   'Third bullet point',
-    // ];
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.transparent,
@@ -85,33 +80,42 @@ class _VideosViewState extends State<VideosView> {
           final videosBySubjectIdAsync = ref.watch(videosBySubjectIdProvider(widget.subjectId));
           return videosBySubjectIdAsync.easyWhen(
             data: (videosListModel) {
-              return ListView.builder(
-                itemCount: videosListModel.videosList.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      context.navigateTo(
-                        VideoPlayerRoute(
-                          videoTitle: videosListModel.videosList[index].name,
-                          videoUrl: videosListModel.videosList[index].videoUrl,
-                          whatYouWillLearn: videosListModel.videosList[index].subject.description,
-                        ),
-                      );
-                    },
-                    child: VideoCourseCard(
-                      title: videosListModel.videosList[index].name,
-                      level: "Basic",
-                      duration: "10 min",
-                      isFavorite: _isFavorite,
-                      onFavoriteTap: () {
-                        setState(() {
-                          _isFavorite = !_isFavorite;
-                        });
+              return videosListModel.videosList.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: videosListModel.videosList.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            context.navigateTo(
+                              VideoPlayerRoute(
+                                videoId: videosListModel.videosList[index].documentId,
+                                videoTitle: videosListModel.videosList[index].name,
+                                videoUrl: videosListModel.videosList[index].videoUrl,
+                                whatYouWillLearn:
+                                    videosListModel.videosList[index].subject.description,
+                              ),
+                            );
+                          },
+                          child: VideoCourseCard(
+                            title: videosListModel.videosList[index].name,
+                            level: "Basic",
+                            duration: "10 min",
+                            isFavorite: _isFavorite,
+                            onFavoriteTap: () {
+                              setState(() {
+                                _isFavorite = !_isFavorite;
+                              });
+                            },
+                          ),
+                        );
                       },
-                    ),
-                  );
-                },
-              );
+                    )
+                  : Center(
+                      child: Text(
+                        'No videos available\nfor this subject.',
+                        textAlign: TextAlign.center,
+                      ),
+                    );
             },
           );
         },
