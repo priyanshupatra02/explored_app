@@ -84,5 +84,9 @@ class AppRouter extends RootStackRouter {
       page: QuizRoute.page,
       path: '/quiz',
     ),
+    AutoRoute(
+      page: QuizProgressRoute.page,
+      path: '/quiz-progress',
+    ),
   ];
 }

@@ -1,11 +1,11 @@
 {
-    "name": "edtech_app",
-    "short_name": "edtech_app",
+    "name": "ExplorED",
+    "short_name": "ExplorED",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "The only edtech app you need",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

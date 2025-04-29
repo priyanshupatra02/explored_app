@@ -188,6 +188,23 @@ class _ChewieDemoState extends State<ChewieDemo> {
             // );
           },
         ).px32(),
+        30.heightBox,
+        //TODO: give a conditional statement
+        PrimaryActionButton(
+          labelText: 'Check Quiz Progress',
+          isIcon: true,
+          icon: HugeIcon(
+            icon: AppIcons.strokeRoundedProgress04,
+            color: AppColors.kLightSecondaryColor,
+          ),
+          onPressed: () {
+            context.navigateTo(
+              QuizProgressRoute(
+                videoId: widget.videoId,
+              ),
+            );
+          },
+        ).px32(),
       ],
     );
   }

@@ -292,18 +292,39 @@ class QuizRouteArgs {
 
 /// generated route for
 /// [_i12.QuizProgressPage]
-class QuizProgressRoute extends _i18.PageRouteInfo<void> {
-  const QuizProgressRoute({List<_i18.PageRouteInfo>? children})
-    : super(QuizProgressRoute.name, initialChildren: children);
+class QuizProgressRoute extends _i18.PageRouteInfo<QuizProgressRouteArgs> {
+  QuizProgressRoute({
+    _i19.Key? key,
+    required String videoId,
+    List<_i18.PageRouteInfo>? children,
+  }) : super(
+         QuizProgressRoute.name,
+         args: QuizProgressRouteArgs(key: key, videoId: videoId),
+         initialChildren: children,
+       );
 
   static const String name = 'QuizProgressRoute';
 
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i12.QuizProgressPage();
+      final args = data.argsAs<QuizProgressRouteArgs>();
+      return _i12.QuizProgressPage(key: args.key, videoId: args.videoId);
     },
   );
+}
+
+class QuizProgressRouteArgs {
+  const QuizProgressRouteArgs({this.key, required this.videoId});
+
+  final _i19.Key? key;
+
+  final String videoId;
+
+  @override
+  String toString() {
+    return 'QuizProgressRouteArgs{key: $key, videoId: $videoId}';
+  }
 }
 
 /// generated route for

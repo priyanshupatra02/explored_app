@@ -4,6 +4,7 @@ import 'package:edtech_app/const/resource.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/features/update_user/const/update_user_constants.dart';
 import 'package:edtech_app/features/update_user/controller/pod/current_step_pod.dart';
+import 'package:edtech_app/features/update_user/controller/pod/icon_color_pod.dart';
 import 'package:edtech_app/features/update_user/view/widgets/next_or_submit_button.dart';
 import 'package:edtech_app/features/update_user/view/widgets/questions_header_widget.dart';
 import 'package:edtech_app/shared/extension/app_extension.dart';
@@ -86,22 +87,24 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
           type: StepperType.horizontal,
           currentStep: currentStep,
           onStepContinue: () async {
-            if (currentStep == 0 && step1FormKey.currentState!.validate()) {
-              ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            }
-            if (currentStep == 1 && step2FormKey.currentState!.saveAndValidate()) {
-              ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            }
-            if (currentStep == 2 && step3FormKey.currentState!.saveAndValidate()) {
-              ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            }
-            if (currentStep == 3 && step4FormKey.currentState!.validate()) {
-              ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            }
-            if (currentStep == 5 && step5FormKey.currentState!.validate()) {
-              ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            }
-            if (currentStep == 6 && step6FormKey.currentState!.validate()) {}
+            ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
+            // if (currentStep == 0 && step1FormKey.currentState!.validate()) {
+            // }
+            // if (currentStep == 1 && step2FormKey.currentState!.saveAndValidate()) {
+            //   ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
+            // }
+            // if (currentStep == 2 && step3FormKey.currentState!.saveAndValidate()) {
+            //   ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
+            // }
+            // if (currentStep == 3 && step4FormKey.currentState!.validate()) {
+            //   ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
+            // }
+            // if (currentStep == 5 && step5FormKey.currentState!.validate()) {
+            //   ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
+            // }
+            // if (currentStep == 6 && step6FormKey.currentState!.validate()) {
+
+            // }
           },
           onStepCancel: () {
             if (currentStep > 0) {
@@ -278,48 +281,66 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       'What do you do?'.allWordsCapitilize(),
                       style: onboardingHeaderTextStyle,
                     ),
-                    CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.wantToBeACareerCounselling,
-                      direction: Axis.horizontal,
-                      borderRadius: 20,
-                      onChanged: (p0) {},
-                      validator: FormBuilderValidators.compose(
-                        [
-                          FormBuilderValidators.required(),
+                    Consumer(builder: (context, ref, child) {
+                      final isSelectedStudentIcon = ref.watch(iconStudentColorProvider);
+                      final isSelectedUgIcon = ref.watch(iconUGColorProvider);
+                      return CustomRadioGroupFormField<String>(
+                        name: UpdateUserConstants.wantToBeACareerCounselling,
+                        direction: Axis.horizontal,
+                        borderRadius: 20,
+                        onChanged: (value) {
+                          if (value == "Student") {
+                            ref.watch(iconUGColorProvider.notifier).update((state) => false);
+                            ref.watch(iconStudentColorProvider.notifier).update((state) => true);
+                          } else {
+                            ref.watch(iconStudentColorProvider.notifier).update((state) => false);
+                            ref.watch(iconUGColorProvider.notifier).update((state) => true);
+                          }
+                        },
+                        validator: FormBuilderValidators.compose(
+                          [
+                            FormBuilderValidators.required(),
+                          ],
+                        ),
+                        options: [
+                          FormBuilderFieldOption(
+                            value: 'Student',
+                            child: Column(
+                              spacing: 10,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset(
+                                  R.ASSETS_ICON_STUDENT_SVG,
+                                  color: isSelectedStudentIcon
+                                      ? AppColors.kSecondaryColor
+                                      : AppColors.kPrimaryColor,
+                                ),
+                                Text('Student\n'),
+                              ],
+                            ).pSymmetric(h: 16, v: 28),
+                          ),
+                          FormBuilderFieldOption(
+                            value: 'UG',
+                            child: Column(
+                              spacing: 10,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset(
+                                  R.ASSETS_ICON_WORKING_PROFESSIONAL_SVG,
+                                  color: isSelectedUgIcon
+                                      ? AppColors.kSecondaryColor
+                                      : AppColors.kPrimaryColor,
+                                ),
+                                Text(
+                                  'UG',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ).pSymmetric(h: 12, v: 24),
+                          ),
                         ],
-                      ),
-                      options: [
-                        FormBuilderFieldOption(
-                          value: 'Student',
-                          child: Column(
-                            spacing: 10,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SvgPicture.asset(
-                                R.ASSETS_ICON_STUDENT_SVG,
-                              ),
-                              Text('Student\n'),
-                            ],
-                          ).pSymmetric(h: 16, v: 28),
-                        ),
-                        FormBuilderFieldOption(
-                          value: 'Working Professional',
-                          child: Column(
-                            spacing: 10,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SvgPicture.asset(
-                                R.ASSETS_ICON_WORKING_PROFESSIONAL_SVG,
-                              ),
-                              Text(
-                                'Working\nProfessional',
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ).pSymmetric(h: 12, v: 24),
-                        ),
-                      ],
-                    ),
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -330,7 +351,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
               isActive: currentStep >= 5,
               title: currentStep == 5 ? const Text('Career Interests') : const SizedBox(),
               content: FormBuilder(
-                 key: step6FormKey,
+                key: step6FormKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -534,7 +555,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                             child: Text('Communicationg and leading')),
                       ],
                     ),
-                
+
                     QuestionsHeaderWidget(
                       questionNumber: 9,
                     ),
@@ -576,7 +597,8 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       options: [
                         FormBuilderFieldOption(value: 'Alone', child: Text('Alone')),
                         FormBuilderFieldOption(
-                            value: 'In a team to brainstorm', child: Text('In a team to brainstorm')),
+                            value: 'In a team to brainstorm',
+                            child: Text('In a team to brainstorm')),
                         FormBuilderFieldOption(
                             value: 'Alone or in a team based on task',
                             child: Text('Alone or in a team based on task')),
@@ -603,7 +625,8 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                         FormBuilderFieldOption(
                             value: 'Hands-on tasks', child: Text('Hands-on tasks')),
                         FormBuilderFieldOption(
-                            value: 'Managing/helping people', child: Text('Managing/helping people')),
+                            value: 'Managing/helping people',
+                            child: Text('Managing/helping people')),
                       ],
                     ),
                     QuestionsHeaderWidget(
@@ -734,7 +757,8 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       ),
                       options: [
                         FormBuilderFieldOption(
-                            value: 'Intellectual challenges', child: Text('Intellectual challenges')),
+                            value: 'Intellectual challenges',
+                            child: Text('Intellectual challenges')),
                         FormBuilderFieldOption(
                             value: 'Creative freedom', child: Text('Creative freedom')),
                         FormBuilderFieldOption(

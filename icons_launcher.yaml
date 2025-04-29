@@ -1,0 +1,12 @@
+icons_launcher:
+  image_path: "assets/app_icon/explored_logo.jpeg"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
+    macos:
+      enable: true
+    # web:
+    #   enable: true
+    #   favicon_path: "assets/app_icon/astro_dwaar_favicon_web.png"

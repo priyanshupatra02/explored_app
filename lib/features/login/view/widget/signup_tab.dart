@@ -4,6 +4,7 @@ import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/features/login/const/update_constants.dart';
 import 'package:edtech_app/features/login/controller/pod/is_obscuring_text_pod.dart';
+import 'package:edtech_app/features/login/view/widget/signup_button.dart';
 import 'package:edtech_app/features/login/view/widget/terms_and_condition_checker_widget.dart';
 import 'package:edtech_app/shared/widget/buttons/primary_action_button.dart';
 import 'package:edtech_app/shared/widget/forms/custom_text_formfield.dart';
@@ -135,18 +136,7 @@ class SignupTab extends ConsumerWidget {
             50.heightBox,
             TermsAndConditionCheckerWidget(),
             30.heightBox,
-            PrimaryActionButton(
-              labelText: 'Signup',
-              isIcon: true,
-              icon: HugeIcon(
-                icon: AppIcons.strokeRoundedArrowRight02,
-                color: AppColors.kLightSecondaryColor,
-              ),
-              onPressed: () {
-                context.navigateTo(VerifyCodeRoute());
-                if (updateFormKey.currentState!.validate()) {}
-              },
-            ),
+            SignupButton(),
           ],
         ),
       ),

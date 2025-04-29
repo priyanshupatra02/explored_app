@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
+import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/features/quiz/const/quiz_constants.dart';
 import 'package:edtech_app/features/quiz/controller/pod/quiz_pod.dart';
 import 'package:edtech_app/features/quiz/view/widget/see_explanation_tile.dart';
@@ -43,6 +44,21 @@ class QuizView extends ConsumerStatefulWidget {
 class _QuizViewState extends ConsumerState<QuizView> with GlobalHelper {
   late final pageController = PageController();
   final quizFormKey = GlobalKey<FormBuilderState>();
+  int currentPageIndex = 0; // Track the current page index
+
+  @override
+  void initState() {
+    super.initState();
+    // Add a listener to update the current page index when page changes
+    pageController.addListener(() {
+      if (pageController.page != null && pageController.page!.round() != currentPageIndex) {
+        setState(() {
+          currentPageIndex = pageController.page!.round();
+        });
+      }
+    });
+  }
+
   @override
   void dispose() {
     pageController.dispose();
@@ -56,7 +72,9 @@ class _QuizViewState extends ConsumerState<QuizView> with GlobalHelper {
     return quizAsync.easyWhen(
       data: (quizModel) {
         final quizLength = quizModel.quizDataList.length;
-        final isLastQuestion = quizModel.quizDataList.lastIndex == quizLength;
+        final isLastQuestion = currentPageIndex == quizLength - 1;
+
+
         return Scaffold(
           appBar: AppBar(
             foregroundColor: Colors.transparent,
@@ -95,7 +113,7 @@ class _QuizViewState extends ConsumerState<QuizView> with GlobalHelper {
               children: [
                 TextButton(
                   onPressed: () {
-                    if (pageController.page!.toInt() == 0) {
+                    if (currentPageIndex == 0) {
                       context.router.pop();
                     } else {
                       pageController.previousPage(
@@ -109,12 +127,12 @@ class _QuizViewState extends ConsumerState<QuizView> with GlobalHelper {
                 10.widthBox,
                 ElevatedButton(
                   onPressed: () {
-                    // if last question thne submit then pop and go back to the quiz page
-                    if (isLastQuestion) {}
-                    //if not last question then move forward to the next question
-                    if (pageController.page!.toInt() == quizLength) {
-                      context.router.pop();
+                    // if last question then submit and go back to the quiz page
+                    if (isLastQuestion) {
+                      // Submit logic here
+                      context.navigateTo(QuizProgressRoute(videoId: 'videoId'));
                     } else {
+                      // If not last question then move forward to the next question
                       if (quizFormKey.currentState?.validate() == true) {
                         quizFormKey.currentState?.save();
                         pageController.nextPage(
@@ -147,6 +165,12 @@ class _QuizViewState extends ConsumerState<QuizView> with GlobalHelper {
                 itemCount: quizLength,
                 controller: pageController,
                 physics: NeverScrollableScrollPhysics(),
+                onPageChanged: (index) {
+                  // Update the page index when page changes
+                  setState(() {
+                    currentPageIndex = index;
+                  });
+                },
                 itemBuilder: (context, index) {
                   final quizIndex = quizModel.quizDataList[index];
                   return SingleChildScrollView(
@@ -181,7 +205,6 @@ class _QuizViewState extends ConsumerState<QuizView> with GlobalHelper {
                               ),
                               CustomRadioGroupFormField<int>(
                                 name: "${QuizConstants.quiz}${index + 1}", //starts with "quiz1"
-
                                 onChanged: (value) {
                                   if (value == quizIndex.correctAnswerIndex) {
                                     //update the name of the field

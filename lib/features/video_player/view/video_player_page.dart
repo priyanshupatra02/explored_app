@@ -26,8 +26,7 @@ class VideoPlayerPage extends StatelessWidget {
     return VideoPlayerView(
       videoTitle: videoTitle,
       videoId: videoId,
-      videoUrl:
-          'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', //TODO: make this dynamic
+      videoUrl: videoUrl, //TODO: make this dynamic
       whatYouWillLearn: whatYouWillLearn,
     );
   }

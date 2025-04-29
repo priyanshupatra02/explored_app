@@ -1,0 +1,31 @@
+package_rename_config:
+  android:
+    app_name: ExplorED
+    package_name: com.edu.explored
+    override_old_package: # (Optional) (String) Use this to delete the old folder structure of MainActivity or to use the existing code with the new package name
+    lang: # (Optional) (String) The android development language {kotlin(default) or java}
+
+  ios:
+    app_name: ExplorED
+    bundle_name: exploed
+    package_name: com.edu.explored
+
+  linux:
+    app_name: ExplorED
+    package_name: com.edu.explored
+    exe_name: explored-linux-x64
+
+  macos:
+    app_name: ExplorED
+    package_name: com.edu.explored
+    copyright_notice: Copyright ©️ 2025 Innovatrix Infotech. All rights reserved.
+
+  web:
+    app_name: ExplorED
+    description: The only edtech app you need
+
+  windows:
+    app_name: ExplorED
+    organization: ExplorED
+    copyright_notice: Copyright ©️ 2025 ExplorED. All rights reserved.
+    exe_name: explored-online-windows
