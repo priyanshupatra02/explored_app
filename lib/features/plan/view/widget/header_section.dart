@@ -1,5 +1,4 @@
 import 'package:edtech_app/features/plan/view/widget/header_content.dart';
-import 'package:edtech_app/features/plan/view/widget/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class HeaderSection extends StatelessWidget {
@@ -14,18 +13,9 @@ class HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(20, 60, 20, 30),
-      child: Column(
-        children: [
-          SubscriptionPageNavigationBar(onBackPressed: onBackPressed),
-          SizedBox(height: 20),
-          SlideTransition(
-            position: slideAnimation,
-            child: HeaderContent(),
-          ),
-        ],
-      ),
+    return SlideTransition(
+      position: slideAnimation,
+      child: HeaderContent(),
     );
   }
 }

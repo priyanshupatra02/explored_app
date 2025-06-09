@@ -4,6 +4,7 @@ import 'package:edtech_app/features/plan/view/widget/bottom_section.dart';
 import 'package:edtech_app/features/plan/view/widget/header_section.dart';
 import 'package:edtech_app/features/plan/view/widget/plans_section.dart';
 import 'package:edtech_app/features/plan/view/widget/subscription_dialog.dart';
+import 'package:edtech_app/shared/widget/buttons/back_button_widget.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -26,7 +27,7 @@ class SubscriptionPlansView extends StatefulWidget {
 class SubscriptionPlansViewState extends State<SubscriptionPlansView>
     with TickerProviderStateMixin {
   final PageController _pageController = PageController(viewportFraction: 0.85);
-  int _currentIndex = 1; // Start with middle plan (Premium)
+  int _currentIndex = 0; // Start with middle plan (Premium)
 
   late AnimationController _fadeController;
   late AnimationController _slideController;
@@ -128,6 +129,12 @@ class SubscriptionPlansViewState extends State<SubscriptionPlansView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        foregroundColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        leading: BackButtonWidget(),
+      ),
       body: FadeTransition(
         opacity: _fadeAnimation,
         child: Column(
