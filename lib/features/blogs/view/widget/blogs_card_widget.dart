@@ -11,7 +11,7 @@ class BlogsCardWidget extends StatelessWidget {
   final String timeAgo;
   final String title;
   final String description;
-  final String? authorImageUrl;
+  // final String? authorImageUrl;
   final VoidCallback onReadMoreTap;
 
   const BlogsCardWidget({
@@ -20,7 +20,7 @@ class BlogsCardWidget extends StatelessWidget {
     required this.timeAgo,
     required this.title,
     required this.description,
-    this.authorImageUrl,
+    // this.authorImageUrl,
     required this.onReadMoreTap,
   });
 
@@ -34,7 +34,7 @@ class BlogsCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: AppColors.kGrey.withValues(alpha: 0.1),
             spreadRadius: 1,
             blurRadius: 4,
             offset: const Offset(0, 2),
@@ -51,16 +51,16 @@ class BlogsCardWidget extends StatelessWidget {
             // Author info row
             Row(
               children: [
-                // Author image
-                CircleAvatar(
-                  radius: 24,
-                  backgroundImage: authorImageUrl != null ? NetworkImage(authorImageUrl!) : null,
-                  backgroundColor: AppColors.kPrimaryColor,
-                  child: authorImageUrl == null
-                      ? const Icon(Icons.person, color: AppColors.kPrimaryWhiteColor)
-                      : null,
-                ),
-                12.widthBox,
+                // // Author image
+                // CircleAvatar(
+                //   radius: 24,
+                //   backgroundImage: authorImageUrl != null ? NetworkImage(authorImageUrl!) : null,
+                //   backgroundColor: AppColors.kPrimaryColor,
+                //   child: authorImageUrl == null
+                //       ? const Icon(Icons.person, color: AppColors.kPrimaryWhiteColor)
+                //       : null,
+                // ),
+                // 12.widthBox,
                 // Author name
                 Text(
                   authorName,

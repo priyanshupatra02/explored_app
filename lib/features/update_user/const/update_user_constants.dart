@@ -1,15 +1,13 @@
 class UpdateUserConstants {
   UpdateUserConstants._();
   //all textfields
-  static String name = "name";
+  // static String name = "name";
   static String course = "course";
   static String profession = "profession";
   static String wantACareerCounselling = "wantACareerCounselling";
   static String wantToBeACareerCounselling = "wantToBeACareerCounselling";
   static String activityEnjoy = "activityEnjoy";
   static String challenges = "challenges";
-  static String preferWorkingWith = "preferWorkingWith";
-  static String enjoyDoingInFreeTime = "enjoyDoingInFreeTime";
   static String comesNaturally = "comesNaturally";
   static String enjoySubject = "enjoySubject";
   static String suitableEnv = "suitableEnv";
@@ -41,7 +39,7 @@ class UpdateUserConstants {
 final List<String> questions = [
   "Which activity do you enjoy the most?",
   "What kind of challenges excite you?",
-  "Do you prefer working with:",
+  "Do you prefer working with: ",
   "What do you enjoy doing in your free time?",
   "What comes naturally to you?",
   "Which subject would you enjoy the most?",
@@ -64,7 +62,7 @@ final List<String> questions = [
   "Are you interested in psychology or counseling?",
   "Would you like a career in media, film, or entertainment?",
   "What is more important to you in a job?",
-  "Would you rather:",
+  "Would you rather do:",
   "What kind of employer do you prefer?",
   "Where would you rather work?",
   "Are you more of a:",

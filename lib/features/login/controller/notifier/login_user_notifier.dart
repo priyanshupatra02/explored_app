@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:edtech_app/data/model/login_user_response_model.dart';
+import 'package:edtech_app/data/model/user_response_model.dart';
 import 'package:edtech_app/data/network/api_helper_pod.dart';
 import 'package:edtech_app/data/services/login_db_service/login_db_service_pod.dart';
 import 'package:edtech_app/features/login/controller/pod/login_user_pod.dart';
@@ -17,20 +17,20 @@ class LoginUserAsyncNotifier
   Future<void> loginUser({
     required String email,
     required String password,
-    required void Function(LoginUserResponseModel loginModelResponse) onUserLoggedIn,
+    required void Function(UserResponseModel loginModelResponse) onUserLoggedIn,
   }) async {
     state = const AsyncData(LoggingInUserState());
     state = await AsyncValue.guard(
       () async {
         final result = await ref.watch(apiHelperProvider).loginUser(
-              email: arg.email, 
+              email: arg.email,
               password: arg.password,
             );
 
         return result.when(
           (loginModel) async {
             if (loginModel.jwt!.isNotEmpty) {
-              await ref.watch(loginDbProvider).saveLoginModel(loginModel: loginModel);
+              await ref.watch(loginDbProvider).saveLoginModel(userResponseModel: loginModel);
               onUserLoggedIn(loginModel);
               return const LoggedInState();
             } else {

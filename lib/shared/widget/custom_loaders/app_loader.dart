@@ -10,14 +10,14 @@ class AppLoader extends StatelessWidget {
   const AppLoader({
     super.key,
     this.androidBgColor = AppColors.kGrey800,
-    this.iosBgColor = AppColors.kPrimaryWhiteColor,
-    this.progressColor = AppColors.kPrimaryWhiteColor,
+    this.iosBgColor = AppColors.kPrimaryColor,
+    this.progressColor = AppColors.kGrey300,
     this.size = 18,
   });
 
   @override
   Widget build(BuildContext context) {
-    return (Platform.I.android)
+    return (Platform.I.iOS || Platform.I.android)
         ? SizedBox(
             height: size,
             width: size,

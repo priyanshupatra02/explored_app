@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/const/app_icons/app_icons.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/features/blogs/view/blogs_page.dart';
-import 'package:edtech_app/features/forums/view/forums_page.dart';
 import 'package:edtech_app/features/home/view/home_page.dart';
 import 'package:edtech_app/features/navbar/controller/pod/navbar_selected_index_pod.dart';
+import 'package:edtech_app/features/plan/view/subscription_plans_page.dart';
 import 'package:edtech_app/features/profile/view/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,7 +34,8 @@ class _NavbarViewState extends ConsumerState<NavbarView> with AutomaticKeepAlive
     const HomePage(),
     const BlogsPage(),
     const ProfilePage(),
-    const ForumsPage(),
+    // const ForumsPage(),
+    const SubscriptionPlansPage(),
   ];
 
   @override

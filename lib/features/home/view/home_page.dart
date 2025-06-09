@@ -1,19 +1,17 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:edtech_app/const/app_icons/app_icons.dart';
 import 'package:edtech_app/const/resource.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/features/blogs/view/widget/search_bar_widget.dart';
+import 'package:edtech_app/features/home/controller/pod/get_user_pod.dart';
 import 'package:edtech_app/features/home/controller/pod/subjects_pod.dart';
 import 'package:edtech_app/shared/algorithms/algorithms.dart';
 import 'package:edtech_app/shared/extension/app_extension.dart';
 import 'package:edtech_app/shared/riverpod_ext/asynvalue_easy_when.dart';
-import 'package:edtech_app/shared/widget/app_icons_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
@@ -39,42 +37,63 @@ class HomeView extends StatelessWidget {
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
           automaticallyImplyLeading: false,
-          flexibleSpace: RichText(
-            textAlign: TextAlign.left,
-            text: TextSpan(
-              style: DefaultTextStyle.of(context).style,
-              children: [
-                TextSpan(
-                  text: 'Hello, \n',
-                  recognizer: TapGestureRecognizer()..onTap = () {},
-                  style: TextStyle(
-                    fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
-                    color: AppColors.kPrimaryColor,
-                  ),
-                ),
-                TextSpan(
-                  text: Algorithms.getFirstTwoWords(
-                    'Arnav Herlekar Amet ea adipisicing velit aliqua voluptate officia aliquip mollit.'
-                        .hardCoded,
-                  ),
-                  recognizer: TapGestureRecognizer()..onTap = () {},
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
-                    color: AppColors.kPrimaryColor,
-                  ),
-                ),
-              ],
-            ),
-          ).pOnly(left: 20),
           actions: [
-            AppIconsWidget(
-              icon: HugeIcon(
-                icon: AppIcons.strokeRoundedNotification03,
-                color: AppColors.kPrimaryColor,
-              ),
-            ).pOnly(right: 20),
+            GestureDetector(
+              onTap: () {
+                context.navigateTo(const SubscriptionPlansRoute());
+              },
+              child: CircleAvatar(
+                radius: 20,
+                child: Icon(
+                  Icons.dock,
+                ),
+              ).pOnly(right: 20),
+            ),
           ],
+          flexibleSpace: Consumer(
+            builder: (context, ref, child) {
+              final getprofileAsync = ref.watch(getProfileProvider);
+              return getprofileAsync.easyWhen(
+                data: (profileResponse) {
+                  return RichText(
+                    textAlign: TextAlign.left,
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: [
+                        TextSpan(
+                          text: 'Hello, \n',
+                          recognizer: TapGestureRecognizer()..onTap = () {},
+                          style: TextStyle(
+                            fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+                            color: AppColors.kPrimaryColor,
+                          ),
+                        ),
+                        TextSpan(
+                          text: Algorithms.getFirstTwoWords(
+                            profileResponse.firstName!,
+                          ),
+                          recognizer: TapGestureRecognizer()..onTap = () {},
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+                            color: AppColors.kPrimaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ).pOnly(left: 20);
+                },
+              );
+            },
+          ),
+          // actions: [
+          //   AppIconsWidget(
+          //     icon: HugeIcon(
+          //       icon: AppIcons.strokeRoundedNotification03,
+          //       color: AppColors.kPrimaryColor,
+          //     ),
+          //   ).pOnly(right: 20),
+          // ],
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(20),

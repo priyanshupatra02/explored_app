@@ -4,6 +4,10 @@
 class R {
   const R._();
 
+  /// ![preview](file:///Users/priyanshupatra/Desktop/Developer/Flutter Resources & Projects/MacBook/flutter projects/edtech_app/assets/app_icon/explored_logo.jpeg)
+  static const String ASSETS_APP_ICON_EXPLORED_LOGO_JPEG =
+      'assets/app_icon/explored_logo.jpeg';
+
   /// ![preview](file:///Users/priyanshupatra/Desktop/Developer/Flutter Resources & Projects/MacBook/flutter projects/edtech_app/assets/icon/blogs-selected-icon.svg)
   static const String ASSETS_ICON_BLOGS_SELECTED_ICON_SVG =
       'assets/icon/blogs-selected-icon.svg';

@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +24,7 @@ final talker = TalkerFlutter.init(
   logger: TalkerLogger(
     output: debugPrint,
     settings: TalkerLoggerSettings(
-      enableColors: !Platform.I.iOS,
+      enableColors: Platform.I.iOS || Platform.I.android,
     ),
   ),
 );
