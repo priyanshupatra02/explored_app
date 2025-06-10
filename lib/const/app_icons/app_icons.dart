@@ -26,4 +26,5 @@ class AppIcons {
   static const IconData strokeRoundedFavourite = HugeIcons.strokeRoundedFavourite;
   static const IconData strokeRoundedMail01 = HugeIcons.strokeRoundedMail01;
   static const IconData strokeRoundedProgress04 = HugeIcons.strokeRoundedProgress04;
+  static const IconData strokeRoundedDiamond02 = HugeIcons.strokeRoundedDiamond02;
 }

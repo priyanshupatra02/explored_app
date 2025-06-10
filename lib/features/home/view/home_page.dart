@@ -3,7 +3,7 @@ import 'package:edtech_app/const/resource.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/features/blogs/view/widget/search_bar_widget.dart';
-import 'package:edtech_app/features/home/controller/pod/get_user_pod.dart';
+import 'package:edtech_app/features/home/controller/pod/get_profile_pod.dart';
 import 'package:edtech_app/features/home/controller/pod/subjects_pod.dart';
 import 'package:edtech_app/shared/algorithms/algorithms.dart';
 import 'package:edtech_app/shared/extension/app_extension.dart';
@@ -37,19 +37,6 @@ class HomeView extends StatelessWidget {
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
           automaticallyImplyLeading: false,
-          actions: [
-            GestureDetector(
-              onTap: () {
-                context.navigateTo(const SubscriptionPlansRoute());
-              },
-              child: CircleAvatar(
-                radius: 20,
-                child: Icon(
-                  Icons.dock,
-                ),
-              ).pOnly(right: 20),
-            ),
-          ],
           flexibleSpace: Consumer(
             builder: (context, ref, child) {
               final getprofileAsync = ref.watch(getProfileProvider);

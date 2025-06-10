@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:edtech_app/shared/widget/custom_loaders/app_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -58,9 +59,7 @@ class DefaultLoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: isLinear
-          ? const LinearProgressIndicator()
-          : const CircularProgressIndicator.adaptive(),
+      child: isLinear ? const LinearProgressIndicator() : const AppLoader(),
     );
   }
 }
@@ -108,14 +107,7 @@ class DefaultErrorWidget extends StatelessWidget {
                   Icons.close,
                   color: Colors.red,
                 ).circle(radius: 32).flexible(),
-                'Something went wrong! '
-                    .text
-                    .bold
-                    .lg
-                    .red500
-                    .make()
-                    .p8()
-                    .flexible(),
+                'Something went wrong! '.text.bold.lg.red500.make().p8().flexible(),
                 ErrorTextWidget(
                   error: error,
                   includedefaultDioErrorMessage: includedefaultDioErrorMessage,
@@ -178,30 +170,12 @@ class DefaultDioErrorWidget extends StatelessWidget {
             .flexible();
 
       case DioExceptionType.receiveTimeout:
-        return 'Check you internet connection reliability.'
-            .text
-            .bold
-            .sm
-            .make()
-            .p8()
-            .flexible();
+        return 'Check you internet connection reliability.'.text.bold.sm.make().p8().flexible();
       case DioExceptionType.badCertificate:
-        return 'Please update your OS or add certificate.'
-            .text
-            .bold
-            .sm
-            .make()
-            .p8()
-            .flexible();
+        return 'Please update your OS or add certificate.'.text.bold.sm.make().p8().flexible();
 
       case DioExceptionType.badResponse:
-        return 'Something went wrong.Please try again later.'
-            .text
-            .bold
-            .sm
-            .make()
-            .p8()
-            .flexible();
+        return 'Something went wrong.Please try again later.'.text.bold.sm.make().p8().flexible();
       case DioExceptionType.cancel:
         return 'Request Cancelled'.text.bold.sm.make().p4().flexible();
       case DioExceptionType.connectionError:
@@ -213,13 +187,7 @@ class DefaultDioErrorWidget extends StatelessWidget {
             .p8()
             .flexible();
       case DioExceptionType.unknown:
-        return 'Please check your internet connection.'
-            .text
-            .bold
-            .sm
-            .make()
-            .p8()
-            .flexible();
+        return 'Please check your internet connection.'.text.bold.sm.make().p8().flexible();
     }
   }
 }

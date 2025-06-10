@@ -14,7 +14,7 @@ class ProfileModel {
     final dynamic expiryTime;
     final bool? isAdmin;
     final Feedback? feedback;
-    final dynamic isPaid;
+    final bool? isPaid;
     final String? whatCourseDoYouNeed;
     final String? wouldDoYouDo;
     final bool? doYouNeedACareerCounselling;
@@ -55,7 +55,7 @@ class ProfileModel {
         dynamic expiryTime,
         bool? isAdmin,
         Feedback? feedback,
-        dynamic isPaid,
+        bool? isPaid,
         String? whatCourseDoYouNeed,
         String? wouldDoYouDo,
         bool? doYouNeedACareerCounselling,
