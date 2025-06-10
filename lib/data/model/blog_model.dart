@@ -1,13 +1,11 @@
 import 'dart:convert';
 
-import 'package:edtech_app/data/model/videos_list_model.dart';
-
 class BlogModel {
-  final List<BlogList> bloglist;
+  final List<BlogList> blogList;
   final Meta meta;
 
   BlogModel({
-    required this.bloglist,
+    required this.blogList,
     required this.meta,
   });
 
@@ -16,7 +14,7 @@ class BlogModel {
     Meta? meta,
   }) =>
       BlogModel(
-        bloglist: data ?? bloglist,
+        blogList: data ?? blogList,
         meta: meta ?? this.meta,
       );
 
@@ -25,12 +23,12 @@ class BlogModel {
   String toJson() => json.encode(toMap());
 
   factory BlogModel.fromMap(Map<String, dynamic> json) => BlogModel(
-        bloglist: List<BlogList>.from(json["data"].map((x) => BlogList.fromMap(x))),
+        blogList: List<BlogList>.from(json["data"].map((x) => BlogList.fromMap(x))),
         meta: Meta.fromMap(json["meta"]),
       );
 
   Map<String, dynamic> toMap() => {
-        "data": List<dynamic>.from(bloglist.map((x) => x.toMap())),
+        "data": List<dynamic>.from(blogList.map((x) => x.toMap())),
         "meta": meta.toMap(),
       };
 }
@@ -203,5 +201,77 @@ class User {
         "documentId": documentId,
         "firstName": firstName,
         "lastName": lastName,
+      };
+}
+
+class Meta {
+  final Pagination? pagination;
+
+  Meta({
+    this.pagination,
+  });
+
+  Meta copyWith({
+    Pagination? pagination,
+  }) =>
+      Meta(
+        pagination: pagination ?? this.pagination,
+      );
+
+  factory Meta.fromJson(String str) => Meta.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Meta.fromMap(Map<String, dynamic> json) => Meta(
+        pagination: json["pagination"] == null ? null : Pagination.fromMap(json["pagination"]),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "pagination": pagination?.toMap(),
+      };
+}
+
+class Pagination {
+  final int? page;
+  final int? pageSize;
+  final int? pageCount;
+  final int? total;
+
+  Pagination({
+    this.page,
+    this.pageSize,
+    this.pageCount,
+    this.total,
+  });
+
+  Pagination copyWith({
+    int? page,
+    int? pageSize,
+    int? pageCount,
+    int? total,
+  }) =>
+      Pagination(
+        page: page ?? this.page,
+        pageSize: pageSize ?? this.pageSize,
+        pageCount: pageCount ?? this.pageCount,
+        total: total ?? this.total,
+      );
+
+  factory Pagination.fromJson(String str) => Pagination.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Pagination.fromMap(Map<String, dynamic> json) => Pagination(
+        page: json["page"],
+        pageSize: json["pageSize"],
+        pageCount: json["pageCount"],
+        total: json["total"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "page": page,
+        "pageSize": pageSize,
+        "pageCount": pageCount,
+        "total": total,
       };
 }

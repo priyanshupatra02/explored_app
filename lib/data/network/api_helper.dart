@@ -178,8 +178,10 @@ class ApiHelper {
   }
 
   //get all blogs
-  Future<Result<BlogModel, APIException>> getBlogs() async {
-    final result = await dio.get(AppUrls.getBlogs);
+  Future<Result<BlogModel, APIException>> getBlogs({required String blogCategoryName}) async {
+    final result = await dio.get(AppUrls.getBlogs, queryParameters: {
+      "filters[category][name]": blogCategoryName,
+    });
     return result.successErrorHandler<BlogModel>(
       successMapper: (data) => BlogModel.fromMap(data),
       defaultSuccessCode: [200, 201],

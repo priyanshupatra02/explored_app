@@ -163,73 +163,73 @@ class Video {
 }
 
 class Meta {
-  final Pagination pagination;
+    final Pagination? pagination;
 
-  Meta({
-    required this.pagination,
-  });
+    Meta({
+        this.pagination,
+    });
 
-  Meta copyWith({
-    Pagination? pagination,
-  }) =>
-      Meta(
-        pagination: pagination ?? this.pagination,
-      );
+    Meta copyWith({
+        Pagination? pagination,
+    }) => 
+        Meta(
+            pagination: pagination ?? this.pagination,
+        );
 
-  factory Meta.fromJson(String str) => Meta.fromMap(json.decode(str));
+    factory Meta.fromJson(String str) => Meta.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+    String toJson() => json.encode(toMap());
 
-  factory Meta.fromMap(Map<String, dynamic> json) => Meta(
-        pagination: Pagination.fromMap(json["pagination"]),
-      );
+    factory Meta.fromMap(Map<String, dynamic> json) => Meta(
+        pagination: json["pagination"] == null ? null : Pagination.fromMap(json["pagination"]),
+    );
 
-  Map<String, dynamic> toMap() => {
-        "pagination": pagination.toMap(),
-      };
+    Map<String, dynamic> toMap() => {
+        "pagination": pagination?.toMap(),
+    };
 }
 
 class Pagination {
-  final int page;
-  final int pageSize;
-  final int pageCount;
-  final int total;
+    final int? page;
+    final int? pageSize;
+    final int? pageCount;
+    final int? total;
 
-  Pagination({
-    required this.page,
-    required this.pageSize,
-    required this.pageCount,
-    required this.total,
-  });
+    Pagination({
+        this.page,
+        this.pageSize,
+        this.pageCount,
+        this.total,
+    });
 
-  Pagination copyWith({
-    int? page,
-    int? pageSize,
-    int? pageCount,
-    int? total,
-  }) =>
-      Pagination(
-        page: page ?? this.page,
-        pageSize: pageSize ?? this.pageSize,
-        pageCount: pageCount ?? this.pageCount,
-        total: total ?? this.total,
-      );
+    Pagination copyWith({
+        int? page,
+        int? pageSize,
+        int? pageCount,
+        int? total,
+    }) => 
+        Pagination(
+            page: page ?? this.page,
+            pageSize: pageSize ?? this.pageSize,
+            pageCount: pageCount ?? this.pageCount,
+            total: total ?? this.total,
+        );
 
-  factory Pagination.fromJson(String str) => Pagination.fromMap(json.decode(str));
+    factory Pagination.fromJson(String str) => Pagination.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+    String toJson() => json.encode(toMap());
 
-  factory Pagination.fromMap(Map<String, dynamic> json) => Pagination(
+    factory Pagination.fromMap(Map<String, dynamic> json) => Pagination(
         page: json["page"],
         pageSize: json["pageSize"],
         pageCount: json["pageCount"],
         total: json["total"],
-      );
+    );
 
-  Map<String, dynamic> toMap() => {
+    Map<String, dynamic> toMap() => {
         "page": page,
         "pageSize": pageSize,
         "pageCount": pageCount,
         "total": total,
-      };
+    };
 }

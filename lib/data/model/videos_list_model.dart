@@ -130,10 +130,10 @@ class Subject {
 }
 
 class Meta {
-  final Pagination pagination;
+  final Pagination? pagination;
 
   Meta({
-    required this.pagination,
+    this.pagination,
   });
 
   Meta copyWith({
@@ -148,25 +148,25 @@ class Meta {
   String toJson() => json.encode(toMap());
 
   factory Meta.fromMap(Map<String, dynamic> json) => Meta(
-        pagination: Pagination.fromMap(json["pagination"]),
+        pagination: json["pagination"] == null ? null : Pagination.fromMap(json["pagination"]),
       );
 
   Map<String, dynamic> toMap() => {
-        "pagination": pagination.toMap(),
+        "pagination": pagination?.toMap(),
       };
 }
 
 class Pagination {
-  final int page;
-  final int pageSize;
-  final int pageCount;
-  final int total;
+  final int? page;
+  final int? pageSize;
+  final int? pageCount;
+  final int? total;
 
   Pagination({
-    required this.page,
-    required this.pageSize,
-    required this.pageCount,
-    required this.total,
+    this.page,
+    this.pageSize,
+    this.pageCount,
+    this.total,
   });
 
   Pagination copyWith({

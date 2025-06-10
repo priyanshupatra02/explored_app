@@ -51,6 +51,10 @@ class R {
   static const String ASSETS_ILLUSTRATION_MATHS_ILLUSTRATION_SVG =
       'assets/illustration/maths_illustration.svg';
 
+  /// ![preview](file:///Users/priyanshupatra/Desktop/Developer/Flutter Resources & Projects/MacBook/flutter projects/edtech_app/assets/illustration/no_blogs.svg)
+  static const String ASSETS_ILLUSTRATION_NO_BLOGS_SVG =
+      'assets/illustration/no_blogs.svg';
+
   /// ![preview](file:///Users/priyanshupatra/Desktop/Developer/Flutter Resources & Projects/MacBook/flutter projects/edtech_app/assets/illustration/physics_illustration.svg)
   static const String ASSETS_ILLUSTRATION_PHYSICS_ILLUSTRATION_SVG =
       'assets/illustration/physics_illustration.svg';
