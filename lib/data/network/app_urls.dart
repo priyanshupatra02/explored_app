@@ -17,6 +17,8 @@ class AppUrls {
   static const String getSubjects = "/v1/subjects";
   static const String getBlogCategories = "/v1/categories";
   static const String getBlogs = "/v1/blogs";
+  static const String getBlogComments = "/v1/blog-comments";
+  static const String addBlogComment = "/v1/blog-comments";
   static const String getAllVideosBySubjectId = "/v1/videos?filters[subject][documentId]=";
   static const String getSingleVideoByVideoId = "/v1/videos/";
 

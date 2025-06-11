@@ -125,7 +125,7 @@ class _NavbarViewState extends ConsumerState<NavbarView> with AutomaticKeepAlive
                 ),
                 GButton(
                   icon: AppIcons.strokeRoundedDiamond02,
-                  text: 'Forums',
+                  text: 'Plans',
                 )
               ],
             ),

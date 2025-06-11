@@ -162,6 +162,7 @@ class _BlogsViewState extends ConsumerState<BlogsView> with SingleTickerProvider
 
                                       return BlogsCardWidget(
                                         authorName: blog.user.firstName,
+                                        blogId: blog.id,
                                         timeAgo: Algorithms.getTimeAgo(difference: difference)
                                             .toString(),
                                         title: blog.title,

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:edtech_app/data/model/blog_categories_model.dart';
+import 'package:edtech_app/data/model/blog_comment_model.dart';
+import 'package:edtech_app/data/model/blog_comment_response_model.dart';
 import 'package:edtech_app/data/model/blog_model.dart';
 import 'package:edtech_app/data/model/profile_model.dart';
 import 'package:edtech_app/data/model/quiz_model.dart';
@@ -179,9 +181,12 @@ class ApiHelper {
 
   //get all blogs
   Future<Result<BlogModel, APIException>> getBlogs({required String blogCategoryName}) async {
-    final result = await dio.get(AppUrls.getBlogs, queryParameters: {
-      "filters[category][name]": blogCategoryName,
-    });
+    final result = await dio.get(
+      AppUrls.getBlogs,
+      queryParameters: {
+        "filters[category][name]": blogCategoryName,
+      },
+    );
     return result.successErrorHandler<BlogModel>(
       successMapper: (data) => BlogModel.fromMap(data),
       defaultSuccessCode: [200, 201],
@@ -190,6 +195,39 @@ class ApiHelper {
 
   //get blogs by id
   //get blogs comments
+  Future<Result<BlogCommentModel, APIException>> getBlogComments({required int blogId}) async {
+    final result = await dio.get(
+      AppUrls.getBlogComments,
+      queryParameters: {
+        "filters[blog]": blogId,
+      },
+    );
+    return result.successErrorHandler<BlogCommentModel>(
+      successMapper: (data) => BlogCommentModel.fromMap(data),
+      defaultSuccessCode: [200, 201],
+    );
+  }
+
+  //add blog comment
+  Future<Result<BlogCommentResponseModel, APIException>> addBlogComment({
+    required String comment,
+    required int blogId,
+  }) async {
+    final result = await dio.post(
+      AppUrls.addBlogComment,
+      data: {
+        "data": {
+          "comment": comment,
+          "blog": {"id": blogId}
+        }
+      },
+    );
+    return result.successErrorHandler<BlogCommentResponseModel>(
+      successMapper: (data) => BlogCommentResponseModel.fromMap(data),
+      defaultSuccessCode: [200, 201],
+    );
+  }
+
   //get quiz
   Future<Result<QuizModel, APIException>> getQuizByVideoId({required String videoId}) async {
     final result = await dio.get(AppUrls.getQuizByVideoId + videoId);

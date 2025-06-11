@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/core/guards/login_guard.dart';
 import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/data/services/login_db_service/login_db_service.dart';
+import 'package:flutter/cupertino.dart';
 
 /// This class used for defined routes and paths na dother properties
 @AutoRouterConfig()
@@ -91,6 +92,17 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: SubscriptionPlansRoute.page,
       path: '/subscription-plans',
+    ),
+    //blog comment section sheet route
+    CustomRoute(
+      page: BlogCommentDialogRoute.page,
+      path: '/blog-comment-section',
+      customRouteBuilder: <T>(BuildContext context, Widget child, AutoRoutePage<T> page) {
+        return CupertinoSheetRoute(
+          settings: page,
+          builder: (_) => child,
+        );
+      },
     ),
   ];
 }

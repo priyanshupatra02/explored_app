@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/const/app_icons/app_icons.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
-import 'package:edtech_app/shared/widget/buttons/primary_action_button.dart';
+import 'package:edtech_app/core/router/router.gr.dart';
+import 'package:edtech_app/features/blogs/view/widget/read_more_button.dart';
 import 'package:edtech_app/shared/widget/horizontal_divider_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -11,7 +13,7 @@ class BlogsCardWidget extends StatelessWidget {
   final String timeAgo;
   final String title;
   final String description;
-  // final String? authorImageUrl;
+  final int blogId;
   final VoidCallback onReadMoreTap;
 
   const BlogsCardWidget({
@@ -22,6 +24,7 @@ class BlogsCardWidget extends StatelessWidget {
     required this.description,
     // this.authorImageUrl,
     required this.onReadMoreTap,
+    required this.blogId,
   });
 
   @override
@@ -106,15 +109,33 @@ class BlogsCardWidget extends StatelessWidget {
             ),
             30.heightBox,
             // Read more button
-            PrimaryActionButton(
-              labelText: 'Read more',
-              isIcon: true,
-              icon: HugeIcon(
-                icon: AppIcons.strokeRoundedArrowRight02,
-                color: AppColors.kLightSecondaryColor,
-                size: 18,
-              ),
-              onPressed: onReadMoreTap,
+            Row(
+              children: [
+                Expanded(
+                  flex: 8,
+                  child: ReadMoreButton(
+                    onReadMoreTap: onReadMoreTap,
+                  ),
+                ),
+                10.widthBox,
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {
+                      context.navigateTo(
+                        BlogCommentDialogRoute(
+                          blogId: blogId,
+                          blogTitle: title,
+                        ),
+                      );
+                    },
+                    child: HugeIcon(
+                      icon: AppIcons.strokeRoundedCommentAdd02,
+                      color: AppColors.kPrimaryColor,
+                    ),
+                  ),
+                )
+              ],
             ),
           ],
         ),
