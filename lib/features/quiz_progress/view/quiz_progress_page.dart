@@ -2,7 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/const/app_icons/app_icons.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/core/router/router.gr.dart';
+import 'package:edtech_app/features/quiz_progress/controller/pod/get_quiz_progress_pod.dart';
 import 'package:edtech_app/shared/extension/app_extension.dart';
+import 'package:edtech_app/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:flutter/gestures.dart';
 // import 'package:edtech_app/features/quiz/controller/pod/quiz_pod.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +32,6 @@ class QuizProgressView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final questionsAsync = ref.watch(quizQuestionsProvider);
-    bool isIncorrect = false;
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.transparent,
@@ -71,68 +72,46 @@ class QuizProgressView extends ConsumerWidget {
           ),
         ),
       ),
-      // body: questionsAsync.when(
-      //   loading: () => const Center(child: CircularProgressIndicator()),
-      //   error: (error, stack) => Center(child: Text('Error: $error')),
-      //   data: (questions) {
-      //     return GridView.builder(
-      //       padding: const EdgeInsets.all(16),
-      //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      //         crossAxisCount: 7,
-      //         crossAxisSpacing: 8,
-      //         mainAxisSpacing: 8,
-      //       ),
-      //       itemCount: questions.length,
-      //       itemBuilder: (context, index) {
-      //         return Container(
-      //           decoration: BoxDecoration(
-      //             color: Colors.blue,
-      //             borderRadius: BorderRadius.circular(8),
-      //           ),
-      //           child: Center(
-      //             child: Text(
-      //               '${index + 1}',
-      //               style: const TextStyle(
-      //                 color: Colors.white,
-      //                 fontWeight: FontWeight.bold,
-      //               ),
-      //             ),
-      //           ),
-      //         );
-      //       },
-      //     );
-      //   },
-      // ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 30),
           child: Column(
             children: [
-              Wrap(
-                // alignment: WrapAlignment.center,
-                runAlignment: WrapAlignment.center,
-                spacing: 14,
-                runSpacing: 14,
-                children: List.generate(
-                  20,
-                  (index) => Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: isIncorrect ? AppColors.kErrorColor : AppColors.kPrimaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '${index + 1}',
-                        style: const TextStyle(
-                          color: AppColors.kPrimaryWhiteColor,
-                          fontWeight: FontWeight.bold,
+              Consumer(
+                builder: (context, ref, child) {
+                  final quizProgressAsync = ref.watch(quizProgressProvider(videoId));
+                  return quizProgressAsync.easyWhen(
+                    data: (quizProgressModel) {
+                      return Wrap(
+                        // alignment: WrapAlignment.center,
+                        runAlignment: WrapAlignment.center,
+                        spacing: 14,
+                        runSpacing: 14,
+                        children: List.generate(
+                          20,
+                          (index) => Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              color:
+                                  ? AppColors.kErrorColor : AppColors.kPrimaryColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text(
+                                '${index + 1}',
+                                style: const TextStyle(
+                                  color: AppColors.kPrimaryWhiteColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ),
+                      );
+                    },
+                  );
+                },
               ),
               Divider(
                 color: AppColors.kGrey500,

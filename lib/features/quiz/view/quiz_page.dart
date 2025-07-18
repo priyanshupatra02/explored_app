@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
+import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/features/quiz/const/quiz_constants.dart';
 import 'package:edtech_app/features/quiz/controller/pod/quiz_pod.dart';
 import 'package:edtech_app/features/quiz/controller/pod/submit_quiz_pod.dart';
@@ -126,7 +127,34 @@ class _QuizViewState extends ConsumerState<QuizView> with GlobalHelper {
                   child: Text('Back'),
                 ),
                 10.widthBox,
-                // NextOrSubmitButtonState(isLastQuestion: isLastQuestion, onPressed: ,)
+                NextOrSubmitButtonState(
+                  isLastQuestion: isLastQuestion,
+                  onPressed: () {
+                    if (quizFormKey.currentState?.saveAndValidate() ?? false) {
+                      if (isLastQuestion) {
+                        // Submit the quiz progress
+                        ref.read(submitQuizProgressProvider.notifier).submitQuizProgress(
+                              videoId: widget.videoId,
+                              quizProgress: quizProgressList,
+                              onError: (errorMessage) {
+                                showErrorSnack(child: Text(errorMessage.toString()));
+                              },
+                              onQuizSubmitted: (quizSubmittedResponse) {
+                                context.router.replaceAll([NavbarRoute()]);
+                              },
+                            );
+                      } else {
+                        // Move to the next page
+                        pageController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeOut,
+                        );
+                      }
+                    } else {
+                      showErrorSnack(child: Text('Please answer all questions before proceeding.'));
+                    }
+                  },
+                )
               ],
             ).pSymmetric(h: 14, v: 30),
           ),
@@ -297,4 +325,3 @@ class NextOrSubmitButtonState extends ConsumerWidget {
     );
   }
 }
-

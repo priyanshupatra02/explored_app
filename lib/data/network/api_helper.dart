@@ -3,6 +3,7 @@ import 'package:edtech_app/data/model/blog_categories_model.dart';
 import 'package:edtech_app/data/model/blog_comment_model.dart';
 import 'package:edtech_app/data/model/blog_comment_response_model.dart';
 import 'package:edtech_app/data/model/blog_model.dart';
+import 'package:edtech_app/data/model/get_quiz_progress_model.dart';
 import 'package:edtech_app/data/model/profile_model.dart';
 import 'package:edtech_app/data/model/quiz_model.dart';
 import 'package:edtech_app/data/model/single_video_model.dart';
@@ -260,13 +261,13 @@ class ApiHelper {
   }
 
   //get quiz progress by video id
-  // Future<Result<VideosModel, APIException>> getQuizProgressByVideoId({required String videoId}) async {
-  //   final result = await dio.get('${AppUrls.getQuizProgressByVideoId}$videoId');
-  //   return result.successErrorHandler<VideosModel>(
-  //     successMapper: (data) => VideosModel.fromMap(data),
-  //     defaultSuccessCode: [200, 201],
-  //   );
-  // }
+  Future<Result<GetQuizProgressModel, APIException>> getQuizProgressByVideoId({required String videoId}) async {
+    final result = await dio.get('${AppUrls.getQuizProgressByVideoId}$videoId');
+    return result.successErrorHandler<GetQuizProgressModel>(
+      successMapper: (data) => GetQuizProgressModel.fromMap(data),
+      defaultSuccessCode: [200, 201],
+    );
+  }
 
   //get videos by subject id
   Future<Result<VideosModel, APIException>> getVideosBySubject({required String subjectId}) async {
