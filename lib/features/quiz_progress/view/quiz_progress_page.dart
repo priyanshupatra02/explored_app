@@ -82,31 +82,54 @@ class QuizProgressView extends ConsumerWidget {
                   final quizProgressAsync = ref.watch(quizProgressProvider(videoId));
                   return quizProgressAsync.easyWhen(
                     data: (quizProgressModel) {
+                      if (quizProgressModel.quizProgressData == null ||
+                          quizProgressModel.quizProgressData!.isEmpty) {
+                        return Center(
+                          child: Text(
+                            'No quiz progress available',
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  color: Colors.grey[600],
+                                ),
+                          ),
+                        );
+                      }
+
+                      final quizProgress =
+                          quizProgressModel.quizProgressData!.first.quizProgress ?? [];
+
                       return Wrap(
-                        // alignment: WrapAlignment.center,
+                        alignment: WrapAlignment.center,
                         runAlignment: WrapAlignment.center,
                         spacing: 14,
                         runSpacing: 14,
                         children: List.generate(
-                          20,
-                          (index) => Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              color:
-                                  ? AppColors.kErrorColor : AppColors.kPrimaryColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-                                '${index + 1}',
-                                style: const TextStyle(
-                                  color: AppColors.kPrimaryWhiteColor,
-                                  fontWeight: FontWeight.bold,
+                          quizProgress.length,
+                          (index) {
+                            // Get the quiz result for this index
+                            final quizMap = quizProgress[index];
+                            final indexKey = index.toString();
+                            final isCorrect = quizMap[indexKey] ?? false;
+
+                            return Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                color: isCorrect
+                                    ? AppColors.kPrimaryColor
+                                    : AppColors.kErrorColor.withValues(alpha: 0.8),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '${index + 1}',
+                                  style: const TextStyle(
+                                    color: AppColors.kPrimaryWhiteColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
                       );
                     },
