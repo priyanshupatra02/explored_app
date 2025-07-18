@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/features/blogs/controller/pod/blog_category_state_provider.dart';
+import 'package:edtech_app/features/blogs/controller/pod/blog_search_pod.dart';
 import 'package:edtech_app/features/blogs/controller/pod/blogs_categories_pod.dart';
 import 'package:edtech_app/features/blogs/controller/pod/blogs_pod.dart';
 import 'package:edtech_app/features/blogs/view/widget/blogs_card_widget.dart';
@@ -131,54 +132,75 @@ class _BlogsViewState extends ConsumerState<BlogsView> with SingleTickerProvider
 
                                 return blogsAsync.easyWhen(
                                   data: (blogsResponse) {
-                                    if (blogsResponse.blogList.isEmpty) {
-                                      return Center(
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.article_outlined,
-                                              size: 64,
-                                              color: Colors.grey[400],
-                                            ),
-                                            16.heightBox,
-                                            Text(
-                                              'No blogs found for ${category.name}',
-                                              style:
-                                                  Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    return Consumer(
+                                      builder: (context, ref, child) {
+                                        final searchQuery = ref.watch(blogSearchQueryProvider);
+
+                                        // Filter blogs based on search query
+                                        final filteredBlogs = searchQuery.isEmpty
+                                            ? blogsResponse.blogList
+                                            : blogsResponse.blogList.where((blog) {
+                                                return blog.title
+                                                    .toLowerCase()
+                                                    .contains(searchQuery.toLowerCase());
+                                              }).toList();
+
+                                        if (filteredBlogs.isEmpty) {
+                                          return Center(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  searchQuery.isEmpty
+                                                      ? Icons.article_outlined
+                                                      : Icons.search_off,
+                                                  size: 64,
+                                                  color: Colors.grey[400],
+                                                ),
+                                                16.heightBox,
+                                                Text(
+                                                  searchQuery.isEmpty
+                                                      ? 'No blogs found for ${category.name}'
+                                                      : 'No blogs found matching "$searchQuery"',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge
+                                                      ?.copyWith(
                                                         color: Colors.grey[600],
                                                       ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      );
-                                    }
+                                          );
+                                        }
 
-                                    return ListView.builder(
-                                      physics: const BouncingScrollPhysics(),
-                                      itemCount: blogsResponse.blogList.length,
-                                      itemBuilder: (context, index) {
-                                        final blog = blogsResponse.blogList[index];
-                                        DateTime now = DateTime.now();
-                                        Duration difference = now.difference(blog.createdAt);
+                                        return ListView.builder(
+                                          physics: const BouncingScrollPhysics(),
+                                          itemCount: filteredBlogs.length,
+                                          itemBuilder: (context, index) {
+                                            final blog = filteredBlogs[index];
+                                            DateTime now = DateTime.now();
+                                            Duration difference = now.difference(blog.createdAt);
 
-                                        return BlogsCardWidget(
-                                          authorName: blog.user?.firstName ?? "Admin",
-                                          blogId: blog.id,
-                                          timeAgo: Algorithms.getTimeAgo(difference: difference)
-                                              .toString(),
-                                          title: blog.title,
-                                          description: blog.content,
-                                          onReadMoreTap: () {
-                                            context.navigateTo(
-                                              BlogDetailsRoute(
-                                                authorName: blog.user?.firstName ?? "Admin",
-                                                timeAgo:
-                                                    Algorithms.getTimeAgo(difference: difference)
+                                            return BlogsCardWidget(
+                                              authorName: blog.user?.firstName ?? "Admin",
+                                              blogId: blog.id,
+                                              timeAgo: Algorithms.getTimeAgo(difference: difference)
+                                                  .toString(),
+                                              title: blog.title,
+                                              description: blog.content,
+                                              onReadMoreTap: () {
+                                                context.navigateTo(
+                                                  BlogDetailsRoute(
+                                                    authorName: blog.user?.firstName ?? "Admin",
+                                                    timeAgo: Algorithms.getTimeAgo(
+                                                            difference: difference)
                                                         .toString(),
-                                                title: blog.title,
-                                                fullDescription: blog.content,
-                                              ),
+                                                    title: blog.title,
+                                                    fullDescription: blog.content,
+                                                  ),
+                                                );
+                                              },
                                             );
                                           },
                                         );

@@ -1,5 +1,6 @@
 import 'package:edtech_app/const/app_icons/app_icons.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
+import 'package:edtech_app/features/blogs/controller/pod/blog_search_pod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -91,12 +92,16 @@ class SearchBarWidget extends ConsumerWidget {
     //   },
     // );
     return TextField(
+      onChanged: (value) {
+        ref.read(blogSearchQueryProvider.notifier).state = value;
+      },
       style: TextStyle(
         color: AppColors.kPrimaryColor,
       ),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(14),
         isDense: true,
+        filled: true,
         prefixIcon: HugeIcon(
           icon: AppIcons.strokeRoundedSearch01,
           color: AppColors.kPrimaryColor,

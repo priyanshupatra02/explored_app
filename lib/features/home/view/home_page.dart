@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/core/router/router.gr.dart';
-import 'package:edtech_app/features/blogs/view/widget/search_bar_widget.dart';
 import 'package:edtech_app/features/home/controller/pod/get_profile_pod.dart';
+import 'package:edtech_app/features/home/controller/pod/subject_search_pod.dart';
 import 'package:edtech_app/features/home/controller/pod/subjects_pod.dart';
+import 'package:edtech_app/features/home/view/widget/subject_search_bar_widget.dart';
 import 'package:edtech_app/shared/algorithms/algorithms.dart';
 import 'package:edtech_app/shared/extension/app_extension.dart';
 import 'package:edtech_app/shared/riverpod_ext/asynvalue_easy_when.dart';
@@ -101,7 +102,7 @@ class HomeView extends StatelessWidget {
               ),
               40.heightBox,
               //searchbar
-              SearchBarWidget(hintText: 'Search here'),
+              SubjectSearchBarWidget(hintText: 'Search here'),
               40.heightBox,
               RichText(
                 textAlign: TextAlign.left,
@@ -136,73 +137,110 @@ class HomeView extends StatelessWidget {
                   final subjectsAsync = ref.watch(subjectProvider);
                   return subjectsAsync.easyWhen(
                     data: (subjectsModel) {
-                      return GridView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        primary: false,
-                        itemCount: subjectsModel.subjectList.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 15,
-                          mainAxisSpacing: 15,
-                        ),
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              context.navigateTo(
-                                VideosRoute(
-                                  subject: subjectsModel.subjectList[index].name,
-                                  subjectId: subjectsModel.subjectList[index].documentId,
-                                ),
-                              );
-                            },
-                            child: Container(
-                              height: MediaQuery.of(context).size.width * 0.16,
-                              width: MediaQuery.of(context).size.width * 0.11,
-                              padding: EdgeInsets.all(15),
-                              decoration: BoxDecoration(
-                                color: AppColors.kLightSecondaryColor,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+                      return Consumer(
+                        builder: (context, ref, child) {
+                          final searchQuery = ref.watch(subjectSearchQueryProvider);
+
+                          // Filter subjects based on search query
+                          final filteredSubjects = searchQuery.isEmpty
+                              ? subjectsModel.subjectList!
+                              : subjectsModel.subjectList!.where((subject) {
+                                  return subject.name!
+                                      .toLowerCase()
+                                      .contains(searchQuery.toLowerCase());
+                                }).toList();
+
+                          if (filteredSubjects.isEmpty) {
+                            return Center(
                               child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    width: double.infinity,
-                                    padding: EdgeInsets.all(10),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: CacheNetworkImageWidget(
-                                        imageUrl: subjectsModel.subjectList[index].name,
-                                        width: double.infinity,
-                                        fit: BoxFit.cover,
-                                        placeholder: Container(
-                                          decoration: BoxDecoration(
-                                            color: AppColors.kGrey200,
-                                            borderRadius: BorderRadius.circular(12),
-                                          ),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.image_outlined,
-                                              size: 30,
-                                              color: AppColors.kGrey500,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                  Icon(
+                                    searchQuery.isEmpty ? Icons.subject_outlined : Icons.search_off,
+                                    size: 64,
+                                    color: Colors.grey[400],
                                   ),
-                                  30.heightBox,
+                                  16.heightBox,
                                   Text(
-                                    subjectsModel.subjectList[index].name,
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                          color: AppColors.kPrimaryColor,
-                                          fontWeight: FontWeight.bold,
+                                    searchQuery.isEmpty
+                                        ? 'No subjects available'
+                                        : 'No subjects found matching "$searchQuery"',
+                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                          color: Colors.grey[600],
                                         ),
                                   ),
                                 ],
                               ),
+                            );
+                          }
+
+                          return GridView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            primary: false,
+                            itemCount: filteredSubjects.length,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 15,
+                              mainAxisSpacing: 15,
                             ),
+                            itemBuilder: (context, index) {
+                              final subject = filteredSubjects[index];
+                              return GestureDetector(
+                                onTap: () {
+                                  context.navigateTo(
+                                    VideosRoute(
+                                      subject: subject.name!,
+                                      subjectId: subject.documentId!,
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  height: MediaQuery.of(context).size.width * 0.16,
+                                  width: MediaQuery.of(context).size.width * 0.11,
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.kLightSecondaryColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: CacheNetworkImageWidget(
+                                          imageUrl: subject.imageUrl,
+                                          width: double.infinity,
+                                          height: MediaQuery.of(context).size.height * 0.12,
+                                          fit: BoxFit.cover,
+                                          placeholder: Container(
+                                            decoration: BoxDecoration(
+                                              color: AppColors.kGrey200,
+                                              borderRadius: BorderRadius.circular(12),
+                                            ),
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.image_outlined,
+                                                size: 30,
+                                                color: AppColors.kGrey500,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      20.heightBox,
+                                      Text(
+                                        subject.name!,
+                                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                              color: AppColors.kPrimaryColor,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
                       );

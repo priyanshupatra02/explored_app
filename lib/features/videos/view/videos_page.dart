@@ -93,7 +93,7 @@ class _VideosViewState extends State<VideosView> {
                                 videoTitle: videosListModel.videosList[index].name,
                                 videoUrl: videosListModel.videosList[index].videoUrl,
                                 whatYouWillLearn:
-                                    'videosListModel.videosList[index].subject.description',
+                                    videosListModel.videosList[index].subject.description,
                               ),
                             );
                           },

@@ -22,7 +22,8 @@ class ChewieDemo extends StatefulWidget {
     required this.videoTitle,
     required this.videoUrl,
     required this.whatYouWillLearn,
-    required this.videoDocumentId, required this.videoId,
+    required this.videoDocumentId,
+    required this.videoId,
   });
 
   @override
@@ -51,8 +52,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
 
   Future<void> initializePlayer() async {
     _videoPlayerController1 = VideoPlayerController.networkUrl(
-      Uri.parse(
-          "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"), //TODO: make this dynamic
+      Uri.parse(widget.videoUrl), //TODO: make this dynamic
     );
     await Future.wait([
       _videoPlayerController1.initialize(),
@@ -157,10 +157,11 @@ class _ChewieDemoState extends State<ChewieDemo> {
         4.heightBox,
         Text(
           widget.whatYouWillLearn,
+          textAlign: TextAlign.left,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.kPrimaryColor,
               ),
-        ).px24(),
+        ).px24().objectCenterLeft(),
         30.heightBox,
         PrimaryActionButton(
           labelText: 'Take Quiz',
