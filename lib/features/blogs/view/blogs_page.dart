@@ -122,70 +122,74 @@ class _BlogsViewState extends ConsumerState<BlogsView> with SingleTickerProvider
                     Expanded(
                       child: TabBarView(
                         controller: _tabController,
-                        children: blogCategoriesResponse.blogsCategoriesList.map((category) {
-                          return Consumer(
-                            builder: (context, ref, child) {
-                              // Watch blogs for this specific category
-                              final blogsAsync = ref.watch(blogsProvider(category.name));
+                        children: blogCategoriesResponse.blogsCategoriesList.map(
+                          (category) {
+                            return Consumer(
+                              builder: (context, ref, child) {
+                                // Watch blogs for this specific category
+                                final blogsAsync = ref.watch(blogsProvider(category.name));
 
-                              return blogsAsync.easyWhen(
-                                data: (blogsResponse) {
-                                  if (blogsResponse.blogList.isEmpty) {
-                                    return Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.article_outlined,
-                                            size: 64,
-                                            color: Colors.grey[400],
-                                          ),
-                                          16.heightBox,
-                                          Text(
-                                            'No blogs found for ${category.name}',
-                                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                                  color: Colors.grey[600],
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }
-
-                                  return ListView.builder(
-                                    physics: const BouncingScrollPhysics(),
-                                    itemCount: blogsResponse.blogList.length,
-                                    itemBuilder: (context, index) {
-                                      final blog = blogsResponse.blogList[index];
-                                      DateTime now = DateTime.now();
-                                      Duration difference = now.difference(blog.createdAt);
-
-                                      return BlogsCardWidget(
-                                        authorName: blog.user.firstName,
-                                        blogId: blog.id,
-                                        timeAgo: Algorithms.getTimeAgo(difference: difference)
-                                            .toString(),
-                                        title: blog.title,
-                                        description: blog.content,
-                                        onReadMoreTap: () {
-                                          context.navigateTo(
-                                            BlogDetailsRoute(
-                                              authorName: blog.user.firstName,
-                                              timeAgo: Algorithms.getTimeAgo(difference: difference)
-                                                  .toString(),
-                                              title: blog.title,
-                                              fullDescription: blog.content,
+                                return blogsAsync.easyWhen(
+                                  data: (blogsResponse) {
+                                    if (blogsResponse.blogList.isEmpty) {
+                                      return Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.article_outlined,
+                                              size: 64,
+                                              color: Colors.grey[400],
                                             ),
-                                          );
-                                        },
+                                            16.heightBox,
+                                            Text(
+                                              'No blogs found for ${category.name}',
+                                              style:
+                                                  Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                        color: Colors.grey[600],
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
                                       );
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        }).toList(),
+                                    }
+
+                                    return ListView.builder(
+                                      physics: const BouncingScrollPhysics(),
+                                      itemCount: blogsResponse.blogList.length,
+                                      itemBuilder: (context, index) {
+                                        final blog = blogsResponse.blogList[index];
+                                        DateTime now = DateTime.now();
+                                        Duration difference = now.difference(blog.createdAt);
+
+                                        return BlogsCardWidget(
+                                          authorName: blog.user?.firstName ?? "Admin",
+                                          blogId: blog.id,
+                                          timeAgo: Algorithms.getTimeAgo(difference: difference)
+                                              .toString(),
+                                          title: blog.title,
+                                          description: blog.content,
+                                          onReadMoreTap: () {
+                                            context.navigateTo(
+                                              BlogDetailsRoute(
+                                                authorName: blog.user?.firstName ?? "Admin",
+                                                timeAgo:
+                                                    Algorithms.getTimeAgo(difference: difference)
+                                                        .toString(),
+                                                title: blog.title,
+                                                fullDescription: blog.content,
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ).toList(),
                       ),
                     ),
                   ],

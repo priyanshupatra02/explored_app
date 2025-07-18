@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/const/app_icons/app_icons.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/core/router/router.gr.dart';
-import 'package:edtech_app/features/login/const/update_user_constants.dart';
+import 'package:edtech_app/features/login/const/sign_up_user_constants.dart';
 import 'package:edtech_app/features/login/controller/pod/is_obscuring_text_pod.dart';
 import 'package:edtech_app/features/login/controller/pod/register_user_pod.dart';
 import 'package:edtech_app/features/login/view/widget/signup_button.dart';
@@ -28,11 +28,11 @@ class SignupTab extends ConsumerStatefulWidget {
 
 class _SignupTabState extends ConsumerState<SignupTab> {
   void registerUser() {
-    final name = widget.updateFormKey.currentState!.fields[UpdateUserConstants.name]!.value;
+    final name = widget.updateFormKey.currentState!.fields[SignUpUserConstants.name]!.value;
     final email =
-        widget.updateFormKey.currentState!.fields[UpdateUserConstants.enterYourEmail]!.value;
+        widget.updateFormKey.currentState!.fields[SignUpUserConstants.enterYourEmail]!.value;
     final password =
-        widget.updateFormKey.currentState!.fields[UpdateUserConstants.newPassword]!.value;
+        widget.updateFormKey.currentState!.fields[SignUpUserConstants.newPassword]!.value;
     if (widget.updateFormKey.currentState!.validate()) {
       ref.read(registerUserProvider.notifier).registerUser(
             email: email,
@@ -71,7 +71,7 @@ class _SignupTabState extends ConsumerState<SignupTab> {
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.name,
               hintText: 'Your name',
-              name: UpdateUserConstants.name,
+              name: SignUpUserConstants.name,
               isFillColor: true,
               fillColor: AppColors.kPrimaryWhiteColor,
               prefixIcon: HugeIcon(
@@ -88,7 +88,7 @@ class _SignupTabState extends ConsumerState<SignupTab> {
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.emailAddress,
               hintText: 'Enter your email',
-              name: UpdateUserConstants.enterYourEmail,
+              name: SignUpUserConstants.enterYourEmail,
               isFillColor: true,
               fillColor: AppColors.kPrimaryWhiteColor,
               prefixIcon: HugeIcon(
@@ -106,7 +106,7 @@ class _SignupTabState extends ConsumerState<SignupTab> {
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.visiblePassword,
               hintText: 'New password',
-              name: UpdateUserConstants.newPassword,
+              name: SignUpUserConstants.newPassword,
               isFillColor: true,
               isObscureText: isObscureText,
               maxLine: 1,

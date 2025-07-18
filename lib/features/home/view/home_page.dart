@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:edtech_app/const/resource.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/features/blogs/view/widget/search_bar_widget.dart';
@@ -8,10 +7,10 @@ import 'package:edtech_app/features/home/controller/pod/subjects_pod.dart';
 import 'package:edtech_app/shared/algorithms/algorithms.dart';
 import 'package:edtech_app/shared/extension/app_extension.dart';
 import 'package:edtech_app/shared/riverpod_ext/asynvalue_easy_when.dart';
+import 'package:edtech_app/shared/widget/cache_network_image_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
@@ -168,7 +167,31 @@ class HomeView extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  SvgPicture.asset(R.ASSETS_ILLUSTRATION_PHYSICS_ILLUSTRATION_SVG),
+                                  Container(
+                                    width: double.infinity,
+                                    padding: EdgeInsets.all(10),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: CacheNetworkImageWidget(
+                                        imageUrl: subjectsModel.subjectList[index].name,
+                                        width: double.infinity,
+                                        fit: BoxFit.cover,
+                                        placeholder: Container(
+                                          decoration: BoxDecoration(
+                                            color: AppColors.kGrey200,
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.image_outlined,
+                                              size: 30,
+                                              color: AppColors.kGrey500,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                   30.heightBox,
                                   Text(
                                     subjectsModel.subjectList[index].name,

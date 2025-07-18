@@ -20,7 +20,7 @@ class UserDesignationWidget extends StatelessWidget {
         return getProfileAsync.easyWhen(
           data: (profileResponse) {
             return Text(
-              profileResponse.wouldDoYouDo!,
+              profileResponse.wouldDoYouDo ?? " ",
               style: textTheme.bodyLarge?.copyWith(
                 color: AppColors.kGrey500,
                 fontWeight: FontWeight.w400,

@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class ProfileModel {
@@ -7,12 +8,12 @@ class ProfileModel {
     final String? email;
     final bool? confirmed;
     final bool? blocked;
-    final String? phone;
+    final dynamic phone;
     final String? firstName;
     final String? lastName;
     final dynamic resetCode;
     final dynamic expiryTime;
-    final bool? isAdmin;
+    final dynamic isAdmin;
     final Feedback? feedback;
     final bool? isPaid;
     final String? whatCourseDoYouNeed;
@@ -48,12 +49,12 @@ class ProfileModel {
         String? email,
         bool? confirmed,
         bool? blocked,
-        String? phone,
+        dynamic phone,
         String? firstName,
         String? lastName,
         dynamic resetCode,
         dynamic expiryTime,
-        bool? isAdmin,
+        dynamic isAdmin,
         Feedback? feedback,
         bool? isPaid,
         String? whatCourseDoYouNeed,
@@ -99,7 +100,7 @@ class ProfileModel {
         resetCode: json["resetCode"],
         expiryTime: json["expiryTime"],
         isAdmin: json["isAdmin"],
-        feedback: json["feedback"] == null ? null : Feedback.fromMap(json["feedback"]),
+        feedback: json["feedback"] != null ? Feedback.fromMap(json["feedback"]) : null,
         isPaid: json["isPaid"],
         whatCourseDoYouNeed: json["whatCourseDoYouNeed"],
         wouldDoYouDo: json["wouldDoYouDo"],

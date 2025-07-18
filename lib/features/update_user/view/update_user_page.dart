@@ -2,9 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/bootstrap.dart';
 import 'package:edtech_app/const/resource.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
+import 'package:edtech_app/core/router/router.gr.dart';
+import 'package:edtech_app/data/services/login_db_service/login_db_service_pod.dart';
 import 'package:edtech_app/features/update_user/const/update_user_constants.dart';
 import 'package:edtech_app/features/update_user/controller/pod/current_step_pod.dart';
 import 'package:edtech_app/features/update_user/controller/pod/icon_color_pod.dart';
+import 'package:edtech_app/features/update_user/controller/pod/update_user_pod.dart';
 import 'package:edtech_app/features/update_user/view/widgets/next_or_submit_button.dart';
 import 'package:edtech_app/features/update_user/view/widgets/questions_header_widget.dart';
 import 'package:edtech_app/shared/widget/forms/custom_radio_group_form_field.dart';
@@ -38,30 +41,105 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
   final step3FormKey = GlobalKey<FormBuilderState>();
   final step4FormKey = GlobalKey<FormBuilderState>();
   final step5FormKey = GlobalKey<FormBuilderState>();
-  final step6FormKey = GlobalKey<FormBuilderState>();
+
   void updateUser() {
+    final loginModel = ref.read(loginDbProvider).getLoginModel();
     //accessing fields
     final step1Field = step1FormKey.currentState?.fields;
     final step2Field = step2FormKey.currentState?.fields;
     final step3Field = step3FormKey.currentState?.fields;
     final step4Field = step4FormKey.currentState?.fields;
     final step5Field = step5FormKey.currentState?.fields;
-    final step6Field = step6FormKey.currentState?.fields;
-    if (step1FormKey.currentState?.saveAndValidate()  == true &&
+    if (step1FormKey.currentState?.saveAndValidate() == true &&
         step2FormKey.currentState?.saveAndValidate() == true &&
         step3FormKey.currentState?.saveAndValidate() == true &&
         step4FormKey.currentState?.saveAndValidate() == true &&
-        step5FormKey.currentState?.saveAndValidate() == true &&
-        step6FormKey.currentState?.saveAndValidate() == true) {
+        step5FormKey.currentState?.saveAndValidate() == true) {
       // Access the values of the fields
-      
-      // Handle form submission
+      ref.read(updateUserProvider.notifier).updateUser(
+            userId: loginModel!.user!.id.toString(),
+            whatCourseDoYouNeed: step1Field![UpdateUserConstants.course]!.value as String,
+            doYouNeedCareerCounselling:
+                step2Field![UpdateUserConstants.doYouNeedCareerCounselling]!.value as String,
+            wouldYouLikeToBeACareerCounsellor:
+                step3Field![UpdateUserConstants.wantToBeACareerCounsellor]!.value as String,
+            whatDoYouDo: step4Field![UpdateUserConstants.whatDoYouDo]!.value as String,
+            whichActivityDoYouEnjoyTheMost:
+                step5Field![UpdateUserConstants.activityEnjoy]!.value as String,
+            whatKindOfChallengesExciteYou:
+                step5Field[UpdateUserConstants.whatKindOfChallengesExciteYou]!.value as String,
+            doYouPreferWorkingWith:
+                step5Field[UpdateUserConstants.doYouPreferWorkingWith]!.value as String,
+            whatDoYouEnjoyDoingInYourFreeTime:
+                step5Field[UpdateUserConstants.whatDoYouEnjoyDoingInYourFreeTime]!.value as String,
+            whatComesNaturallyToYou:
+                step5Field[UpdateUserConstants.whatComesNaturallyToYou]!.value as String,
+            whichSubjectWouldYouEnjoyTheMost:
+                step5Field[UpdateUserConstants.whichSubjectWouldYouEnjoyTheMost]!.value as String,
+            whatKindOfWorkEnvironmentSuitsYou:
+                step5Field[UpdateUserConstants.whatKindOfWorkEnvironmentSuitsYou]!.value as String,
+            howDoYouApproachProblems:
+                step5Field[UpdateUserConstants.howDoYouApproachProblems]!.value as String,
+            whichSkillAreYouBestAt:
+                step5Field[UpdateUserConstants.whichSkillAreYouBestAt]!.value as String,
+            whatMotivatesYouMostInACareer:
+                step5Field[UpdateUserConstants.whatMotivatesYouMostInACareer]!.value as String,
+            doYouPreferWorking: step5Field[UpdateUserConstants.doYouPreferWorking]!.value as String,
+            doYouLikeJobsThatInvolve:
+                step5Field[UpdateUserConstants.doYouLikeJobsThatInvolve]!.value as String,
+            howDoYouFeelAboutDeadlines:
+                step5Field[UpdateUserConstants.howDoYouFeelAboutDeadlines]!.value as String,
+            wouldYouRather: step5Field[UpdateUserConstants.wouldYouRather]!.value as String,
+            whatKindOfJobStructureDoYouPrefer:
+                step5Field[UpdateUserConstants.whatKindOfJobStructureDoYouPrefer]!.value as String,
+            wouldYouEnjoyACareerWhereYou:
+                step5Field[UpdateUserConstants.wouldYouEnjoyACareerWhereYou]!.value as String,
+            wouldYouLikeToTravelForWork:
+                step5Field[UpdateUserConstants.wouldYouLikeToTravelForWork]!.value as String,
+            whatWouldMakeYouHappiestInAJob:
+                step5Field[UpdateUserConstants.whatWouldMakeYouHappiestInAJob]!.value as String,
+            doYouEnjoyWorkingWithTechnology:
+                step5Field[UpdateUserConstants.doYouEnjoyWorkingWithTechnology]!.value as String,
+            areYouInterestedInHealthcareOrMedicine:
+                step5Field[UpdateUserConstants.areYouInterestedInHealthcareOrMedicine]!.value
+                    as String,
+            wouldYouLikeToWorkInEducationOrTeaching:
+                step5Field[UpdateUserConstants.wouldYouLikeToWorkInEducationOrTeaching]!.value
+                    as String,
+            doYouEnjoyResearchAndAnalysis:
+                step5Field[UpdateUserConstants.doYouEnjoyResearchAndAnalysis]!.value as String,
+            areYouInterestedInPsychologyOrCounseling:
+                step5Field[UpdateUserConstants.areYouInterestedInPsychologyOrCounseling]!.value
+                    as String,
+            wouldYouLikeACareerInMediaOrFilmOrEntertainment:
+                step5Field[UpdateUserConstants.wouldYouLikeACareerInMediaOrFilmOrEntertainment]!
+                    .value as String,
+            whatIsMoreImportantToYouInAJob:
+                step5Field[UpdateUserConstants.whatIsMoreImportantToYouInAJob]!.value as String,
+            wouldYouRatherDo: step5Field[UpdateUserConstants.wouldYouRatherDo]!.value as String,
+            whatKindOfEmployerDoYouPrefer:
+                step5Field[UpdateUserConstants.whatKindOfEmployerDoYouPrefer]!.value as String,
+            whereWouldYouRatherWork:
+                step5Field[UpdateUserConstants.whereWouldYouRatherWork]!.value as String,
+            areYouMoreOfA: step5Field[UpdateUserConstants.areYouMoreOfA]!.value as String,
+            doYouPrefer: step5Field[UpdateUserConstants.doYouPrefer]!.value as String,
+            onUserUpdated: (updatedUserResponse) {
+              talker.debug(updatedUserResponse.user?.feedback);
+              talker.debug("------ ${loginModel.user?.whatCourseDoYouNeed}");
+              if (updatedUserResponse.user?.feedback != null) {
+                context.router.replaceAll([NavbarRoute()]);
+              } else {
+                context.router.replaceAll([UpdateUserRoute()]);
+              }
+            },
+          );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     int currentStep = ref.watch(currentStepPod);
+    final loginModel = ref.read(loginDbProvider).getLoginModel();
     final onboardingHeaderTextStyle = Theme.of(context).textTheme.headlineMedium?.copyWith(
           fontWeight: FontWeight.bold,
           color: AppColors.kPrimaryColor,
@@ -92,23 +170,21 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
           type: StepperType.horizontal,
           currentStep: currentStep,
           onStepContinue: () async {
-            ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            // if (currentStep == 0 && step1FormKey.currentState!.validate()) {
-            // }
-            // if (currentStep == 1 && step2FormKey.currentState!.saveAndValidate()) {
-            //   ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            // }
-            // if (currentStep == 2 && step3FormKey.currentState!.saveAndValidate()) {
-            //   ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            // }
-            // if (currentStep == 3 && step4FormKey.currentState!.validate()) {
-            //   ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            // }
-            // if (currentStep == 5 && step5FormKey.currentState!.validate()) {
-            //   ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            // }
-            // if (currentStep == 6 && step6FormKey.currentState!.validate()) {
-            // }
+            if (currentStep == 0 && step1FormKey.currentState!.validate()) {
+              ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
+            }
+            if (currentStep == 1 && step2FormKey.currentState!.saveAndValidate()) {
+              ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
+            }
+            if (currentStep == 2 && step3FormKey.currentState!.saveAndValidate()) {
+              ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
+            }
+            if (currentStep == 3 && step4FormKey.currentState!.validate()) {
+              ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
+            }
+            if (currentStep == 4 && step5FormKey.currentState!.saveAndValidate()) {
+              updateUser();
+            }
           },
           onStepCancel: () {
             if (currentStep > 0) {
@@ -121,7 +197,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
               isActive: currentStep >= 0,
               title: currentStep == 0 ? const Text('Skill Details') : const SizedBox(),
               content: FormBuilder(
-                key: step2FormKey,
+                key: step1FormKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,7 +239,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
               isActive: currentStep >= 1,
               title: currentStep == 1 ? const Text('Other Details') : const SizedBox(),
               content: FormBuilder(
-                key: step3FormKey,
+                key: step2FormKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,7 +250,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       style: onboardingHeaderTextStyle,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.wantACareerCounselling,
+                      name: UpdateUserConstants.doYouNeedCareerCounselling,
                       direction: Axis.horizontal,
                       onChanged: (p0) {},
                       validator: FormBuilderValidators.compose(
@@ -202,7 +278,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
               isActive: currentStep >= 2,
               title: currentStep == 2 ? const Text('Career') : const SizedBox(),
               content: FormBuilder(
-                key: step4FormKey,
+                key: step3FormKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,7 +289,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       style: onboardingHeaderTextStyle,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.wantACareerCounselling,
+                      name: UpdateUserConstants.wantToBeACareerCounsellor,
                       direction: Axis.horizontal,
                       onChanged: (p0) {},
                       validator: FormBuilderValidators.compose(
@@ -241,7 +317,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
               isActive: currentStep >= 3,
               title: currentStep == 3 ? const Text('Role') : const SizedBox(),
               content: FormBuilder(
-                key: step5FormKey,
+                key: step4FormKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,7 +331,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       final isSelectedStudentIcon = ref.watch(iconStudentColorProvider);
                       final isSelectedUgIcon = ref.watch(iconUGColorProvider);
                       return CustomRadioGroupFormField<String>(
-                        name: UpdateUserConstants.wantToBeACareerCounselling,
+                        name: UpdateUserConstants.whatDoYouDo,
                         direction: Axis.horizontal,
                         borderRadius: 20,
                         onChanged: (value) {
@@ -321,7 +397,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
               isActive: currentStep >= 4,
               title: currentStep == 4 ? const Text('Career Interests') : const SizedBox(),
               content: FormBuilder(
-                key: step6FormKey,
+                key: step5FormKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -359,7 +435,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 1,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.challenges,
+                      name: UpdateUserConstants.whatKindOfChallengesExciteYou,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -381,7 +457,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 2,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.challenges,
+                      name: UpdateUserConstants.doYouPreferWorkingWith,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -400,7 +476,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 3,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.challenges,
+                      name: UpdateUserConstants.whatDoYouEnjoyDoingInYourFreeTime,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -421,7 +497,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 4,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.comesNaturally,
+                      name: UpdateUserConstants.whatComesNaturallyToYou,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -442,7 +518,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 5,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.enjoySubject,
+                      name: UpdateUserConstants.whichSubjectWouldYouEnjoyTheMost,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -472,7 +548,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 6,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.suitableEnv,
+                      name: UpdateUserConstants.whatKindOfWorkEnvironmentSuitsYou,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -495,7 +571,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 7,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.problemApproach,
+                      name: UpdateUserConstants.howDoYouApproachProblems,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -520,7 +596,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 8,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.bestSkill,
+                      name: UpdateUserConstants.whichSkillAreYouBestAt,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -545,7 +621,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 9,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.careerMotives,
+                      name: UpdateUserConstants.whatMotivatesYouMostInACareer,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -572,7 +648,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 10,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.howWorkPreference,
+                      name: UpdateUserConstants.doYouPreferWorking,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -596,7 +672,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 11,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.jobInvolvement,
+                      name: UpdateUserConstants.doYouLikeJobsThatInvolve,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -640,7 +716,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 13,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.feelAboutDeadline,
+                      name: UpdateUserConstants.howDoYouFeelAboutDeadlines,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -664,7 +740,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 14,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.jobStructurePrefer,
+                      name: UpdateUserConstants.whatKindOfJobStructureDoYouPrefer,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -686,7 +762,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 15,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.enjoyACareerWhere,
+                      name: UpdateUserConstants.wouldYouEnjoyACareerWhereYou,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -709,7 +785,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 16,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.travelForWork,
+                      name: UpdateUserConstants.wouldYouLikeToTravelForWork,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -733,7 +809,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 17,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.happiestInJob,
+                      name: UpdateUserConstants.whatWouldMakeYouHappiestInAJob,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -758,7 +834,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 18,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.workWithTech,
+                      name: UpdateUserConstants.doYouEnjoyWorkingWithTechnology,
                       direction: Axis.horizontal,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
@@ -781,7 +857,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 19,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.interestInHealthOrMedicine,
+                      name: UpdateUserConstants.areYouInterestedInHealthcareOrMedicine,
                       direction: Axis.horizontal,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
@@ -804,7 +880,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 20,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.workInEduOrTeaching,
+                      name: UpdateUserConstants.wouldYouLikeToWorkInEducationOrTeaching,
                       direction: Axis.horizontal,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
@@ -827,7 +903,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 21,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.enjoyResearchOrAnalysis,
+                      name: UpdateUserConstants.doYouEnjoyResearchAndAnalysis,
                       direction: Axis.horizontal,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
@@ -850,7 +926,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 22,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.interestInPsychologyOrCounselling,
+                      name: UpdateUserConstants.areYouInterestedInPsychologyOrCounseling,
                       direction: Axis.horizontal,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
@@ -873,7 +949,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 23,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.careerInMedia,
+                      name: UpdateUserConstants.wouldYouLikeACareerInMediaOrFilmOrEntertainment,
                       direction: Axis.horizontal,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
@@ -900,7 +976,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 24,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.importantInJob,
+                      name: UpdateUserConstants.whatIsMoreImportantToYouInAJob,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -918,7 +994,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 25,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.wouldYouRather2,
+                      name: UpdateUserConstants.wouldYouRatherDo,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -938,7 +1014,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 26,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.preferableEmployer,
+                      name: UpdateUserConstants.whatKindOfEmployerDoYouPrefer,
                       onChanged: (values) {},
                       validator: FormBuilderValidators.compose(
                         [
@@ -955,7 +1031,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                       questionNumber: 27,
                     ),
                     CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.wouldYouRatherWork,
+                      name: UpdateUserConstants.whereWouldYouRatherWork,
                       onChanged: (p0) {},
                       validator: FormBuilderValidators.compose(
                         [

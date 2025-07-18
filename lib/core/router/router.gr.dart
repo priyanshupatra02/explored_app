@@ -316,10 +316,15 @@ class QuizRoute extends _i20.PageRouteInfo<QuizRouteArgs> {
   QuizRoute({
     _i21.Key? key,
     required String questionId,
+    required int videoId,
     List<_i20.PageRouteInfo>? children,
   }) : super(
          QuizRoute.name,
-         args: QuizRouteArgs(key: key, questionId: questionId),
+         args: QuizRouteArgs(
+           key: key,
+           questionId: questionId,
+           videoId: videoId,
+         ),
          initialChildren: children,
        );
 
@@ -329,21 +334,31 @@ class QuizRoute extends _i20.PageRouteInfo<QuizRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<QuizRouteArgs>();
-      return _i12.QuizPage(key: args.key, questionId: args.questionId);
+      return _i12.QuizPage(
+        key: args.key,
+        questionId: args.questionId,
+        videoId: args.videoId,
+      );
     },
   );
 }
 
 class QuizRouteArgs {
-  const QuizRouteArgs({this.key, required this.questionId});
+  const QuizRouteArgs({
+    this.key,
+    required this.questionId,
+    required this.videoId,
+  });
 
   final _i21.Key? key;
 
   final String questionId;
 
+  final int videoId;
+
   @override
   String toString() {
-    return 'QuizRouteArgs{key: $key, questionId: $questionId}';
+    return 'QuizRouteArgs{key: $key, questionId: $questionId, videoId: $videoId}';
   }
 }
 
@@ -478,7 +493,8 @@ class VideoPlayerRoute extends _i20.PageRouteInfo<VideoPlayerRouteArgs> {
     required String videoTitle,
     required String videoUrl,
     required String whatYouWillLearn,
-    required String videoId,
+    required String videoDocumentId,
+    required int videoId,
     List<_i20.PageRouteInfo>? children,
   }) : super(
          VideoPlayerRoute.name,
@@ -487,6 +503,7 @@ class VideoPlayerRoute extends _i20.PageRouteInfo<VideoPlayerRouteArgs> {
            videoTitle: videoTitle,
            videoUrl: videoUrl,
            whatYouWillLearn: whatYouWillLearn,
+           videoDocumentId: videoDocumentId,
            videoId: videoId,
          ),
          initialChildren: children,
@@ -503,6 +520,7 @@ class VideoPlayerRoute extends _i20.PageRouteInfo<VideoPlayerRouteArgs> {
         videoTitle: args.videoTitle,
         videoUrl: args.videoUrl,
         whatYouWillLearn: args.whatYouWillLearn,
+        videoDocumentId: args.videoDocumentId,
         videoId: args.videoId,
       );
     },
@@ -515,6 +533,7 @@ class VideoPlayerRouteArgs {
     required this.videoTitle,
     required this.videoUrl,
     required this.whatYouWillLearn,
+    required this.videoDocumentId,
     required this.videoId,
   });
 
@@ -526,11 +545,13 @@ class VideoPlayerRouteArgs {
 
   final String whatYouWillLearn;
 
-  final String videoId;
+  final String videoDocumentId;
+
+  final int videoId;
 
   @override
   String toString() {
-    return 'VideoPlayerRouteArgs{key: $key, videoTitle: $videoTitle, videoUrl: $videoUrl, whatYouWillLearn: $whatYouWillLearn, videoId: $videoId}';
+    return 'VideoPlayerRouteArgs{key: $key, videoTitle: $videoTitle, videoUrl: $videoUrl, whatYouWillLearn: $whatYouWillLearn, videoDocumentId: $videoDocumentId, videoId: $videoId}';
   }
 }
 

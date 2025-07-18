@@ -37,12 +37,12 @@ class ProfileDetails extends StatelessWidget {
                         value: profileResponse.email!,
                         delay: 0,
                       ),
-                      DetailRow(
-                        icon: Icons.phone_outlined,
-                        label: 'Phone',
-                        value: "+91 ${profileResponse.phone!}",
-                        delay: 100,
-                      ),
+                      // DetailRow(
+                      //   icon: Icons.phone_outlined,
+                      //   label: 'Phone',
+                      //   value: "+91 ${profileResponse.phone!}",
+                      //   delay: 100,
+                      // ),
                       DetailRow(
                         icon: Icons.school_outlined,
                         label: 'Course Interest',

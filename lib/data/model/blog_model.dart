@@ -43,7 +43,7 @@ class BlogList {
   final dynamic publishedAt;
   final dynamic locale;
   final Category category;
-  final User user;
+  final User? user;
 
   BlogList({
     required this.id,
@@ -55,7 +55,7 @@ class BlogList {
     required this.publishedAt,
     required this.locale,
     required this.category,
-    required this.user,
+    this.user,
   });
 
   BlogList copyWith({
@@ -97,7 +97,7 @@ class BlogList {
         publishedAt: json["publishedAt"],
         locale: json["locale"],
         category: Category.fromMap(json["category"]),
-        user: User.fromMap(json["user"]),
+        user: json["user"] != null ? User.fromMap(json["user"]) : null,
       );
 
   Map<String, dynamic> toMap() => {
@@ -110,7 +110,7 @@ class BlogList {
         "publishedAt": publishedAt,
         "locale": locale,
         "category": category.toMap(),
-        "user": user.toMap(),
+        "user": user?.toMap(),
       };
 }
 
@@ -160,16 +160,16 @@ class Category {
 }
 
 class User {
-  final int id;
-  final String documentId;
-  final String firstName;
-  final String lastName;
+  final int? id;
+  final String? documentId;
+  final String? firstName;
+  final String? lastName;
 
   User({
-    required this.id,
-    required this.documentId,
-    required this.firstName,
-    required this.lastName,
+    this.id,
+    this.documentId,
+    this.firstName,
+    this.lastName,
   });
 
   User copyWith({

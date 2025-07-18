@@ -39,14 +39,14 @@ class BlogsCategoriesList {
   final int id;
   final String documentId;
   final String name;
-  final String slug;
+  final String? slug;
   final dynamic description;
 
   BlogsCategoriesList({
     required this.id,
     required this.documentId,
     required this.name,
-    required this.slug,
+    this.slug,
     required this.description,
   });
 

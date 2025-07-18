@@ -1,24 +1,24 @@
 import 'dart:convert';
 
-class UdpateUserModel {
+class UpdateUserModel {
   final UpdateUserData? updateUserData;
 
-  UdpateUserModel({
+  UpdateUserModel({
     this.updateUserData,
   });
 
-  UdpateUserModel copyWith({
+  UpdateUserModel copyWith({
     UpdateUserData? data,
   }) =>
-      UdpateUserModel(
+      UpdateUserModel(
         updateUserData: data ?? updateUserData,
       );
 
-  factory UdpateUserModel.fromJson(String str) => UdpateUserModel.fromMap(json.decode(str));
+  factory UpdateUserModel.fromJson(String str) => UpdateUserModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory UdpateUserModel.fromMap(Map<String, dynamic> json) => UdpateUserModel(
+  factory UpdateUserModel.fromMap(Map<String, dynamic> json) => UpdateUserModel(
         updateUserData: json["data"] == null ? null : UpdateUserData.fromMap(json["data"]),
       );
 

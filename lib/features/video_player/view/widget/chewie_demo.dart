@@ -14,14 +14,15 @@ import 'package:video_player/video_player.dart';
 class ChewieDemo extends StatefulWidget {
   final String videoTitle;
   final String videoUrl;
-  final String videoId;
+  final String videoDocumentId;
   final String whatYouWillLearn;
+  final int videoId;
   const ChewieDemo({
     super.key,
     required this.videoTitle,
     required this.videoUrl,
     required this.whatYouWillLearn,
-    required this.videoId,
+    required this.videoDocumentId, required this.videoId,
   });
 
   @override
@@ -175,7 +176,8 @@ class _ChewieDemoState extends State<ChewieDemo> {
               (value) {
                 context.navigateTo(
                   QuizRoute(
-                    questionId: widget.videoId,
+                    questionId: widget.videoDocumentId,
+                    videoId: widget.videoId,
                   ),
                 );
               },
@@ -200,7 +202,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
           onPressed: () {
             context.navigateTo(
               QuizProgressRoute(
-                videoId: widget.videoId,
+                videoId: widget.videoDocumentId,
               ),
             );
           },

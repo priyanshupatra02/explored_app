@@ -11,13 +11,15 @@ import 'package:flutter/material.dart';
 class VideoPlayerPage extends StatelessWidget {
   final String videoTitle;
   final String videoUrl;
-  final String videoId;
+  final int videoId;
+  final String videoDocumentId;
   final String whatYouWillLearn;
   const VideoPlayerPage({
     super.key,
     required this.videoTitle,
     required this.videoUrl,
     required this.whatYouWillLearn,
+    required this.videoDocumentId,
     required this.videoId,
   });
 
@@ -25,9 +27,10 @@ class VideoPlayerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return VideoPlayerView(
       videoTitle: videoTitle,
-      videoId: videoId,
-      videoUrl: videoUrl, //TODO: make this dynamic
+      videoDocumentId: videoDocumentId,
+      videoUrl: videoUrl,
       whatYouWillLearn: whatYouWillLearn,
+      videoId: videoId,
     );
   }
 }
@@ -35,13 +38,15 @@ class VideoPlayerPage extends StatelessWidget {
 class VideoPlayerView extends StatefulWidget {
   final String videoTitle;
   final String videoUrl;
-  final String videoId;
+  final String videoDocumentId;
   final String whatYouWillLearn;
+  final int videoId;
   const VideoPlayerView({
     super.key,
     required this.videoTitle,
     required this.videoUrl,
     required this.whatYouWillLearn,
+    required this.videoDocumentId,
     required this.videoId,
   });
 
@@ -89,8 +94,9 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
       body: ChewieDemo(
         videoTitle: widget.videoTitle,
         videoUrl: widget.videoUrl,
-        videoId: widget.videoId,
+        videoDocumentId: widget.videoDocumentId,
         whatYouWillLearn: widget.whatYouWillLearn,
+        videoId: widget.videoId,
       ),
     );
   }

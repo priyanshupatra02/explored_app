@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final quizProvider = FutureProvider.autoDispose.family<QuizModel, String>(
   (ref, videoId) async {
-    final result = await ref.watch(apiHelperProvider).getQuizByVideoId(videoId: videoId);
+    final result = await ref.watch(apiHelperProvider).getQuizByVideoId(videoDocumentId: videoId);
     ref.keepAlive();
     return result.when(
       (quizModel) {

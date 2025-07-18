@@ -19,6 +19,7 @@ class AppUrls {
   static const String getBlogs = "/v1/blogs";
   static const String getBlogComments = "/v1/blog-comments";
   static const String addBlogComment = "/v1/blog-comments";
+  static const String quizProgress = "/v1/quiz-progresses";
   static const String getAllVideosBySubjectId = "/v1/videos?filters[subject][documentId]=";
   static const String getSingleVideoByVideoId = "/v1/videos/";
 

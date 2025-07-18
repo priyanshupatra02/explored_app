@@ -88,11 +88,12 @@ class _VideosViewState extends State<VideosView> {
                           onTap: () {
                             context.navigateTo(
                               VideoPlayerRoute(
-                                videoId: videosListModel.videosList[index].documentId,
+                                videoDocumentId: videosListModel.videosList[index].documentId,
+                                videoId: videosListModel.videosList[index].id,
                                 videoTitle: videosListModel.videosList[index].name,
                                 videoUrl: videosListModel.videosList[index].videoUrl,
                                 whatYouWillLearn:
-                                    videosListModel.videosList[index].subject.description,
+                                    'videosListModel.videosList[index].subject.description',
                               ),
                             );
                           },

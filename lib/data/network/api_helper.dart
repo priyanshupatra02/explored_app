@@ -7,6 +7,7 @@ import 'package:edtech_app/data/model/profile_model.dart';
 import 'package:edtech_app/data/model/quiz_model.dart';
 import 'package:edtech_app/data/model/single_video_model.dart';
 import 'package:edtech_app/data/model/subject_list_model.dart';
+import 'package:edtech_app/data/model/submit_quiz_response_model.dart';
 import 'package:edtech_app/data/model/user_response_model.dart';
 import 'package:edtech_app/data/model/videos_list_model.dart';
 import 'package:edtech_app/data/network/app_urls.dart';
@@ -49,9 +50,9 @@ class ApiHelper {
 
   //update user
   Future<Result<UserResponseModel, APIException>> updateUser({
-    required String firstName,
-    required String lastname,
-    required String email,
+    // required String firstName,
+    // required String lastname,
+    // required String email,
     required String userId,
     required String whatCourseDoYouNeed,
     required String doYouNeedCareerCounselling,
@@ -88,15 +89,18 @@ class ApiHelper {
     required String areYouMoreOfA,
     required String doYouPrefer,
   }) async {
+    final bool isDoYouNeedCareerCounselling = doYouNeedCareerCounselling == "No" ? false : true;
+    final bool isWouldYouLikeToBeACareerCounsellor =
+        wouldYouLikeToBeACareerCounsellor == "No" ? false : true;
     final result = await dio.put(
       '${AppUrls.updateuser}$userId',
       data: {
-        "firstName": firstName,
-        "lastName": lastname,
-        "email": email,
+        // "firstName": firstName,
+        // "lastName": lastname,
+        // "email": email,
         "whatCourseDoYouNeed": whatCourseDoYouNeed,
-        "doYouNeedACareerCounselling": doYouNeedCareerCounselling,
-        "wouldYouLikeToBeACareerCounsellor": wouldYouLikeToBeACareerCounsellor,
+        "doYouNeedACareerCounselling": isDoYouNeedCareerCounselling,
+        "wouldYouLikeToBeACareerCounsellor": isWouldYouLikeToBeACareerCounsellor,
         "whatDoYouDo": whatDoYouDo,
         "feedback": {
           "whichActivityDoYouEnjoyTheMost": whichActivityDoYouEnjoyTheMost,
@@ -229,10 +233,28 @@ class ApiHelper {
   }
 
   //get quiz
-  Future<Result<QuizModel, APIException>> getQuizByVideoId({required String videoId}) async {
-    final result = await dio.get(AppUrls.getQuizByVideoId + videoId);
+  Future<Result<QuizModel, APIException>> getQuizByVideoId(
+      {required String videoDocumentId}) async {
+    final result = await dio.get(AppUrls.getQuizByVideoId + videoDocumentId);
     return result.successErrorHandler<QuizModel>(
       successMapper: (data) => QuizModel.fromMap(data),
+      defaultSuccessCode: [200, 201],
+    );
+  }
+
+  //quiz progress
+  Future<Result<SubmitQuizResponseModel, APIException>> submitQuizProgress({
+    required List<Map<String, bool>> quizProgress,
+    required int videoId,
+  }) async {
+    final result = await dio.post(
+      AppUrls.quizProgress,
+      data: {
+        "data": {"quizProgress": quizProgress, "video": videoId}
+      },
+    );
+    return result.successErrorHandler<SubmitQuizResponseModel>(
+      successMapper: (data) => SubmitQuizResponseModel.fromMap(data),
       defaultSuccessCode: [200, 201],
     );
   }
@@ -245,6 +267,7 @@ class ApiHelper {
   //     defaultSuccessCode: [200, 201],
   //   );
   // }
+
   //get videos by subject id
   Future<Result<VideosModel, APIException>> getVideosBySubject({required String subjectId}) async {
     final result = await dio.get('${AppUrls.getAllVideosBySubjectId}$subjectId');
