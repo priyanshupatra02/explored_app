@@ -22,7 +22,6 @@ class AppUrls {
   static const String quizProgress = "/v1/quiz-progresses";
   static const String getAllVideosBySubjectId = "/v1/videos?filters[subject][documentId]=";
   static const String getSingleVideoByVideoId = "/v1/videos/";
-
   static const String getQuizByVideoId = "/v1/quizzes?filters[video][documentId]=";
   static const String getQuizProgressByVideoId = "/v1/quiz-progresses?filters[video][documentId]=";
 }

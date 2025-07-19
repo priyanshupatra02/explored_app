@@ -4,6 +4,7 @@ import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/features/quiz/const/quiz_constants.dart';
 import 'package:edtech_app/features/quiz/controller/pod/quiz_pod.dart';
 import 'package:edtech_app/features/quiz/controller/pod/submit_quiz_pod.dart';
+import 'package:edtech_app/features/quiz/controller/pod/update_quiz_pod.dart';
 import 'package:edtech_app/features/quiz/controller/state/submit_quiz_state.dart';
 import 'package:edtech_app/features/quiz/view/widget/see_explanation_tile.dart';
 import 'package:edtech_app/shared/extension/app_extension.dart';
@@ -12,6 +13,7 @@ import 'package:edtech_app/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:edtech_app/shared/widget/buttons/back_button_widget.dart';
 import 'package:edtech_app/shared/widget/custom_loaders/app_loader.dart';
 import 'package:edtech_app/shared/widget/forms/custom_radio_group_form_field.dart';
+import 'package:flash/flash.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -23,13 +25,20 @@ import 'package:velocity_x/velocity_x.dart';
 class QuizPage extends StatelessWidget {
   final String questionId;
   final int videoId;
-  const QuizPage({super.key, required this.questionId, required this.videoId});
+  final String? quizProgressDocumentId;
+  const QuizPage({
+    super.key,
+    required this.questionId,
+    required this.videoId,
+    this.quizProgressDocumentId,
+  });
 
   @override
   Widget build(BuildContext context) {
     return QuizView(
       questionId: questionId,
       videoId: videoId,
+      quizProgressDocumentId: quizProgressDocumentId,
     );
   }
 }
@@ -37,7 +46,13 @@ class QuizPage extends StatelessWidget {
 class QuizView extends ConsumerStatefulWidget {
   final String questionId;
   final int videoId;
-  const QuizView({super.key, required this.questionId, required this.videoId});
+  final String? quizProgressDocumentId;
+  const QuizView({
+    super.key,
+    required this.questionId,
+    required this.videoId,
+    this.quizProgressDocumentId,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _QuizViewState();
@@ -132,17 +147,38 @@ class _QuizViewState extends ConsumerState<QuizView> with GlobalHelper {
                   onPressed: () {
                     if (quizFormKey.currentState?.saveAndValidate() ?? false) {
                       if (isLastQuestion) {
-                        // Submit the quiz progress
-                        ref.read(submitQuizProgressProvider.notifier).submitQuizProgress(
-                              videoId: widget.videoId,
-                              quizProgress: quizProgressList,
-                              onError: (errorMessage) {
-                                showErrorSnack(child: Text(errorMessage.toString()));
-                              },
-                              onQuizSubmitted: (quizSubmittedResponse) {
-                                context.router.replaceAll([NavbarRoute()]);
-                              },
-                            );
+                        if (widget.quizProgressDocumentId != null) {
+                          //update the quiz progress
+                          ref.read(updateQuizProgressProvider.notifier).updateQuizProgress(
+                                videoId: widget.videoId,
+                                quizProgress: quizProgressList,
+                                quizProgressDocumentId: widget.quizProgressDocumentId!,
+                                onError: (errorMessage) {
+                                  showErrorSnack(child: Text(errorMessage.toString()));
+                                },
+                                onQuizSubmitted: (quizSubmittedResponse) {
+                                  showSuccessSnack(
+                                    position: FlashPosition.top,
+                                    child: Text(
+                                      'Quiz progress updated successfully',
+                                    ),
+                                  );
+                                  context.router.replaceAll([NavbarRoute()]);
+                                },
+                              );
+                        } else {
+                          //submit the quiz progress
+                          ref.read(submitQuizProgressProvider.notifier).submitQuizProgress(
+                                videoId: widget.videoId,
+                                quizProgress: quizProgressList,
+                                onError: (errorMessage) {
+                                  showErrorSnack(child: Text(errorMessage.toString()));
+                                },
+                                onQuizSubmitted: (quizSubmittedResponse) {
+                                  context.router.replaceAll([NavbarRoute()]);
+                                },
+                              );
+                        }
                       } else {
                         // Move to the next page
                         pageController.nextPage(
@@ -154,7 +190,7 @@ class _QuizViewState extends ConsumerState<QuizView> with GlobalHelper {
                       showErrorSnack(child: Text('Please answer all questions before proceeding.'));
                     }
                   },
-                )
+                ),
               ],
             ).pSymmetric(h: 14, v: 30),
           ),

@@ -1,8 +1,6 @@
-import 'package:edtech_app/const/app_icons/app_icons.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/shared/widget/cache_network_image_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class VideoCourseCard extends StatelessWidget {
@@ -136,11 +134,6 @@ class VideoCourseCard extends StatelessWidget {
                               ),
                             ],
                           ),
-                          HugeIcon(
-                            icon: AppIcons.strokeRoundedHeartAdd,
-                            color: AppColors.kPrimaryColor,
-                            size: 20,
-                          )
                         ],
                       ),
                     ],

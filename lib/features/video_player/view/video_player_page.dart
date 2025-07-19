@@ -41,6 +41,7 @@ class VideoPlayerView extends StatefulWidget {
   final String videoDocumentId;
   final String whatYouWillLearn;
   final int videoId;
+  final String? quizProgressDocumentId;
   const VideoPlayerView({
     super.key,
     required this.videoTitle,
@@ -48,6 +49,7 @@ class VideoPlayerView extends StatefulWidget {
     required this.whatYouWillLearn,
     required this.videoDocumentId,
     required this.videoId,
+    this.quizProgressDocumentId,
   });
 
   @override
@@ -97,6 +99,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
         videoDocumentId: widget.videoDocumentId,
         whatYouWillLearn: widget.whatYouWillLearn,
         videoId: widget.videoId,
+
       ),
     );
   }

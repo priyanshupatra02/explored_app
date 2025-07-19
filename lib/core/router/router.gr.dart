@@ -317,6 +317,7 @@ class QuizRoute extends _i20.PageRouteInfo<QuizRouteArgs> {
     _i21.Key? key,
     required String questionId,
     required int videoId,
+    String? quizProgressDocumentId,
     List<_i20.PageRouteInfo>? children,
   }) : super(
          QuizRoute.name,
@@ -324,6 +325,7 @@ class QuizRoute extends _i20.PageRouteInfo<QuizRouteArgs> {
            key: key,
            questionId: questionId,
            videoId: videoId,
+           quizProgressDocumentId: quizProgressDocumentId,
          ),
          initialChildren: children,
        );
@@ -338,6 +340,7 @@ class QuizRoute extends _i20.PageRouteInfo<QuizRouteArgs> {
         key: args.key,
         questionId: args.questionId,
         videoId: args.videoId,
+        quizProgressDocumentId: args.quizProgressDocumentId,
       );
     },
   );
@@ -348,6 +351,7 @@ class QuizRouteArgs {
     this.key,
     required this.questionId,
     required this.videoId,
+    this.quizProgressDocumentId,
   });
 
   final _i21.Key? key;
@@ -356,9 +360,11 @@ class QuizRouteArgs {
 
   final int videoId;
 
+  final String? quizProgressDocumentId;
+
   @override
   String toString() {
-    return 'QuizRouteArgs{key: $key, questionId: $questionId, videoId: $videoId}';
+    return 'QuizRouteArgs{key: $key, questionId: $questionId, videoId: $videoId, quizProgressDocumentId: $quizProgressDocumentId}';
   }
 }
 
@@ -367,11 +373,14 @@ class QuizRouteArgs {
 class QuizProgressRoute extends _i20.PageRouteInfo<QuizProgressRouteArgs> {
   QuizProgressRoute({
     _i21.Key? key,
-    required String videoId,
+    required String videoDocumentId,
     List<_i20.PageRouteInfo>? children,
   }) : super(
          QuizProgressRoute.name,
-         args: QuizProgressRouteArgs(key: key, videoId: videoId),
+         args: QuizProgressRouteArgs(
+           key: key,
+           videoDocumentId: videoDocumentId,
+         ),
          initialChildren: children,
        );
 
@@ -381,21 +390,24 @@ class QuizProgressRoute extends _i20.PageRouteInfo<QuizProgressRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<QuizProgressRouteArgs>();
-      return _i13.QuizProgressPage(key: args.key, videoId: args.videoId);
+      return _i13.QuizProgressPage(
+        key: args.key,
+        videoDocumentId: args.videoDocumentId,
+      );
     },
   );
 }
 
 class QuizProgressRouteArgs {
-  const QuizProgressRouteArgs({this.key, required this.videoId});
+  const QuizProgressRouteArgs({this.key, required this.videoDocumentId});
 
   final _i21.Key? key;
 
-  final String videoId;
+  final String videoDocumentId;
 
   @override
   String toString() {
-    return 'QuizProgressRouteArgs{key: $key, videoId: $videoId}';
+    return 'QuizProgressRouteArgs{key: $key, videoDocumentId: $videoDocumentId}';
   }
 }
 

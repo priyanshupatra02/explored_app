@@ -6,7 +6,6 @@ import 'package:edtech_app/features/quiz_progress/controller/pod/get_quiz_progre
 import 'package:edtech_app/shared/extension/app_extension.dart';
 import 'package:edtech_app/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:flutter/gestures.dart';
-// import 'package:edtech_app/features/quiz/controller/pod/quiz_pod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -14,13 +13,13 @@ import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
 class QuizProgressPage extends StatelessWidget {
-  final String videoId;
-  const QuizProgressPage({super.key, required this.videoId});
+  final String videoDocumentId;
+  const QuizProgressPage({super.key, required this.videoDocumentId});
 
   @override
   Widget build(BuildContext context) {
     return QuizProgressView(
-      videoId: videoId,
+      videoId: videoDocumentId,
     );
   }
 }

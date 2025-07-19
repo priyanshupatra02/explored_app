@@ -1,66 +1,68 @@
 import 'dart:convert';
 
-class SubmitQuizResponseModel {
-  final Data? data;
+class QuizProgressResponseModel {
+  final QuizProgressResponseData? quizProgressResponseData;
   final Meta? meta;
 
-  SubmitQuizResponseModel({
-    this.data,
+  QuizProgressResponseModel({
+    this.quizProgressResponseData,
     this.meta,
   });
 
-  SubmitQuizResponseModel copyWith({
-    Data? data,
+  QuizProgressResponseModel copyWith({
+    QuizProgressResponseData? data,
     Meta? meta,
   }) =>
-      SubmitQuizResponseModel(
-        data: data ?? this.data,
+      QuizProgressResponseModel(
+        quizProgressResponseData: data ?? quizProgressResponseData,
         meta: meta ?? this.meta,
       );
 
-  factory SubmitQuizResponseModel.fromJson(String str) =>
-      SubmitQuizResponseModel.fromMap(json.decode(str));
+  factory QuizProgressResponseModel.fromJson(String str) =>
+      QuizProgressResponseModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory SubmitQuizResponseModel.fromMap(Map<String, dynamic> json) => SubmitQuizResponseModel(
-        data: json["data"] != null ? Data.fromMap(json["data"]) : null,
+  factory QuizProgressResponseModel.fromMap(Map<String, dynamic> json) => QuizProgressResponseModel(
+        quizProgressResponseData:
+            json["data"] != null ? QuizProgressResponseData.fromMap(json["data"]) : null,
         meta: json["meta"] != null ? Meta.fromMap(json["meta"]) : null,
       );
 
   Map<String, dynamic> toMap() => {
-        "data": data?.toMap(),
+        "data": quizProgressResponseData?.toMap(),
         "meta": meta?.toMap(),
       };
 }
 
-class Data {
+class QuizProgressResponseData {
   final int? id;
   final String? documentId;
   final List<Map<String, bool>>? quizProgress;
 
-  Data({
+  QuizProgressResponseData({
     this.id,
     this.documentId,
     this.quizProgress,
   });
 
-  Data copyWith({
+  QuizProgressResponseData copyWith({
     int? id,
     String? documentId,
     List<Map<String, bool>>? quizProgress,
   }) =>
-      Data(
+      QuizProgressResponseData(
         id: id ?? this.id,
         documentId: documentId ?? this.documentId,
         quizProgress: quizProgress ?? this.quizProgress,
       );
 
-  factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
+  factory QuizProgressResponseData.fromJson(String str) =>
+      QuizProgressResponseData.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Data.fromMap(Map<String, dynamic> json) => Data(
+  factory QuizProgressResponseData.fromMap(Map<String, dynamic> json) => QuizProgressResponseData(
         id: json["id"],
         documentId: json["documentId"],
         quizProgress: json["quizProgress"] != null

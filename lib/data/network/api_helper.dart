@@ -6,9 +6,9 @@ import 'package:edtech_app/data/model/blog_model.dart';
 import 'package:edtech_app/data/model/get_quiz_progress_model.dart';
 import 'package:edtech_app/data/model/profile_model.dart';
 import 'package:edtech_app/data/model/quiz_model.dart';
+import 'package:edtech_app/data/model/quiz_progress_response_model.dart';
 import 'package:edtech_app/data/model/single_video_model.dart';
 import 'package:edtech_app/data/model/subject_list_model.dart';
-import 'package:edtech_app/data/model/submit_quiz_response_model.dart';
 import 'package:edtech_app/data/model/user_response_model.dart';
 import 'package:edtech_app/data/model/videos_list_model.dart';
 import 'package:edtech_app/data/network/app_urls.dart';
@@ -244,7 +244,7 @@ class ApiHelper {
   }
 
   //quiz progress
-  Future<Result<SubmitQuizResponseModel, APIException>> submitQuizProgress({
+  Future<Result<QuizProgressResponseModel, APIException>> submitQuizProgress({
     required List<Map<String, bool>> quizProgress,
     required int videoId,
   }) async {
@@ -254,14 +254,33 @@ class ApiHelper {
         "data": {"quizProgress": quizProgress, "video": videoId}
       },
     );
-    return result.successErrorHandler<SubmitQuizResponseModel>(
-      successMapper: (data) => SubmitQuizResponseModel.fromMap(data),
+    return result.successErrorHandler<QuizProgressResponseModel>(
+      successMapper: (data) => QuizProgressResponseModel.fromMap(data),
+      defaultSuccessCode: [200, 201],
+    );
+  }
+
+  //update quiz progress
+  Future<Result<QuizProgressResponseModel, APIException>> updateQuizProgress({
+    required List<Map<String, bool>> quizProgress,
+    required int videoId,
+    required String quizProgressDocumentId,
+  }) async {
+    final result = await dio.put(
+      "${AppUrls.quizProgress}/$quizProgressDocumentId",
+      data: {
+        "data": {"quizProgress": quizProgress, "video": videoId}
+      },
+    );
+    return result.successErrorHandler<QuizProgressResponseModel>(
+      successMapper: (data) => QuizProgressResponseModel.fromMap(data),
       defaultSuccessCode: [200, 201],
     );
   }
 
   //get quiz progress by video id
-  Future<Result<GetQuizProgressModel, APIException>> getQuizProgressByVideoId({required String videoId}) async {
+  Future<Result<GetQuizProgressModel, APIException>> getQuizProgressByVideoId(
+      {required String videoId}) async {
     final result = await dio.get('${AppUrls.getQuizProgressByVideoId}$videoId');
     return result.successErrorHandler<GetQuizProgressModel>(
       successMapper: (data) => GetQuizProgressModel.fromMap(data),

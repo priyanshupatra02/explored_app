@@ -100,7 +100,7 @@ class _VideosViewState extends State<VideosView> {
                           child: VideoCourseCard(
                             title: videosListModel.videosList[index].name,
                             level: "Basic",
-                            duration: "10 min",
+                            duration: "__ min",
                             isFavorite: _isFavorite,
                             onFavoriteTap: () {
                               setState(() {
