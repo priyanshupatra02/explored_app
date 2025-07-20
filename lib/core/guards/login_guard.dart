@@ -16,7 +16,6 @@ class LoginGuard extends AutoRouteGuard {
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
     final token = loginDbService.getLoginModel()?.jwt;
     final whatCourseDoYouNeed = loginDbService.getLoginModel()?.user?.whatCourseDoYouNeed;
-    final feedback = loginDbService.getLoginModel()?.user?.feedback;
     if (token != null && whatCourseDoYouNeed == null) {
       talker.debug('hi 1');
       router.replaceAll([UpdateUserRoute()]);

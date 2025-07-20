@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:edtech_app/const/resource.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/core/router/router.gr.dart';
 import 'package:edtech_app/features/verify_code/view/widget/otp_form.dart';
@@ -43,8 +44,12 @@ class _VerifyCodeViewState extends ConsumerState<VerifyCodeView> with GlobalHelp
         body: Column(
           children: [
             20.heightBox,
-            FlutterLogo(
-              size: 50,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                R.ASSETS_APP_ICON_EXPLORED_LOGO_JPEG,
+                height: 70,
+              ),
             ),
             40.heightBox,
             Text(

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:edtech_app/const/resource.dart';
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/features/login/view/widget/login_tab.dart';
 import 'package:edtech_app/features/login/view/widget/signup_tab.dart';
@@ -51,8 +52,15 @@ class _LoginViewState extends ConsumerState<LoginView> with SingleTickerProvider
         centerTitle: true,
         title: Column(
           children: [
-            FlutterLogo(
-              size: 50,
+            // FlutterLogo(
+            //   size: 50,
+            // ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                R.ASSETS_APP_ICON_EXPLORED_LOGO_JPEG,
+                height: 60,
+              ),
             ),
             8.heightBox,
             Text(

@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:edtech_app/features/profile/view/widget/account_status.dart';
-import 'package:edtech_app/features/profile/view/widget/action_buttons.dart';
+import 'package:edtech_app/features/profile/view/widget/logout_button.dart';
 import 'package:edtech_app/features/profile/view/widget/profile_details.dart';
 import 'package:edtech_app/features/profile/view/widget/profile_header.dart';
 import 'package:flutter/material.dart';
@@ -91,8 +91,8 @@ class ProfileViewState extends State<ProfileView> with TickerProviderStateMixin 
                   ProfileDetails(),
                   SizedBox(height: 32),
                   AccountStatus(),
-                  SizedBox(height: 40),
-                  ActionButtons(),
+                  SizedBox(height: 30),
+                  LogoutButton(),
                 ],
               ),
             ),

@@ -103,63 +103,63 @@ class UpdateUserAsyncNotifier extends AutoDisposeAsyncNotifier<UpdateUserState> 
                       //set isEmailExist field to true
                       user: currentVerifiedModel.user!.copyWith(
                         whatCourseDoYouNeed: updateUserResponse.user!.whatCourseDoYouNeed,
-                        feedback: currentVerifiedModel.user!.feedback?.copyWith(
-                          wouldYouLikeACareerInMediaFilmOrEntertainment: updateUserResponse
-                              .user!.feedback!.wouldYouLikeACareerInMediaFilmOrEntertainment,
-                          whichActivityDoYouEnjoyTheMost:
-                              updateUserResponse.user!.feedback!.whichActivityDoYouEnjoyTheMost,
-                          whatKindOfChallengesExciteYou:
-                              updateUserResponse.user!.feedback!.whatKindOfChallengesExciteYou,
-                          doYouPreferWorkingWith:
-                              updateUserResponse.user!.feedback!.doYouPreferWorkingWith,
-                          whatDoYouEnjoyDoingInYourFreeTime:
-                              updateUserResponse.user!.feedback!.whatDoYouEnjoyDoingInYourFreeTime,
-                          whatComesNaturallyToYou:
-                              updateUserResponse.user!.feedback!.whatComesNaturallyToYou,
-                          whichSubjectWouldYouEnjoyTheMost:
-                              updateUserResponse.user!.feedback!.whichSubjectWouldYouEnjoyTheMost,
-                          whatKindOfWorkEnvironmentSuitsYou:
-                              updateUserResponse.user!.feedback!.whatKindOfWorkEnvironmentSuitsYou,
-                          howDoYouApproachProblems:
-                              updateUserResponse.user!.feedback!.howDoYouApproachProblems,
-                          whichSkillAreYouBestAt:
-                              updateUserResponse.user!.feedback!.whichSkillAreYouBestAt,
-                          whatMotivatesYouMostInACareer:
-                              updateUserResponse.user!.feedback!.whatMotivatesYouMostInACareer,
-                          doYouPreferWorking: updateUserResponse.user!.feedback!.doYouPreferWorking,
-                          doYouLikeJobsThatInvolve:
-                              updateUserResponse.user!.feedback!.doYouLikeJobsThatInvolve,
-                          howDoYouFeelAboutDeadlines:
-                              updateUserResponse.user!.feedback!.howDoYouFeelAboutDeadlines,
-                          wouldYouRather: updateUserResponse.user!.feedback!.wouldYouRather,
-                          whatKindOfJobStructureDoYouPrefer:
-                              updateUserResponse.user!.feedback!.whatKindOfJobStructureDoYouPrefer,
-                          wouldYouEnjoyACareerWhereYou:
-                              updateUserResponse.user!.feedback!.wouldYouEnjoyACareerWhereYou,
-                          wouldYouLikeToTravelForWork:
-                              updateUserResponse.user!.feedback!.wouldYouLikeToTravelForWork,
-                          whatWouldMakeYouHappiestInAJob:
-                              updateUserResponse.user!.feedback!.whatWouldMakeYouHappiestInAJob,
-                          doYouEnjoyWorkingWithTechnology:
-                              updateUserResponse.user!.feedback!.doYouEnjoyWorkingWithTechnology,
-                          areYouInterestedInHealthcareOrMedicine: updateUserResponse
-                              .user!.feedback!.areYouInterestedInHealthcareOrMedicine,
-                          wouldYouLikeToWorkInEducationOrTeaching: updateUserResponse
-                              .user!.feedback!.wouldYouLikeToWorkInEducationOrTeaching,
-                          doYouEnjoyResearchAndAnalysis:
-                              updateUserResponse.user!.feedback!.doYouEnjoyResearchAndAnalysis,
-                          areYouInterestedInPsychologyOrCounseling: updateUserResponse
-                              .user!.feedback!.areYouInterestedInPsychologyOrCounseling,
-                          whatIsMoreImportantToYouInAJob:
-                              updateUserResponse.user!.feedback!.whatIsMoreImportantToYouInAJob,
-                          wouldYouRatherDo: updateUserResponse.user!.feedback!.wouldYouRatherDo,
-                          whatKindOfEmployerDoYouPrefer:
-                              updateUserResponse.user!.feedback!.whatKindOfEmployerDoYouPrefer,
-                          whereWouldYouRatherWork:
-                              updateUserResponse.user!.feedback!.whereWouldYouRatherWork,
-                          areYouMoreOfA: updateUserResponse.user!.feedback!.areYouMoreOfA,
-                          doYouPrefer: updateUserResponse.user!.feedback!.doYouPrefer,
-                        ),
+                        // feedback: currentVerifiedModel.user!.feedback?.copyWith(
+                        //   wouldYouLikeACareerInMediaFilmOrEntertainment: updateUserResponse
+                        //       .user!.feedback!.wouldYouLikeACareerInMediaFilmOrEntertainment,
+                        //   whichActivityDoYouEnjoyTheMost:
+                        //       updateUserResponse.user!.feedback!.whichActivityDoYouEnjoyTheMost,
+                        //   whatKindOfChallengesExciteYou:
+                        //       updateUserResponse.user!.feedback!.whatKindOfChallengesExciteYou,
+                        //   doYouPreferWorkingWith:
+                        //       updateUserResponse.user!.feedback!.doYouPreferWorkingWith,
+                        //   whatDoYouEnjoyDoingInYourFreeTime:
+                        //       updateUserResponse.user!.feedback!.whatDoYouEnjoyDoingInYourFreeTime,
+                        //   whatComesNaturallyToYou:
+                        //       updateUserResponse.user!.feedback!.whatComesNaturallyToYou,
+                        //   whichSubjectWouldYouEnjoyTheMost:
+                        //       updateUserResponse.user!.feedback!.whichSubjectWouldYouEnjoyTheMost,
+                        //   whatKindOfWorkEnvironmentSuitsYou:
+                        //       updateUserResponse.user!.feedback!.whatKindOfWorkEnvironmentSuitsYou,
+                        //   howDoYouApproachProblems:
+                        //       updateUserResponse.user!.feedback!.howDoYouApproachProblems,
+                        //   whichSkillAreYouBestAt:
+                        //       updateUserResponse.user!.feedback!.whichSkillAreYouBestAt,
+                        //   whatMotivatesYouMostInACareer:
+                        //       updateUserResponse.user!.feedback!.whatMotivatesYouMostInACareer,
+                        //   doYouPreferWorking: updateUserResponse.user!.feedback!.doYouPreferWorking,
+                        //   doYouLikeJobsThatInvolve:
+                        //       updateUserResponse.user!.feedback!.doYouLikeJobsThatInvolve,
+                        //   howDoYouFeelAboutDeadlines:
+                        //       updateUserResponse.user!.feedback!.howDoYouFeelAboutDeadlines,
+                        //   wouldYouRather: updateUserResponse.user!.feedback!.wouldYouRather,
+                        //   whatKindOfJobStructureDoYouPrefer:
+                        //       updateUserResponse.user!.feedback!.whatKindOfJobStructureDoYouPrefer,
+                        //   wouldYouEnjoyACareerWhereYou:
+                        //       updateUserResponse.user!.feedback!.wouldYouEnjoyACareerWhereYou,
+                        //   wouldYouLikeToTravelForWork:
+                        //       updateUserResponse.user!.feedback!.wouldYouLikeToTravelForWork,
+                        //   whatWouldMakeYouHappiestInAJob:
+                        //       updateUserResponse.user!.feedback!.whatWouldMakeYouHappiestInAJob,
+                        //   doYouEnjoyWorkingWithTechnology:
+                        //       updateUserResponse.user!.feedback!.doYouEnjoyWorkingWithTechnology,
+                        //   areYouInterestedInHealthcareOrMedicine: updateUserResponse
+                        //       .user!.feedback!.areYouInterestedInHealthcareOrMedicine,
+                        //   wouldYouLikeToWorkInEducationOrTeaching: updateUserResponse
+                        //       .user!.feedback!.wouldYouLikeToWorkInEducationOrTeaching,
+                        //   doYouEnjoyResearchAndAnalysis:
+                        //       updateUserResponse.user!.feedback!.doYouEnjoyResearchAndAnalysis,
+                        //   areYouInterestedInPsychologyOrCounseling: updateUserResponse
+                        //       .user!.feedback!.areYouInterestedInPsychologyOrCounseling,
+                        //   whatIsMoreImportantToYouInAJob:
+                        //       updateUserResponse.user!.feedback!.whatIsMoreImportantToYouInAJob,
+                        //   wouldYouRatherDo: updateUserResponse.user!.feedback!.wouldYouRatherDo,
+                        //   whatKindOfEmployerDoYouPrefer:
+                        //       updateUserResponse.user!.feedback!.whatKindOfEmployerDoYouPrefer,
+                        //   whereWouldYouRatherWork:
+                        //       updateUserResponse.user!.feedback!.whereWouldYouRatherWork,
+                        //   areYouMoreOfA: updateUserResponse.user!.feedback!.areYouMoreOfA,
+                        //   doYouPrefer: updateUserResponse.user!.feedback!.doYouPrefer,
+                        // ),
                       ),
                     ),
                   );
