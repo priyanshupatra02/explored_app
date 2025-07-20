@@ -2,7 +2,8 @@ import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedAvatar extends StatefulWidget {
-  const AnimatedAvatar({super.key});
+  final String userName;
+  const AnimatedAvatar({super.key, required this.userName});
 
   @override
   AnimatedAvatarState createState() => AnimatedAvatarState();
@@ -63,7 +64,7 @@ class AnimatedAvatarState extends State<AnimatedAvatar> with SingleTickerProvide
         ),
         child: Center(
           child: Text(
-            'SK',
+            widget.userName,
             style: textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: AppColors.kPrimaryWhiteColor,

@@ -44,9 +44,8 @@ class _SignupTabState extends ConsumerState<SignupTab> {
               // } else {
               //   context.router.replaceAll([LoginRoute()]);
               // }
-              if (userResponse.jwt != null && userResponse.user?.feedback == null) {
-                // context.router.replaceAll([UpdateRoute()]);
-                context.router.replaceAll([NavbarRoute()]);
+              if (userResponse.jwt != null && userResponse.user?.whatCourseDoYouNeed == null) {
+                context.router.replaceAll([UpdateUserRoute()]);
               } else if (userResponse.jwt != null && userResponse.user?.feedback != null) {
                 context.router.replaceAll([NavbarRoute()]);
               } else {

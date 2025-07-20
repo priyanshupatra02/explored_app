@@ -121,10 +121,10 @@ class _LoginTabState extends ConsumerState<LoginTab> with GlobalHelper {
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () {},
-              child: Text('Forgot Password ?').objectCenterRight(),
-            ),
+            // GestureDetector(
+            //   onTap: () {},
+            //   child: Text('Forgot Password ?').objectCenterRight(),
+            // ),
             50.heightBox,
             LoginButton(
               loginUser: loginUser,
