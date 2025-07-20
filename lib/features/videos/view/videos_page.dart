@@ -80,25 +80,26 @@ class _VideosViewState extends State<VideosView> {
           final videosBySubjectIdAsync = ref.watch(videosBySubjectIdProvider(widget.subjectId));
           return videosBySubjectIdAsync.easyWhen(
             data: (videosListModel) {
-              return videosListModel.videosList.isNotEmpty
+              return videosListModel.videosList!.isNotEmpty
                   ? ListView.builder(
-                      itemCount: videosListModel.videosList.length,
+                      itemCount: videosListModel.videosList!.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
                             context.navigateTo(
                               VideoPlayerRoute(
-                                videoDocumentId: videosListModel.videosList[index].documentId,
-                                videoId: videosListModel.videosList[index].id,
-                                videoTitle: videosListModel.videosList[index].name,
-                                videoUrl: videosListModel.videosList[index].videoUrl,
+                                videoDocumentId: videosListModel.videosList![index].documentId!,
+                                videoId: videosListModel.videosList![index].id!,
+                                videoTitle: videosListModel.videosList![index].name!,
+                                videoUrl: videosListModel.videosList![index].videoUrl!,
                                 whatYouWillLearn:
-                                    videosListModel.videosList[index].subject.description,
+                                    videosListModel.videosList![index].subject!.description!,
                               ),
                             );
                           },
                           child: VideoCourseCard(
-                            title: videosListModel.videosList[index].name,
+                            title: videosListModel.videosList![index].name!,
+                            courseUrl: videosListModel.videosList![index].thumbnailUrl!,
                             level: "Basic",
                             duration: "__ min",
                             isFavorite: _isFavorite,

@@ -8,6 +8,7 @@ class VideoCourseCard extends StatelessWidget {
   final String level;
   final String duration;
   final bool isFavorite;
+  final String courseUrl;
   final VoidCallback onFavoriteTap;
 
   const VideoCourseCard({
@@ -17,6 +18,7 @@ class VideoCourseCard extends StatelessWidget {
     required this.duration,
     this.isFavorite = false,
     required this.onFavoriteTap,
+    required this.courseUrl,
   });
 
   @override
@@ -45,33 +47,9 @@ class VideoCourseCard extends StatelessWidget {
                 // Course Image
                 Stack(
                   children: [
-                    // Image.network(
-                    //   'assets/images/english_book.jpg', // Replace with your asset
-                    //   fit: BoxFit.cover,
-                    //   height: 180,
-                    //   width: double.infinity,
-                    //   errorBuilder: (context, error, stackTrace) {
-                    //     return Container(
-                    //       height: 180,
-                    //       color: const Color(0xFFF5C518), // Yellow color from the image
-                    //       child: Center(
-                    //         child: Text(
-                    //           'EVERYDAY\nENGLISH',
-                    //           textAlign: TextAlign.center,
-                    //           style: TextStyle(
-                    //             color: Colors.black,
-                    //             fontWeight: FontWeight.bold,
-                    //             fontSize: isSmallScreen ? 24 : 32,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
                     //video thumbnail
                     CacheNetworkImageWidget(
-                      imageUrl:
-                          'https://images.unsplash.com/photo-1543109740-4bdb38fda756?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                      imageUrl: courseUrl,
                       height: MediaQuery.of(context).size.height * 0.15,
                       width: double.maxFinite,
                       fit: BoxFit.cover,
