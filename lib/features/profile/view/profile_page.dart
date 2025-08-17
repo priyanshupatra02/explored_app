@@ -48,16 +48,18 @@ class ProfileViewState extends ConsumerState<ProfileView>
       // Show appropriate snackbar
       if (context.mounted) {
         if (success) {
+          showSuccessSnack(
+            child: Text('Account deleted successfully !'),
+          );
           //cleaning local storage for data/caches
           final appStorage = ref.watch(appStorageProvider);
           final box = appStorage.appBox;
           await box?.clear();
           ref.invalidate(appBoxProvider);
           //navigating to onboarding screen
-          context.mounted ? context.router.replaceAll([const LoginRoute()]) : null;
-          showSuccessSnack(
-            child: Text('Account deleted successfully !'),
-          );
+          if (context.mounted) {
+            context.router.replaceAll([const LoginRoute()]);
+          }
         } else {
           final error = ref.read(deleteAccountProvider).error;
           showErrorSnack(
