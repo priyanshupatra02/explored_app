@@ -52,6 +52,7 @@ dependencies:
   velocity_x:
   
   video_player: ^2.9.5
+  webview_flutter: ^4.13.0
 
 dev_dependencies:
   flutter_test:

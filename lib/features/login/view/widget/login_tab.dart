@@ -145,7 +145,13 @@ class _LoginTabState extends ConsumerState<LoginTab> with GlobalHelper {
                 children: [
                   TextSpan(
                     text: 'Terms of service',
-                    recognizer: TapGestureRecognizer()..onTap = () {},
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        context.navigateTo(
+                          TermsAndConditionsRoute(
+                              url: "https://api.explored.co.in/v1/term-condition"),
+                        );
+                      },
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: AppColors.kPrimaryColor,
@@ -156,7 +162,13 @@ class _LoginTabState extends ConsumerState<LoginTab> with GlobalHelper {
                   ),
                   TextSpan(
                     text: 'Privacy policy.',
-                    recognizer: TapGestureRecognizer()..onTap = () {},
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        context.navigateTo(
+                          TermsAndConditionsRoute(
+                              url: "https://api.explored.co.in/v1/privacy-policy"),
+                        );
+                      },
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: AppColors.kPrimaryColor,

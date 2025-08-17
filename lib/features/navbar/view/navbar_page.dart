@@ -35,7 +35,7 @@ class _NavbarViewState extends ConsumerState<NavbarView> with AutomaticKeepAlive
     const BlogsPage(),
     const ProfilePage(),
     // const ForumsPage(),
-    const SubscriptionPlansPage(),
+    // const SubscriptionPlansPage(),
   ];
 
   @override
@@ -52,35 +52,6 @@ class _NavbarViewState extends ConsumerState<NavbarView> with AutomaticKeepAlive
               return screen[navbarSelectedIndexState];
             },
           ),
-          // bottomNavigationBar: NavigationBar(
-          //   labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-
-          //   selectedIndex: navbarSelectedIndexState,
-          //   onDestinationSelected: (selectedIndex) {
-          //     ref.read(navbarSelectedIndexProvider.notifier).update((state) => selectedIndex);
-          //   },
-          //   destinations: [
-          //     //home
-          //     NavigationDestination(
-
-          //       icon: SvgPicture.asset(R.ASSETS_ICON_HOME_UNSELECTEDfix)_ICON_SVG),
-          //       selectedIcon: SvgPicture.asset(R.ASSETS_ICON_HOME_SELECTED_ICON_SVG),
-          //       label: 'Home',
-          //     ),
-          //     //blogs
-          //     NavigationDestination(
-          //       icon: SvgPicture.asset(R.ASSETS_ICON_BLOGS_UNSELECTED_ICON_SVG),
-          //       selectedIcon: SvgPicture.asset(R.ASSETS_ICON_BLOGS_SELECTED_ICON_SVG),
-          //       label: 'Blogs',
-          //     ),
-          //     //profile
-          //     NavigationDestination(
-          //       icon: SvgPicture.asset(R.ASSETS_ICON_PROFILE_UNSELECTED_ICON_SVG),
-          //       selectedIcon: SvgPicture.asset(R.ASSETS_ICON_PROFILE_UNSELECTED_ICON_SVG),
-          //       label: 'Profile',
-          //     ),
-          //   ],
-          // ),
           bottomNavigationBar: Container(
             margin: EdgeInsets.only(left: 40, right: 40, bottom: 50),
             padding: EdgeInsets.all(5),
@@ -123,10 +94,10 @@ class _NavbarViewState extends ConsumerState<NavbarView> with AutomaticKeepAlive
                   icon: AppIcons.strokeRoundedUser,
                   text: 'Profile',
                 ),
-                GButton(
-                  icon: AppIcons.strokeRoundedDiamond02,
-                  text: 'Plans',
-                )
+                // GButton(
+                //   icon: AppIcons.strokeRoundedDiamond02,
+                //   text: 'Plans',
+                // )
               ],
             ),
           ),
