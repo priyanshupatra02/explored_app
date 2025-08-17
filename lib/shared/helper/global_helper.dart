@@ -292,4 +292,17 @@ mixin GlobalHelper<T extends StatefulWidget> on State<T> {
     _animationController?.dispose();
     super.dispose();
   }
+
+    Future<T?> showSimpleProgressIndicator({
+    required BuildContext context,
+  }) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator.adaptive(),
+        );
+      },
+    );
+  }
 }

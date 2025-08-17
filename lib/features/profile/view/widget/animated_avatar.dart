@@ -64,7 +64,7 @@ class AnimatedAvatarState extends State<AnimatedAvatar> with SingleTickerProvide
         ),
         child: Center(
           child: Text(
-            widget.userName,
+            widget.userName.isNotEmpty ? widget.userName[0] : '',
             style: textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: AppColors.kPrimaryWhiteColor,

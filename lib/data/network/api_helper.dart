@@ -3,6 +3,7 @@ import 'package:edtech_app/data/model/blog_categories_model.dart';
 import 'package:edtech_app/data/model/blog_comment_model.dart';
 import 'package:edtech_app/data/model/blog_comment_response_model.dart';
 import 'package:edtech_app/data/model/blog_model.dart';
+import 'package:edtech_app/data/model/delete_account_model.dart';
 import 'package:edtech_app/data/model/get_quiz_progress_model.dart';
 import 'package:edtech_app/data/model/profile_model.dart';
 import 'package:edtech_app/data/model/quiz_model.dart';
@@ -342,4 +343,21 @@ class ApiHelper {
   //     );
   //   }
   // }
+  //delete account
+  Future<Result<DeleteAccountModel, APIException>> deleteUser() async {
+    final result = await dio.post(
+      AppUrls.deleteAccount,
+      data: {
+        "data": {
+          "type": "account-deletion",
+          "status": "Raised",
+          "comment": "account delete request",
+        }
+      },
+    );
+    return result.successErrorHandler<DeleteAccountModel>(
+      successMapper: (data) => DeleteAccountModel.fromMap(data),
+      defaultSuccessCode: [200, 201],
+    );
+  }
 }

@@ -26,4 +26,5 @@ class AppUrls {
   static const String getQuizProgressByVideoId = "/v1/quiz-progresses?filters[video][documentId]=";
   static const String termsAndCondition = "/v1/term-condition";
   static const String privacyAndPolicy = "/v1/privacy-policy";
+  static const String deleteAccount = "/v1/feedback-qas";
 }

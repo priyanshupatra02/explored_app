@@ -99,7 +99,6 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
         videoDocumentId: widget.videoDocumentId,
         whatYouWillLearn: widget.whatYouWillLearn,
         videoId: widget.videoId,
-
       ),
     );
   }

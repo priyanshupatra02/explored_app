@@ -21,6 +21,7 @@ class SecondaryActionButton extends StatelessWidget {
     this.isButtonActive,
     this.height,
     this.width,
+    this.labelTextColor,
   });
   final BorderRadiusGeometry? borderRadius;
   final double? height;
@@ -35,6 +36,7 @@ class SecondaryActionButton extends StatelessWidget {
   final bool isIcon;
   final double fontSize;
   final bool? isButtonActive;
+  final Color? labelTextColor;
   @override
   Widget build(BuildContext context) {
     if (isIcon) {
@@ -44,9 +46,9 @@ class SecondaryActionButton extends StatelessWidget {
           elevation: 0.0,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadius ?? BorderRadius.circular(10),
-            side: BorderSide(
-              color: outlineColor!,
-            ),
+          ),
+          side: BorderSide(
+            color: outlineColor!,
           ),
           minimumSize: freeSize
               ? const Size(0, 0)
@@ -58,8 +60,9 @@ class SecondaryActionButton extends StatelessWidget {
         icon: icon!,
         label: Text(
           labelText,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w600,
+            color: labelTextColor,
           ),
         ),
       );
@@ -70,9 +73,9 @@ class SecondaryActionButton extends StatelessWidget {
           elevation: 0.0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: BorderSide(
-              color: outlineColor!,
-            ),
+          ),
+          side: BorderSide(
+            color: outlineColor!,
           ),
           minimumSize: freeSize
               ? const Size(0, 0)
@@ -85,9 +88,10 @@ class SecondaryActionButton extends StatelessWidget {
           if (isLoading) const CupertinoActivityIndicator(),
           Text(
             labelText,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.w600,
               letterSpacing: 1,
+              color: labelTextColor,
             ),
           ),
         ].hStack(alignment: MainAxisAlignment.center),
