@@ -166,54 +166,61 @@ class _ChewieDemoState extends State<ChewieDemo> {
             final quizProgressAsync = ref.watch(quizProgressProvider(widget.videoDocumentId));
             return quizProgressAsync.easyWhen(
               data: (quizProgressModel) {
-                final quizProgress = quizProgressModel.quizProgressData!.first.quizProgress ?? [];
-
-                return PrimaryActionButton(
-                  labelText: 'Take Quiz',
-                  isIcon: true,
-                  icon: HugeIcon(
-                    icon: AppIcons.strokeRoundedArrowRight02,
-                    color: AppColors.kLightSecondaryColor,
-                  ),
-                  onPressed: () {
-                    // if (loginFormKey.currentState!.validate()) {}
-                    // ref.read(quizControllerProvider.notifier).fetchQuizData();
-                    _chewieController?.pause().then(
-                      (value) {
-                        context.navigateTo(
-                          QuizRoute(
-                            questionId: widget.videoDocumentId,
-                            videoId: widget.videoId,
-                            quizProgressDocumentId:
-                                quizProgressModel.quizProgressData?.first.documentId,
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
+                // final quizProgress = quizProgressModel.quizProgressData!.first.quizProgress;
+                if (quizProgressModel.quizProgressData?.isEmpty == true) {
+                  return Text('No Quiz Found For This Subject');
+                } else {
+                  return Column(
+                    children: [
+                      PrimaryActionButton(
+                        labelText: 'Take Quiz',
+                        isIcon: true,
+                        icon: HugeIcon(
+                          icon: AppIcons.strokeRoundedArrowRight02,
+                          color: AppColors.kLightSecondaryColor,
+                        ),
+                        onPressed: () {
+                          // if (loginFormKey.currentState!.validate()) {}
+                          // ref.read(quizControllerProvider.notifier).fetchQuizData();
+                          _chewieController?.pause().then(
+                            (value) {
+                              context.navigateTo(
+                                QuizRoute(
+                                  questionId: widget.videoDocumentId,
+                                  videoId: widget.videoId,
+                                  quizProgressDocumentId:
+                                      quizProgressModel.quizProgressData?.first.documentId,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                      //check quiz progress button
+                      PrimaryActionButton(
+                        labelText: 'Check Quiz Progress',
+                        isIcon: true,
+                        icon: HugeIcon(
+                          icon: AppIcons.strokeRoundedProgress04,
+                          color: AppColors.kLightSecondaryColor,
+                        ),
+                        onPressed: () {
+                          // talker.debug(widget.videoDocumentId);
+                          context.navigateTo(
+                            QuizProgressRoute(
+                              videoDocumentId: widget.videoDocumentId,
+                            ),
+                          );
+                        },
+                      ).px32(),
+                    ],
+                  );
+                }
               },
             );
           },
         ).px32(),
         30.heightBox,
-        //check quiz progress button
-        PrimaryActionButton(
-          labelText: 'Check Quiz Progress',
-          isIcon: true,
-          icon: HugeIcon(
-            icon: AppIcons.strokeRoundedProgress04,
-            color: AppColors.kLightSecondaryColor,
-          ),
-          onPressed: () {
-            // talker.debug(widget.videoDocumentId);
-            context.navigateTo(
-              QuizProgressRoute(
-                videoDocumentId: widget.videoDocumentId,
-              ),
-            );
-          },
-        ).px32(),
       ],
     );
   }
