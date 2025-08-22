@@ -1,5 +1,4 @@
 import 'package:edtech_app/data/model/blog_comment_model.dart';
-import 'package:edtech_app/features/blog_comment_dialog/view/blog_comment_dialog_page.dart';
 import 'package:edtech_app/features/blog_comment_dialog/view/widget/blog_comment_item.dart';
 import 'package:flutter/material.dart';
 

@@ -93,7 +93,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
           ),
         ),
       ),
-      body: ChewieDemo(
+      body: YouTubePlayerDemo(
         videoTitle: widget.videoTitle,
         videoUrl: widget.videoUrl,
         videoDocumentId: widget.videoDocumentId,

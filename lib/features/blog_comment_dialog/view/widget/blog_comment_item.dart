@@ -1,6 +1,5 @@
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/data/model/blog_comment_model.dart';
-import 'package:edtech_app/features/blog_comment_dialog/view/blog_comment_dialog_page.dart';
 import 'package:edtech_app/features/blog_comment_dialog/view/widget/comment_content_widget.dart';
 import 'package:edtech_app/features/blog_comment_dialog/view/widget/comment_time_widget.dart';
 import 'package:edtech_app/features/blog_comment_dialog/view/widget/user_avatar_widget.dart';

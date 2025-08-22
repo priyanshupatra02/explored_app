@@ -1,6 +1,6 @@
 name: edtech_app
 description: ""
-version: 2.0.0+3
+version: 2.0.0+4
 publish_to: none
 
 environment:
@@ -53,6 +53,7 @@ dependencies:
   
   video_player: ^2.9.5
   webview_flutter: ^4.13.0
+  youtube_player_flutter: ^9.1.2
 
 dev_dependencies:
   flutter_test:
