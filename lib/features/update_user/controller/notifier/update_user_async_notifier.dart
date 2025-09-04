@@ -14,10 +14,10 @@ class UpdateUserAsyncNotifier extends AutoDisposeAsyncNotifier<UpdateUserState> 
 
   Future<void> updateUser({
     required final String userId,
-    required final String whatCourseDoYouNeed,
-    required final String doYouNeedCareerCounselling,
+    // required final String whatCourseDoYouNeed,
+    // required final String doYouNeedCareerCounselling,
     required final String whatDoYouDo,
-    required final String wouldYouLikeToBeACareerCounsellor,
+    // required final String wouldYouLikeToBeACareerCounsellor,
     required final String whichActivityDoYouEnjoyTheMost,
     required final String whatKindOfChallengesExciteYou,
     required final String doYouPreferWorkingWith,
@@ -48,6 +48,7 @@ class UpdateUserAsyncNotifier extends AutoDisposeAsyncNotifier<UpdateUserState> 
     required final String whereWouldYouRatherWork,
     required final String areYouMoreOfA,
     required final String doYouPrefer,
+    required final String careerChoice,
     required void Function(UserResponseModel updatedUserResponse) onUserUpdated,
   }) async {
     state = const AsyncData(UpdatingUserState());
@@ -55,10 +56,10 @@ class UpdateUserAsyncNotifier extends AutoDisposeAsyncNotifier<UpdateUserState> 
       () async {
         final updateUserResult = await ref.watch(apiHelperProvider).updateUser(
               userId: userId,
-              whatCourseDoYouNeed: whatCourseDoYouNeed,
-              doYouNeedCareerCounselling: doYouNeedCareerCounselling,
+              // whatCourseDoYouNeed: whatCourseDoYouNeed,
+              // doYouNeedCareerCounselling: doYouNeedCareerCounselling,
               whatDoYouDo: whatDoYouDo,
-              wouldYouLikeToBeACareerCounsellor: wouldYouLikeToBeACareerCounsellor,
+              // wouldYouLikeToBeACareerCounsellor: wouldYouLikeToBeACareerCounsellor,
               whichActivityDoYouEnjoyTheMost: whichActivityDoYouEnjoyTheMost,
               whatKindOfChallengesExciteYou: whatKindOfChallengesExciteYou,
               doYouPreferWorkingWith: doYouPreferWorkingWith,
@@ -90,6 +91,7 @@ class UpdateUserAsyncNotifier extends AutoDisposeAsyncNotifier<UpdateUserState> 
               whereWouldYouRatherWork: whereWouldYouRatherWork,
               areYouMoreOfA: areYouMoreOfA,
               doYouPrefer: doYouPrefer,
+              careerChoice: careerChoice,
             );
 
         return updateUserResult.when(
@@ -102,7 +104,7 @@ class UpdateUserAsyncNotifier extends AutoDisposeAsyncNotifier<UpdateUserState> 
                     userResponseModel: currentVerifiedModel!.copyWith(
                       //set isEmailExist field to true
                       user: currentVerifiedModel.user!.copyWith(
-                        whatCourseDoYouNeed: updateUserResponse.user!.whatCourseDoYouNeed,
+                        feedback: updateUserResponse.user!.feedback,
                         // feedback: currentVerifiedModel.user!.feedback?.copyWith(
                         //   wouldYouLikeACareerInMediaFilmOrEntertainment: updateUserResponse
                         //       .user!.feedback!.wouldYouLikeACareerInMediaFilmOrEntertainment,

@@ -8,6 +8,7 @@ import 'package:edtech_app/features/update_user/const/update_user_constants.dart
 import 'package:edtech_app/features/update_user/controller/pod/current_step_pod.dart';
 import 'package:edtech_app/features/update_user/controller/pod/icon_color_pod.dart';
 import 'package:edtech_app/features/update_user/controller/pod/update_user_pod.dart';
+import 'package:edtech_app/features/update_user/utils/career_suggestion_utils.dart';
 import 'package:edtech_app/features/update_user/view/widgets/next_or_submit_button.dart';
 import 'package:edtech_app/features/update_user/view/widgets/questions_header_widget.dart';
 import 'package:edtech_app/shared/widget/forms/custom_radio_group_form_field.dart';
@@ -36,110 +37,146 @@ class UpdateUserView extends ConsumerStatefulWidget {
 }
 
 class UpdateUserViewState extends ConsumerState<UpdateUserView> {
-  final step1FormKey = GlobalKey<FormBuilderState>();
-  final step2FormKey = GlobalKey<FormBuilderState>();
-  final step3FormKey = GlobalKey<FormBuilderState>();
-  final step4FormKey = GlobalKey<FormBuilderState>();
-  final step5FormKey = GlobalKey<FormBuilderState>();
+  final roleFormKey = GlobalKey<FormBuilderState>();
+  final careerInterestsFormKey = GlobalKey<FormBuilderState>();
+  final careerSuggestionFormKey = GlobalKey<FormBuilderState>();
+  CareerSuggestion? careerSuggestion;
+
+  String? _getFieldValue(Map<String, FormBuilderFieldState>? fields, String key) {
+    return fields?[key]?.value as String?;
+  }
 
   void updateUser() {
     final loginModel = ref.read(loginDbProvider).getLoginModel();
     //accessing fields
-    final step1Field = step1FormKey.currentState?.fields;
-    final step2Field = step2FormKey.currentState?.fields;
-    final step3Field = step3FormKey.currentState?.fields;
-    final step4Field = step4FormKey.currentState?.fields;
-    final step5Field = step5FormKey.currentState?.fields;
-    if (step1FormKey.currentState?.saveAndValidate() == true &&
-        step2FormKey.currentState?.saveAndValidate() == true &&
-        step3FormKey.currentState?.saveAndValidate() == true &&
-        step4FormKey.currentState?.saveAndValidate() == true &&
-        step5FormKey.currentState?.saveAndValidate() == true) {
-      // Access the values of the fields
-      ref.read(updateUserProvider.notifier).updateUser(
-            userId: loginModel!.user!.id.toString(),
-            whatCourseDoYouNeed: step1Field![UpdateUserConstants.course]!.value as String,
-            doYouNeedCareerCounselling:
-                step2Field![UpdateUserConstants.doYouNeedCareerCounselling]!.value as String,
-            wouldYouLikeToBeACareerCounsellor:
-                step3Field![UpdateUserConstants.wantToBeACareerCounsellor]!.value as String,
-            whatDoYouDo: step4Field![UpdateUserConstants.whatDoYouDo]!.value as String,
-            whichActivityDoYouEnjoyTheMost:
-                step5Field![UpdateUserConstants.activityEnjoy]!.value as String,
-            whatKindOfChallengesExciteYou:
-                step5Field[UpdateUserConstants.whatKindOfChallengesExciteYou]!.value as String,
-            doYouPreferWorkingWith:
-                step5Field[UpdateUserConstants.doYouPreferWorkingWith]!.value as String,
-            whatDoYouEnjoyDoingInYourFreeTime:
-                step5Field[UpdateUserConstants.whatDoYouEnjoyDoingInYourFreeTime]!.value as String,
-            whatComesNaturallyToYou:
-                step5Field[UpdateUserConstants.whatComesNaturallyToYou]!.value as String,
-            whichSubjectWouldYouEnjoyTheMost:
-                step5Field[UpdateUserConstants.whichSubjectWouldYouEnjoyTheMost]!.value as String,
-            whatKindOfWorkEnvironmentSuitsYou:
-                step5Field[UpdateUserConstants.whatKindOfWorkEnvironmentSuitsYou]!.value as String,
-            howDoYouApproachProblems:
-                step5Field[UpdateUserConstants.howDoYouApproachProblems]!.value as String,
-            whichSkillAreYouBestAt:
-                step5Field[UpdateUserConstants.whichSkillAreYouBestAt]!.value as String,
-            whatMotivatesYouMostInACareer:
-                step5Field[UpdateUserConstants.whatMotivatesYouMostInACareer]!.value as String,
-            doYouPreferWorking: step5Field[UpdateUserConstants.doYouPreferWorking]!.value as String,
-            doYouLikeJobsThatInvolve:
-                step5Field[UpdateUserConstants.doYouLikeJobsThatInvolve]!.value as String,
-            howDoYouFeelAboutDeadlines:
-                step5Field[UpdateUserConstants.howDoYouFeelAboutDeadlines]!.value as String,
-            wouldYouRather: step5Field[UpdateUserConstants.wouldYouRather]!.value as String,
-            whatKindOfJobStructureDoYouPrefer:
-                step5Field[UpdateUserConstants.whatKindOfJobStructureDoYouPrefer]!.value as String,
-            wouldYouEnjoyACareerWhereYou:
-                step5Field[UpdateUserConstants.wouldYouEnjoyACareerWhereYou]!.value as String,
-            wouldYouLikeToTravelForWork:
-                step5Field[UpdateUserConstants.wouldYouLikeToTravelForWork]!.value as String,
-            whatWouldMakeYouHappiestInAJob:
-                step5Field[UpdateUserConstants.whatWouldMakeYouHappiestInAJob]!.value as String,
-            doYouEnjoyWorkingWithTechnology:
-                step5Field[UpdateUserConstants.doYouEnjoyWorkingWithTechnology]!.value as String,
-            areYouInterestedInHealthcareOrMedicine:
-                step5Field[UpdateUserConstants.areYouInterestedInHealthcareOrMedicine]!.value
-                    as String,
-            wouldYouLikeToWorkInEducationOrTeaching:
-                step5Field[UpdateUserConstants.wouldYouLikeToWorkInEducationOrTeaching]!.value
-                    as String,
-            doYouEnjoyResearchAndAnalysis:
-                step5Field[UpdateUserConstants.doYouEnjoyResearchAndAnalysis]!.value as String,
-            areYouInterestedInPsychologyOrCounseling:
-                step5Field[UpdateUserConstants.areYouInterestedInPsychologyOrCounseling]!.value
-                    as String,
-            wouldYouLikeACareerInMediaOrFilmOrEntertainment:
-                step5Field[UpdateUserConstants.wouldYouLikeACareerInMediaOrFilmOrEntertainment]!
-                    .value as String,
-            whatIsMoreImportantToYouInAJob:
-                step5Field[UpdateUserConstants.whatIsMoreImportantToYouInAJob]!.value as String,
-            wouldYouRatherDo: step5Field[UpdateUserConstants.wouldYouRatherDo]!.value as String,
-            whatKindOfEmployerDoYouPrefer:
-                step5Field[UpdateUserConstants.whatKindOfEmployerDoYouPrefer]!.value as String,
-            whereWouldYouRatherWork:
-                step5Field[UpdateUserConstants.whereWouldYouRatherWork]!.value as String,
-            areYouMoreOfA: step5Field[UpdateUserConstants.areYouMoreOfA]!.value as String,
-            doYouPrefer: step5Field[UpdateUserConstants.doYouPrefer]!.value as String,
-            onUserUpdated: (updatedUserResponse) {
-              talker.debug(updatedUserResponse.user?.feedback);
-              talker.debug("------ ${loginModel.user?.whatCourseDoYouNeed}");
-              if (updatedUserResponse.user?.feedback != null) {
-                context.router.replaceAll([NavbarRoute()]);
-              } else {
-                context.router.replaceAll([UpdateUserRoute()]);
-              }
-            },
-          );
-    }
+    final roleFields = roleFormKey.currentState?.fields;
+    final careerInterestsFields = careerInterestsFormKey.currentState?.fields;
+    final careerSuggestionFields = careerSuggestionFormKey.currentState?.fields;
+    ref.read(updateUserProvider.notifier).updateUser(
+          userId: loginModel!.user!.id.toString(),
+          // whatCourseDoYouNeed: 'Not Selected',
+          // doYouNeedCareerCounselling: 'No',
+          // wouldYouLikeToBeACareerCounsellor: 'No',
+          whatDoYouDo: _getFieldValue(roleFields, UpdateUserConstants.whatDoYouDo) ?? '',
+          whichActivityDoYouEnjoyTheMost:
+              _getFieldValue(careerInterestsFields, UpdateUserConstants.activityEnjoy) ?? '',
+          whatKindOfChallengesExciteYou: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.whatKindOfChallengesExciteYou) ??
+              '',
+          doYouPreferWorkingWith:
+              _getFieldValue(careerInterestsFields, UpdateUserConstants.doYouPreferWorkingWith) ??
+                  '',
+          whatDoYouEnjoyDoingInYourFreeTime: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.whatDoYouEnjoyDoingInYourFreeTime) ??
+              '',
+          whatComesNaturallyToYou:
+              _getFieldValue(careerInterestsFields, UpdateUserConstants.whatComesNaturallyToYou) ??
+                  '',
+          whichSubjectWouldYouEnjoyTheMost: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.whichSubjectWouldYouEnjoyTheMost) ??
+              '',
+          whatKindOfWorkEnvironmentSuitsYou: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.whatKindOfWorkEnvironmentSuitsYou) ??
+              '',
+          howDoYouApproachProblems:
+              _getFieldValue(careerInterestsFields, UpdateUserConstants.howDoYouApproachProblems) ??
+                  '',
+          whichSkillAreYouBestAt:
+              _getFieldValue(careerInterestsFields, UpdateUserConstants.whichSkillAreYouBestAt) ??
+                  '',
+          whatMotivatesYouMostInACareer: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.whatMotivatesYouMostInACareer) ??
+              '',
+          doYouPreferWorking:
+              _getFieldValue(careerInterestsFields, UpdateUserConstants.doYouPreferWorking) ?? '',
+          doYouLikeJobsThatInvolve:
+              _getFieldValue(careerInterestsFields, UpdateUserConstants.doYouLikeJobsThatInvolve) ??
+                  '',
+          howDoYouFeelAboutDeadlines: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.howDoYouFeelAboutDeadlines) ??
+              '',
+          wouldYouRather:
+              _getFieldValue(careerInterestsFields, UpdateUserConstants.wouldYouRather) ?? '',
+          whatKindOfJobStructureDoYouPrefer: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.whatKindOfJobStructureDoYouPrefer) ??
+              '',
+          wouldYouEnjoyACareerWhereYou: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.wouldYouEnjoyACareerWhereYou) ??
+              '',
+          wouldYouLikeToTravelForWork: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.wouldYouLikeToTravelForWork) ??
+              '',
+          whatWouldMakeYouHappiestInAJob: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.whatWouldMakeYouHappiestInAJob) ??
+              '',
+          doYouEnjoyWorkingWithTechnology: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.doYouEnjoyWorkingWithTechnology) ??
+              '',
+          areYouInterestedInHealthcareOrMedicine: _getFieldValue(careerInterestsFields,
+                  UpdateUserConstants.areYouInterestedInHealthcareOrMedicine) ??
+              '',
+          wouldYouLikeToWorkInEducationOrTeaching: _getFieldValue(careerInterestsFields,
+                  UpdateUserConstants.wouldYouLikeToWorkInEducationOrTeaching) ??
+              '',
+          doYouEnjoyResearchAndAnalysis: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.doYouEnjoyResearchAndAnalysis) ??
+              '',
+          areYouInterestedInPsychologyOrCounseling: _getFieldValue(careerInterestsFields,
+                  UpdateUserConstants.areYouInterestedInPsychologyOrCounseling) ??
+              '',
+          wouldYouLikeACareerInMediaOrFilmOrEntertainment: _getFieldValue(careerInterestsFields,
+                  UpdateUserConstants.wouldYouLikeACareerInMediaOrFilmOrEntertainment) ??
+              '',
+          whatIsMoreImportantToYouInAJob: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.whatIsMoreImportantToYouInAJob) ??
+              '',
+          wouldYouRatherDo:
+              _getFieldValue(careerInterestsFields, UpdateUserConstants.wouldYouRatherDo) ?? '',
+          whatKindOfEmployerDoYouPrefer: _getFieldValue(
+                  careerInterestsFields, UpdateUserConstants.whatKindOfEmployerDoYouPrefer) ??
+              '',
+          whereWouldYouRatherWork:
+              _getFieldValue(careerInterestsFields, UpdateUserConstants.whereWouldYouRatherWork) ??
+                  '',
+          areYouMoreOfA:
+              _getFieldValue(careerInterestsFields, UpdateUserConstants.areYouMoreOfA) ?? '',
+          doYouPrefer: _getFieldValue(careerInterestsFields, UpdateUserConstants.doYouPrefer) ?? '',
+          careerChoice:
+              _getFieldValue(careerSuggestionFields, UpdateUserConstants.careerChoice) ?? '',
+          onUserUpdated: (updatedUserResponse) {
+            talker.debug(updatedUserResponse.user?.feedback);
+            talker.debug("------ ${loginModel.user?.whatCourseDoYouNeed}");
+            if (updatedUserResponse.user?.feedback != null) {
+              context.router.replaceAll([NavbarRoute()]);
+            } else {
+              context.router.replaceAll([UpdateUserRoute()]);
+            }
+          },
+        );
+    // if (roleFormKey.currentState?.saveAndValidate() == true &&
+    //     careerInterestsFormKey.currentState?.saveAndValidate() == true &&
+    //     careerSuggestionFormKey.currentState?.saveAndValidate() == true) {
+    //   // Guard against missing final selection to avoid null -> String cast crash
+    //   final selectedCareer = _getFieldValue(careerSuggestionFields, UpdateUserConstants.careerChoice);
+    //   if (selectedCareer == null || selectedCareer.isEmpty) {
+    //     talker.error('Career choice is required but not selected.');
+    //     return;
+    //   }
+
+    //   // Safely extract all field values with null checks
+    //   final whatDoYouDo = _getFieldValue(roleFields, UpdateUserConstants.whatDoYouDo);
+    //   if (whatDoYouDo == null) {
+    //     talker.error('Role selection is required.');
+    //     return;
+    //   }
+
+    //   // Access the values of the fields
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
     int currentStep = ref.watch(currentStepPod);
-    final loginModel = ref.read(loginDbProvider).getLoginModel();
     final onboardingHeaderTextStyle = Theme.of(context).textTheme.headlineMedium?.copyWith(
           fontWeight: FontWeight.bold,
           color: AppColors.kPrimaryColor,
@@ -170,19 +207,87 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
           type: StepperType.horizontal,
           currentStep: currentStep,
           onStepContinue: () async {
-            if (currentStep == 0 && step1FormKey.currentState!.validate()) {
+            if (currentStep == 0 && roleFormKey.currentState!.validate()) {
               ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
             }
-            if (currentStep == 1 && step2FormKey.currentState!.saveAndValidate()) {
+            if (currentStep == 1 && careerInterestsFormKey.currentState!.saveAndValidate()) {
+              // Generate career suggestions
+              final careerInterestsFields = careerInterestsFormKey.currentState?.fields;
+              if (careerInterestsFields != null) {
+                final answers = {
+                  'activityEnjoy':
+                      _getFieldValue(careerInterestsFields, UpdateUserConstants.activityEnjoy),
+                  'whatKindOfChallengesExciteYou': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whatKindOfChallengesExciteYou),
+                  'doYouPreferWorkingWith': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.doYouPreferWorkingWith),
+                  'whatDoYouEnjoyDoingInYourFreeTime': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whatDoYouEnjoyDoingInYourFreeTime),
+                  'whatComesNaturallyToYou': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whatComesNaturallyToYou),
+                  'whichSubjectWouldYouEnjoyTheMost': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whichSubjectWouldYouEnjoyTheMost),
+                  'whatKindOfWorkEnvironmentSuitsYou': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whatKindOfWorkEnvironmentSuitsYou),
+                  'howDoYouApproachProblems': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.howDoYouApproachProblems),
+                  'whichSkillAreYouBestAt': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whichSkillAreYouBestAt),
+                  'whatMotivatesYouMostInACareer': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whatMotivatesYouMostInACareer),
+                  'doYouPreferWorking':
+                      _getFieldValue(careerInterestsFields, UpdateUserConstants.doYouPreferWorking),
+                  'doYouLikeJobsThatInvolve': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.doYouLikeJobsThatInvolve),
+                  'wouldYouRather':
+                      _getFieldValue(careerInterestsFields, UpdateUserConstants.wouldYouRather),
+                  'howDoYouFeelAboutDeadlines': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.howDoYouFeelAboutDeadlines),
+                  'whatKindOfJobStructureDoYouPrefer': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whatKindOfJobStructureDoYouPrefer),
+                  'wouldYouEnjoyACareerWhereYou': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.wouldYouEnjoyACareerWhereYou),
+                  'wouldYouLikeToTravelForWork': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.wouldYouLikeToTravelForWork),
+                  'whatWouldMakeYouHappiestInAJob': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whatWouldMakeYouHappiestInAJob),
+                  'doYouEnjoyWorkingWithTechnology': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.doYouEnjoyWorkingWithTechnology),
+                  'areYouInterestedInHealthcareOrMedicine': _getFieldValue(careerInterestsFields,
+                      UpdateUserConstants.areYouInterestedInHealthcareOrMedicine),
+                  'wouldYouLikeToWorkInEducationOrTeaching': _getFieldValue(careerInterestsFields,
+                      UpdateUserConstants.wouldYouLikeToWorkInEducationOrTeaching),
+                  'doYouEnjoyResearchAndAnalysis': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.doYouEnjoyResearchAndAnalysis),
+                  'areYouInterestedInPsychologyOrCounseling': _getFieldValue(careerInterestsFields,
+                      UpdateUserConstants.areYouInterestedInPsychologyOrCounseling),
+                  'wouldYouLikeACareerInMediaOrFilmOrEntertainment': _getFieldValue(
+                      careerInterestsFields,
+                      UpdateUserConstants.wouldYouLikeACareerInMediaOrFilmOrEntertainment),
+                  'whatIsMoreImportantToYouInAJob': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whatIsMoreImportantToYouInAJob),
+                  'wouldYouRatherDo':
+                      _getFieldValue(careerInterestsFields, UpdateUserConstants.wouldYouRatherDo),
+                  'whatKindOfEmployerDoYouPrefer': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whatKindOfEmployerDoYouPrefer),
+                  'whereWouldYouRatherWork': _getFieldValue(
+                      careerInterestsFields, UpdateUserConstants.whereWouldYouRatherWork),
+                  'areYouMoreOfA':
+                      _getFieldValue(careerInterestsFields, UpdateUserConstants.areYouMoreOfA),
+                  'doYouPrefer':
+                      _getFieldValue(careerInterestsFields, UpdateUserConstants.doYouPrefer),
+                };
+
+                final filteredAnswers = <String, String>{};
+                answers.forEach((key, value) {
+                  if (value != null) filteredAnswers[key] = value;
+                });
+
+                careerSuggestion = CareerSuggestionUtils.getCareerSuggestion(filteredAnswers);
+              }
               ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
             }
-            if (currentStep == 2 && step3FormKey.currentState!.saveAndValidate()) {
-              ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            }
-            if (currentStep == 3 && step4FormKey.currentState!.validate()) {
-              ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
-            }
-            if (currentStep == 4 && step5FormKey.currentState!.saveAndValidate()) {
+            if (currentStep == 2 && careerSuggestionFormKey.currentState!.saveAndValidate()) {
               updateUser();
             }
           },
@@ -195,129 +300,9 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
             Step(
               state: currentStep > 0 ? StepState.complete : StepState.indexed,
               isActive: currentStep >= 0,
-              title: currentStep == 0 ? const Text('Skill Details') : const SizedBox(),
+              title: currentStep == 0 ? const Text('Role') : const SizedBox(),
               content: FormBuilder(
-                key: step1FormKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 20,
-                  children: [
-                    Text(
-                      'What course do you need?'.allWordsCapitilize(),
-                      style: onboardingHeaderTextStyle,
-                    ),
-                    CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.course,
-                      onChanged: (p0) {},
-                      validator: FormBuilderValidators.compose(
-                        [
-                          FormBuilderValidators.required(),
-                        ],
-                      ),
-                      options: [
-                        FormBuilderFieldOption(value: 'Finance', child: Text('Finance')),
-                        FormBuilderFieldOption(value: 'Commerce', child: Text('Commerce')),
-                        FormBuilderFieldOption(value: 'Maths', child: Text('Maths')),
-                        FormBuilderFieldOption(value: 'Physics', child: Text('Physics')),
-                        FormBuilderFieldOption(value: 'Chemistry', child: Text('Chemistry')),
-                        FormBuilderFieldOption(value: 'English', child: Text('English')),
-                      ],
-                    ),
-                    Text(
-                      'We are adding more subjects soon....',
-                      style: TextStyle(
-                        color: AppColors.kGrey500,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Step(
-              state: currentStep > 1 ? StepState.complete : StepState.indexed,
-              isActive: currentStep >= 1,
-              title: currentStep == 1 ? const Text('Other Details') : const SizedBox(),
-              content: FormBuilder(
-                key: step2FormKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 10,
-                  children: [
-                    Text(
-                      'Do you need career counselling?'.allWordsCapitilize(),
-                      style: onboardingHeaderTextStyle,
-                    ),
-                    CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.doYouNeedCareerCounselling,
-                      direction: Axis.horizontal,
-                      onChanged: (p0) {},
-                      validator: FormBuilderValidators.compose(
-                        [
-                          FormBuilderValidators.required(),
-                        ],
-                      ),
-                      options: [
-                        FormBuilderFieldOption(
-                          value: 'Yes',
-                          child: Text('Yes'),
-                        ),
-                        FormBuilderFieldOption(
-                          value: 'No', //TODO: change value's value to provider
-                          child: Text('No'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Step(
-              state: currentStep > 2 ? StepState.complete : StepState.indexed,
-              isActive: currentStep >= 2,
-              title: currentStep == 2 ? const Text('Career') : const SizedBox(),
-              content: FormBuilder(
-                key: step3FormKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 10,
-                  children: [
-                    Text(
-                      'Would you like to be a career counsellor?'.allWordsCapitilize(),
-                      style: onboardingHeaderTextStyle,
-                    ),
-                    CustomRadioGroupFormField<String>(
-                      name: UpdateUserConstants.wantToBeACareerCounsellor,
-                      direction: Axis.horizontal,
-                      onChanged: (p0) {},
-                      validator: FormBuilderValidators.compose(
-                        [
-                          FormBuilderValidators.required(),
-                        ],
-                      ),
-                      options: [
-                        FormBuilderFieldOption(
-                          value: 'Yes',
-                          child: Text('Yes'),
-                        ),
-                        FormBuilderFieldOption(
-                          value: 'No',
-                          child: Text('No'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Step(
-              state: currentStep > 3 ? StepState.complete : StepState.indexed,
-              isActive: currentStep >= 3,
-              title: currentStep == 3 ? const Text('Role') : const SizedBox(),
-              content: FormBuilder(
-                key: step4FormKey,
+                key: roleFormKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -357,9 +342,12 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                               children: [
                                 SvgPicture.asset(
                                   R.ASSETS_ICON_STUDENT_SVG,
-                                  color: isSelectedStudentIcon
-                                      ? AppColors.kSecondaryColor
-                                      : AppColors.kPrimaryColor,
+                                  colorFilter: ColorFilter.mode(
+                                    isSelectedStudentIcon
+                                        ? AppColors.kSecondaryColor
+                                        : AppColors.kPrimaryColor,
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
                                 Text('Student\n'),
                               ],
@@ -373,9 +361,12 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                               children: [
                                 SvgPicture.asset(
                                   R.ASSETS_ICON_WORKING_PROFESSIONAL_SVG,
-                                  color: isSelectedUgIcon
-                                      ? AppColors.kSecondaryColor
-                                      : AppColors.kPrimaryColor,
+                                  colorFilter: ColorFilter.mode(
+                                    isSelectedUgIcon
+                                        ? AppColors.kSecondaryColor
+                                        : AppColors.kPrimaryColor,
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
                                 Text(
                                   'UG',
@@ -391,13 +382,12 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                 ),
               ),
             ),
-            //keep it in a conditional statement
             Step(
-              state: currentStep > 4 ? StepState.complete : StepState.indexed,
-              isActive: currentStep >= 4,
-              title: currentStep == 4 ? const Text('Career Interests') : const SizedBox(),
+              state: currentStep > 1 ? StepState.complete : StepState.indexed,
+              isActive: currentStep >= 1,
+              title: currentStep == 1 ? const Text('Career Interests') : const SizedBox(),
               content: FormBuilder(
-                key: step5FormKey,
+                key: careerInterestsFormKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1088,6 +1078,138 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                   ],
                 ),
               ),
+            ),
+            Step(
+              state: currentStep > 2 ? StepState.complete : StepState.indexed,
+              isActive: currentStep >= 2,
+              title: currentStep == 2 ? const Text('Career Suggestions') : const SizedBox(),
+              content: careerSuggestion != null
+                  ? FormBuilder(
+                      key: careerSuggestionFormKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            careerSuggestion!.personalityType,
+                            style: onboardingHeaderTextStyle,
+                          ),
+                          16.heightBox,
+                          Text(
+                            'Description',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.kPrimaryColor,
+                                ),
+                          ),
+                          8.heightBox,
+                          Text(
+                            careerSuggestion!.description,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          16.heightBox,
+                          Text(
+                            'Your Strengths',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green.shade700,
+                                ),
+                          ),
+                          8.heightBox,
+                          ...careerSuggestion!.strengths.map(
+                            (strength) => Padding(
+                              padding: const EdgeInsets.only(bottom: 4),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green.shade600,
+                                    size: 16,
+                                  ),
+                                  8.widthBox,
+                                  Expanded(
+                                    child: Text(
+                                      strength,
+                                      style: Theme.of(context).textTheme.bodyMedium,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          16.heightBox,
+                          Text(
+                            'Areas for Development',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.orange.shade700,
+                                ),
+                          ),
+                          8.heightBox,
+                          ...careerSuggestion!.weaknesses.map(
+                            (weakness) => Padding(
+                              padding: const EdgeInsets.only(bottom: 4),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.info_outline,
+                                    color: Colors.orange.shade600,
+                                    size: 16,
+                                  ),
+                                  8.widthBox,
+                                  Expanded(
+                                    child: Text(
+                                      weakness,
+                                      style: Theme.of(context).textTheme.bodyMedium,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          24.heightBox,
+                          Text(
+                            'Select Your Preferred Career Path -',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.orange.shade700,
+                                ),
+                          ),
+                          16.heightBox,
+                          CustomRadioGroupFormField<String>(
+                            name: UpdateUserConstants.careerChoice,
+                            onChanged: (value) {
+                              talker.debug('Selected career: $value');
+                            },
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                            ]),
+                            options: careerSuggestion!.careerSuggestions
+                                .map(
+                                  (career) => FormBuilderFieldOption(
+                                    value: career,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Flexible(
+                                            child: Text(career),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const Center(
+                      child: Text('Complete the previous steps to see your career suggestions'),
+                    ),
             ),
           ],
         ),

@@ -15,13 +15,13 @@ class LoginGuard extends AutoRouteGuard {
   /// A class that provides database services for token management.
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
     final token = loginDbService.getLoginModel()?.jwt;
-    final whatCourseDoYouNeed = loginDbService.getLoginModel()?.user?.whatCourseDoYouNeed;
-    if (token != null && whatCourseDoYouNeed == null) {
+    final feedback = loginDbService.getLoginModel()?.user?.feedback;
+    if (token != null && feedback == null) {
       talker.debug('hi 1');
       router.replaceAll([UpdateUserRoute()]);
-      // router.replaceAll([NavbarRoute()]);
+
       resolver.next(false);
-    } else if (token != null && whatCourseDoYouNeed != null) {
+    } else if (token != null && feedback != null) {
       talker.debug('hi 2');
       router.replaceAll([NavbarRoute()]);
       resolver.next(false);

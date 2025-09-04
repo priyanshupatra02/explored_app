@@ -49,7 +49,7 @@ class UpdateUserData {
   final dynamic isPaid;
   final String? whatCourseDoYouNeed;
   final String? wouldDoYouDo;
-  final bool? doYouNeedACareerCounselling;
+  final bool? careerChoice;
   final bool? wouldYouLikeToBeACareerCounsellor;
 
   UpdateUserData({
@@ -74,7 +74,7 @@ class UpdateUserData {
     this.isPaid,
     this.whatCourseDoYouNeed,
     this.wouldDoYouDo,
-    this.doYouNeedACareerCounselling,
+    this.careerChoice,
     this.wouldYouLikeToBeACareerCounsellor,
   });
 
@@ -100,7 +100,7 @@ class UpdateUserData {
     dynamic isPaid,
     String? whatCourseDoYouNeed,
     String? wouldDoYouDo,
-    bool? doYouNeedACareerCounselling,
+    bool? careerChoice,
     bool? wouldYouLikeToBeACareerCounsellor,
   }) =>
       UpdateUserData(
@@ -125,8 +125,8 @@ class UpdateUserData {
         isPaid: isPaid ?? this.isPaid,
         whatCourseDoYouNeed: whatCourseDoYouNeed ?? this.whatCourseDoYouNeed,
         wouldDoYouDo: wouldDoYouDo ?? this.wouldDoYouDo,
-        doYouNeedACareerCounselling:
-            doYouNeedACareerCounselling ?? this.doYouNeedACareerCounselling,
+        careerChoice:
+            careerChoice ?? this.careerChoice,
         wouldYouLikeToBeACareerCounsellor:
             wouldYouLikeToBeACareerCounsellor ?? this.wouldYouLikeToBeACareerCounsellor,
       );
@@ -157,7 +157,7 @@ class UpdateUserData {
         isPaid: json["isPaid"],
         whatCourseDoYouNeed: json["whatCourseDoYouNeed"],
         wouldDoYouDo: json["wouldDoYouDo"],
-        doYouNeedACareerCounselling: json["doYouNeedACareerCounselling"],
+        careerChoice: json["careerChoice"],
         wouldYouLikeToBeACareerCounsellor: json["wouldYouLikeToBeACareerCounsellor"],
       );
 
@@ -183,7 +183,7 @@ class UpdateUserData {
         "isPaid": isPaid,
         "whatCourseDoYouNeed": whatCourseDoYouNeed,
         "wouldDoYouDo": wouldDoYouDo,
-        "doYouNeedACareerCounselling": doYouNeedACareerCounselling,
+        "careerChoice": careerChoice,
         "wouldYouLikeToBeACareerCounsellor": wouldYouLikeToBeACareerCounsellor,
       };
 }

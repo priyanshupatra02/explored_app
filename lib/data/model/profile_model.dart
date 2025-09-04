@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class ProfileModel {
@@ -18,7 +17,7 @@ class ProfileModel {
     final bool? isPaid;
     final String? whatCourseDoYouNeed;
     final String? wouldDoYouDo;
-    final bool? doYouNeedACareerCounselling;
+    final bool? careerChoice;
     final bool? wouldYouLikeToBeACareerCounsellor;
 
     ProfileModel({
@@ -38,7 +37,7 @@ class ProfileModel {
         this.isPaid,
         this.whatCourseDoYouNeed,
         this.wouldDoYouDo,
-        this.doYouNeedACareerCounselling,
+        this.careerChoice,
         this.wouldYouLikeToBeACareerCounsellor,
     });
 
@@ -59,7 +58,7 @@ class ProfileModel {
         bool? isPaid,
         String? whatCourseDoYouNeed,
         String? wouldDoYouDo,
-        bool? doYouNeedACareerCounselling,
+        bool? careerChoice,
         bool? wouldYouLikeToBeACareerCounsellor,
     }) => 
         ProfileModel(
@@ -79,7 +78,7 @@ class ProfileModel {
             isPaid: isPaid ?? this.isPaid,
             whatCourseDoYouNeed: whatCourseDoYouNeed ?? this.whatCourseDoYouNeed,
             wouldDoYouDo: wouldDoYouDo ?? this.wouldDoYouDo,
-            doYouNeedACareerCounselling: doYouNeedACareerCounselling ?? this.doYouNeedACareerCounselling,
+            careerChoice: careerChoice ?? this.careerChoice,
             wouldYouLikeToBeACareerCounsellor: wouldYouLikeToBeACareerCounsellor ?? this.wouldYouLikeToBeACareerCounsellor,
         );
 
@@ -104,7 +103,7 @@ class ProfileModel {
         isPaid: json["isPaid"],
         whatCourseDoYouNeed: json["whatCourseDoYouNeed"],
         wouldDoYouDo: json["wouldDoYouDo"],
-        doYouNeedACareerCounselling: json["doYouNeedACareerCounselling"],
+        careerChoice: json["careerChoice"],
         wouldYouLikeToBeACareerCounsellor: json["wouldYouLikeToBeACareerCounsellor"],
     );
 
@@ -125,7 +124,7 @@ class ProfileModel {
         "isPaid": isPaid,
         "whatCourseDoYouNeed": whatCourseDoYouNeed,
         "wouldDoYouDo": wouldDoYouDo,
-        "doYouNeedACareerCounselling": doYouNeedACareerCounselling,
+        "careerChoice": careerChoice,
         "wouldYouLikeToBeACareerCounsellor": wouldYouLikeToBeACareerCounsellor,
     };
 }

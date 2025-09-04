@@ -2,12 +2,12 @@ class UpdateUserConstants {
   UpdateUserConstants._();
   //all textfields
   // static String name = "name";
-  static String course = "course";
-  static String profession = "profession";
-  static String wantACareerCounselling = "wantACareerCounselling";
-  static String doYouNeedCareerCounselling = "doYouNeedCareerCounselling";
+  // static String course = "course";
+  // static String profession = "profession";
+  // static String wantACareerCounselling = "wantACareerCounselling";
+  // static String doYouNeedCareerCounselling = "doYouNeedCareerCounselling";
   static String whatDoYouDo = "whatDoYouDo";
-  static String wantToBeACareerCounsellor = "wantToBeACareerCounsellor";
+  // static String wantToBeACareerCounsellor = "wantToBeACareerCounsellor";
   static String activityEnjoy = "activityEnjoy";
   static String whatKindOfChallengesExciteYou = "whatKindOfChallengesExciteYou";
   static String doYouPreferWorkingWith = "doYouPreferWorkingWith";
@@ -40,6 +40,8 @@ class UpdateUserConstants {
   static String whereWouldYouRatherWork = "whereWouldYouRatherWork";
   static String areYouMoreOfA = "areYouMoreOfA";
   static String doYouPrefer = "doYouPrefer";
+  // Unique key for the final career selection field (previously duplicated)
+  static String careerChoice = "careerChoice";
 }
 
 final List<String> questions = [

@@ -29,7 +29,7 @@ class NextOrSubmitButton extends ConsumerWidget {
               ),
               onPressed: details.onStepContinue,
               child: Text(
-                currentStep == 4 ? 'Submit' : 'Next',
+                currentStep == 2 ? 'Submit' : 'Next',
               ),
             ),
           UpdatingUserState() => ElevatedButton(
@@ -37,17 +37,17 @@ class NextOrSubmitButton extends ConsumerWidget {
                 backgroundColor: AppColors.kPrimaryColor,
                 foregroundColor: AppColors.kLightSecondaryColor,
               ),
-              onPressed: details.onStepContinue,
+              onPressed: null,
               child: CupertinoActivityIndicator(
                 color: AppColors.kPrimaryWhiteColor,
               ),
             ),
           UpdatedUserState() => ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.kPrimaryColor,
+                backgroundColor: Colors.green,
                 foregroundColor: AppColors.kLightSecondaryColor,
               ),
-              onPressed: details.onStepContinue,
+              onPressed: null,
               child: Text('Updated'),
             ),
           NotUpdatedUserState() => ElevatedButton(
@@ -57,7 +57,7 @@ class NextOrSubmitButton extends ConsumerWidget {
               ),
               onPressed: details.onStepContinue,
               child: Text(
-                currentStep == 4 ? 'Submit' : 'Next',
+                currentStep == 2 ? 'Submit' : 'Next',
               ),
             ),
           UpdateUserErrorState() => ElevatedButton(
@@ -67,7 +67,7 @@ class NextOrSubmitButton extends ConsumerWidget {
               ),
               onPressed: details.onStepContinue,
               child: Text(
-                currentStep == 4 ? 'Submit' : 'Next',
+                currentStep == 2 ? 'Submit' : 'Next',
               ),
             ),
         };

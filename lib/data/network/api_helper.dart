@@ -56,10 +56,10 @@ class ApiHelper {
     // required String lastname,
     // required String email,
     required String userId,
-    required String whatCourseDoYouNeed,
-    required String doYouNeedCareerCounselling,
+    // required String whatCourseDoYouNeed,
+    // required String doYouNeedCareerCounselling,
     required String whatDoYouDo,
-    required String wouldYouLikeToBeACareerCounsellor,
+    // required String wouldYouLikeToBeACareerCounsellor,
     required String whichActivityDoYouEnjoyTheMost,
     required String whatKindOfChallengesExciteYou,
     required String doYouPreferWorkingWith,
@@ -90,19 +90,20 @@ class ApiHelper {
     required String whereWouldYouRatherWork,
     required String areYouMoreOfA,
     required String doYouPrefer,
+    required String careerChoice,
   }) async {
-    final bool isDoYouNeedCareerCounselling = doYouNeedCareerCounselling == "No" ? false : true;
-    final bool isWouldYouLikeToBeACareerCounsellor =
-        wouldYouLikeToBeACareerCounsellor == "No" ? false : true;
+    // final bool isDoYouNeedCareerCounselling = doYouNeedCareerCounselling == "No" ? false : true;
+    // final bool isWouldYouLikeToBeACareerCounsellor =
+    //     wouldYouLikeToBeACareerCounsellor == "No" ? false : true;
     final result = await dio.put(
       '${AppUrls.updateuser}$userId',
       data: {
         // "firstName": firstName,
         // "lastName": lastname,
         // "email": email,
-        "whatCourseDoYouNeed": whatCourseDoYouNeed,
-        "doYouNeedACareerCounselling": isDoYouNeedCareerCounselling,
-        "wouldYouLikeToBeACareerCounsellor": isWouldYouLikeToBeACareerCounsellor,
+        // "whatCourseDoYouNeed": whatCourseDoYouNeed,
+        // "doYouNeedACareerCounselling": isDoYouNeedCareerCounselling,
+        // "wouldYouLikeToBeACareerCounsellor": isWouldYouLikeToBeACareerCounsellor,
         "whatDoYouDo": whatDoYouDo,
         "feedback": {
           "whichActivityDoYouEnjoyTheMost": whichActivityDoYouEnjoyTheMost,
@@ -135,8 +136,10 @@ class ApiHelper {
           "whatKindOfEmployerDoYouPrefer": whatKindOfEmployerDoYouPrefer,
           "whereWouldYouRatherWork": whereWouldYouRatherWork,
           "areYouMoreOfA": areYouMoreOfA,
-          "doYouPrefer": doYouPrefer
-        }
+          "doYouPrefer": doYouPrefer,
+        },
+        "careerChoice": false,
+        // "careerChoice": careerChoice,
       },
     );
     return result.successErrorHandler<UserResponseModel>(

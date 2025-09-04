@@ -213,7 +213,7 @@ class ProfileViewState extends ConsumerState<ProfileView>
                         },
                       );
                     },
-                  )
+                  ),
                 ],
               ),
             ),

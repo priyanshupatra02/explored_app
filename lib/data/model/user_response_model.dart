@@ -55,7 +55,7 @@ class User {
     final dynamic isPaid;
     final String? whatCourseDoYouNeed;
     final String? wouldDoYouDo;
-    final bool? doYouNeedACareerCounselling;
+    final bool? careerChoice;
     final bool? wouldYouLikeToBeACareerCounsellor;
 
     User({
@@ -80,7 +80,7 @@ class User {
         this.isPaid,
         this.whatCourseDoYouNeed,
         this.wouldDoYouDo,
-        this.doYouNeedACareerCounselling,
+        this.careerChoice,
         this.wouldYouLikeToBeACareerCounsellor,
     });
 
@@ -106,7 +106,7 @@ class User {
         dynamic isPaid,
         String? whatCourseDoYouNeed,
         String? wouldDoYouDo,
-        bool? doYouNeedACareerCounselling,
+        bool? careerChoice,
         bool? wouldYouLikeToBeACareerCounsellor,
     }) => 
         User(
@@ -131,7 +131,7 @@ class User {
             isPaid: isPaid ?? this.isPaid,
             whatCourseDoYouNeed: whatCourseDoYouNeed ?? this.whatCourseDoYouNeed,
             wouldDoYouDo: wouldDoYouDo ?? this.wouldDoYouDo,
-            doYouNeedACareerCounselling: doYouNeedACareerCounselling ?? this.doYouNeedACareerCounselling,
+            careerChoice: careerChoice ?? this.careerChoice,
             wouldYouLikeToBeACareerCounsellor: wouldYouLikeToBeACareerCounsellor ?? this.wouldYouLikeToBeACareerCounsellor,
         );
 
@@ -161,7 +161,7 @@ class User {
         isPaid: json["isPaid"],
         whatCourseDoYouNeed: json["whatCourseDoYouNeed"],
         wouldDoYouDo: json["wouldDoYouDo"],
-        doYouNeedACareerCounselling: json["doYouNeedACareerCounselling"],
+        careerChoice: json["careerChoice"],
         wouldYouLikeToBeACareerCounsellor: json["wouldYouLikeToBeACareerCounsellor"],
     );
 
@@ -187,7 +187,7 @@ class User {
         "isPaid": isPaid,
         "whatCourseDoYouNeed": whatCourseDoYouNeed,
         "wouldDoYouDo": wouldDoYouDo,
-        "doYouNeedACareerCounselling": doYouNeedACareerCounselling,
+        "careerChoice": careerChoice,
         "wouldYouLikeToBeACareerCounsellor": wouldYouLikeToBeACareerCounsellor,
     };
 }
