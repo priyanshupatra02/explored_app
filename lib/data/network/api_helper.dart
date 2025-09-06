@@ -91,6 +91,7 @@ class ApiHelper {
     required String areYouMoreOfA,
     required String doYouPrefer,
     required String careerChoice,
+    required String mastersCareerChoice,
   }) async {
     // final bool isDoYouNeedCareerCounselling = doYouNeedCareerCounselling == "No" ? false : true;
     // final bool isWouldYouLikeToBeACareerCounsellor =
@@ -138,8 +139,8 @@ class ApiHelper {
           "areYouMoreOfA": areYouMoreOfA,
           "doYouPrefer": doYouPrefer,
         },
-        "careerChoice": false,
-        // "careerChoice": careerChoice,
+        "careerChoice": careerChoice,
+        "mastersCareerChoice": mastersCareerChoice,
       },
     );
     return result.successErrorHandler<UserResponseModel>(

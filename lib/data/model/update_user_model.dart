@@ -49,7 +49,7 @@ class UpdateUserData {
   final dynamic isPaid;
   final String? whatCourseDoYouNeed;
   final String? wouldDoYouDo;
-  final bool? careerChoice;
+  final String? careerChoice;
   final bool? wouldYouLikeToBeACareerCounsellor;
 
   UpdateUserData({
@@ -100,7 +100,7 @@ class UpdateUserData {
     dynamic isPaid,
     String? whatCourseDoYouNeed,
     String? wouldDoYouDo,
-    bool? careerChoice,
+    String? careerChoice,
     bool? wouldYouLikeToBeACareerCounsellor,
   }) =>
       UpdateUserData(
@@ -157,7 +157,7 @@ class UpdateUserData {
         isPaid: json["isPaid"],
         whatCourseDoYouNeed: json["whatCourseDoYouNeed"],
         wouldDoYouDo: json["wouldDoYouDo"],
-        careerChoice: json["careerChoice"],
+        careerChoice: json["careerChoice"]?.toString(),
         wouldYouLikeToBeACareerCounsellor: json["wouldYouLikeToBeACareerCounsellor"],
       );
 

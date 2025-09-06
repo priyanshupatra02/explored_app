@@ -1,7 +1,6 @@
 import 'package:edtech_app/const/styles/app_colors.dart';
 import 'package:edtech_app/features/home/controller/pod/get_profile_pod.dart';
 import 'package:edtech_app/features/profile/view/widget/detail_row.dart';
-import 'package:edtech_app/shared/extension/app_extension.dart';
 import 'package:edtech_app/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,16 +43,16 @@ class ProfileDetails extends StatelessWidget {
                       //   value: "+91 ${profileResponse.phone!}",
                       //   delay: 100,
                       // ),
-                      // DetailRow(
-                      //   icon: Icons.school_outlined,
-                      //   label: 'Career Choice',
-                      //   value: profileResponse.careerChoice!,
-                      //   delay: 200,
-                      // ),
                       DetailRow(
                         icon: Icons.school_outlined,
                         label: 'Career Choice',
-                        value: "Psychologist".hardCoded, //TODO: make this dynamic
+                        value: profileResponse.careerChoice!,
+                        delay: 200,
+                      ),
+                      DetailRow(
+                        icon: Icons.school_outlined,
+                        label: 'Master\'s Choice',
+                        value: profileResponse.mastersCareerChoice!,
                         delay: 200,
                       ),
                     ],

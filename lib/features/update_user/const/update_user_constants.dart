@@ -42,6 +42,7 @@ class UpdateUserConstants {
   static String doYouPrefer = "doYouPrefer";
   // Unique key for the final career selection field (previously duplicated)
   static String careerChoice = "careerChoice";
+  static String mastersCareerChoice = "mastersCareerChoice";
 }
 
 final List<String> questions = [

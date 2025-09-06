@@ -49,6 +49,7 @@ class UpdateUserAsyncNotifier extends AutoDisposeAsyncNotifier<UpdateUserState> 
     required final String areYouMoreOfA,
     required final String doYouPrefer,
     required final String careerChoice,
+    required final String mastersCareerChoice,
     required void Function(UserResponseModel updatedUserResponse) onUserUpdated,
   }) async {
     state = const AsyncData(UpdatingUserState());
@@ -92,6 +93,7 @@ class UpdateUserAsyncNotifier extends AutoDisposeAsyncNotifier<UpdateUserState> 
               areYouMoreOfA: areYouMoreOfA,
               doYouPrefer: doYouPrefer,
               careerChoice: careerChoice,
+              mastersCareerChoice: mastersCareerChoice,
             );
 
         return updateUserResult.when(

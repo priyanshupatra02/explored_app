@@ -55,7 +55,7 @@ class User {
     final dynamic isPaid;
     final String? whatCourseDoYouNeed;
     final String? wouldDoYouDo;
-    final bool? careerChoice;
+    final String? careerChoice;
     final bool? wouldYouLikeToBeACareerCounsellor;
 
     User({
@@ -106,7 +106,7 @@ class User {
         dynamic isPaid,
         String? whatCourseDoYouNeed,
         String? wouldDoYouDo,
-        bool? careerChoice,
+        String? careerChoice,
         bool? wouldYouLikeToBeACareerCounsellor,
     }) => 
         User(
@@ -161,7 +161,7 @@ class User {
         isPaid: json["isPaid"],
         whatCourseDoYouNeed: json["whatCourseDoYouNeed"],
         wouldDoYouDo: json["wouldDoYouDo"],
-        careerChoice: json["careerChoice"],
+        careerChoice: json["careerChoice"]?.toString(),
         wouldYouLikeToBeACareerCounsellor: json["wouldYouLikeToBeACareerCounsellor"],
     );
 

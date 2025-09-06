@@ -41,6 +41,7 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
   final careerInterestsFormKey = GlobalKey<FormBuilderState>();
   final careerSuggestionFormKey = GlobalKey<FormBuilderState>();
   CareerSuggestion? careerSuggestion;
+  MastersDegreeCareerSuggestion? mastersCareerSuggestion;
 
   String? _getFieldValue(Map<String, FormBuilderFieldState>? fields, String key) {
     return fields?[key]?.value as String?;
@@ -143,6 +144,8 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
           doYouPrefer: _getFieldValue(careerInterestsFields, UpdateUserConstants.doYouPrefer) ?? '',
           careerChoice:
               _getFieldValue(careerSuggestionFields, UpdateUserConstants.careerChoice) ?? '',
+          mastersCareerChoice:
+              _getFieldValue(careerSuggestionFields, UpdateUserConstants.mastersCareerChoice) ?? '',
           onUserUpdated: (updatedUserResponse) {
             talker.debug(updatedUserResponse.user?.feedback);
             talker.debug("------ ${loginModel.user?.whatCourseDoYouNeed}");
@@ -284,6 +287,8 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
                 });
 
                 careerSuggestion = CareerSuggestionUtils.getCareerSuggestion(filteredAnswers);
+                mastersCareerSuggestion =
+                    CareerSuggestionUtils.getMastersDegreeCareerSuggestion(filteredAnswers);
               }
               ref.read(currentStepPod.notifier).update((value) => currentStep + 1);
             }
@@ -1083,128 +1088,272 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> {
               state: currentStep > 2 ? StepState.complete : StepState.indexed,
               isActive: currentStep >= 2,
               title: currentStep == 2 ? const Text('Career Suggestions') : const SizedBox(),
-              content: careerSuggestion != null
+              content: careerSuggestion != null && mastersCareerSuggestion != null
                   ? FormBuilder(
                       key: careerSuggestionFormKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            careerSuggestion!.personalityType,
-                            style: onboardingHeaderTextStyle,
-                          ),
-                          16.heightBox,
-                          Text(
-                            'Description',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.kPrimaryColor,
-                                ),
-                          ),
-                          8.heightBox,
-                          Text(
-                            careerSuggestion!.description,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          16.heightBox,
-                          Text(
-                            'Your Strengths',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green.shade700,
-                                ),
-                          ),
-                          8.heightBox,
-                          ...careerSuggestion!.strengths.map(
-                            (strength) => Padding(
-                              padding: const EdgeInsets.only(bottom: 4),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: Colors.green.shade600,
-                                    size: 16,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              careerSuggestion!.personalityType,
+                              style: onboardingHeaderTextStyle,
+                            ),
+                            16.heightBox,
+                            Text(
+                              'Description',
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.kPrimaryColor,
                                   ),
-                                  8.widthBox,
-                                  Expanded(
-                                    child: Text(
-                                      strength,
-                                      style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            8.heightBox,
+                            Text(
+                              careerSuggestion!.description,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            16.heightBox,
+                            Text(
+                              'Your Strengths',
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green.shade700,
+                                  ),
+                            ),
+                            8.heightBox,
+                            ...careerSuggestion!.strengths.map(
+                              (strength) => Padding(
+                                padding: const EdgeInsets.only(bottom: 4),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Icons.check_circle,
+                                      color: Colors.green.shade600,
+                                      size: 16,
                                     ),
-                                  ),
-                                ],
+                                    8.widthBox,
+                                    Expanded(
+                                      child: Text(
+                                        strength,
+                                        style: Theme.of(context).textTheme.bodyMedium,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          16.heightBox,
-                          Text(
-                            'Areas for Development',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.orange.shade700,
-                                ),
-                          ),
-                          8.heightBox,
-                          ...careerSuggestion!.weaknesses.map(
-                            (weakness) => Padding(
-                              padding: const EdgeInsets.only(bottom: 4),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.info_outline,
-                                    color: Colors.orange.shade600,
-                                    size: 16,
+                            16.heightBox,
+                            Text(
+                              'Areas for Development',
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.orange.shade700,
                                   ),
-                                  8.widthBox,
-                                  Expanded(
-                                    child: Text(
-                                      weakness,
-                                      style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            8.heightBox,
+                            ...careerSuggestion!.weaknesses.map(
+                              (weakness) => Padding(
+                                padding: const EdgeInsets.only(bottom: 4),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Icons.info_outline,
+                                      color: Colors.orange.shade600,
+                                      size: 16,
                                     ),
-                                  ),
-                                ],
+                                    8.widthBox,
+                                    Expanded(
+                                      child: Text(
+                                        weakness,
+                                        style: Theme.of(context).textTheme.bodyMedium,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          24.heightBox,
-                          Text(
-                            'Select Your Preferred Career Path -',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.orange.shade700,
-                                ),
-                          ),
-                          16.heightBox,
-                          CustomRadioGroupFormField<String>(
-                            name: UpdateUserConstants.careerChoice,
-                            onChanged: (value) {
-                              talker.debug('Selected career: $value');
-                            },
-                            validator: FormBuilderValidators.compose([
-                              FormBuilderValidators.required(),
-                            ]),
-                            options: careerSuggestion!.careerSuggestions
-                                .map(
-                                  (career) => FormBuilderFieldOption(
-                                    value: career,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16),
+                            24.heightBox,
+                            Text(
+                              'Select Your Preferred Career Path -',
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.orange.shade700,
+                                  ),
+                            ),
+                            16.heightBox,
+                            CustomRadioGroupFormField<String>(
+                              name: UpdateUserConstants.careerChoice,
+                              onChanged: (value) {
+                                talker.debug('Selected career: $value');
+                              },
+                              validator: FormBuilderValidators.compose([
+                                FormBuilderValidators.required(),
+                              ]),
+                              options: careerSuggestion!.careerSuggestions
+                                  .map(
+                                    (career) => FormBuilderFieldOption(
+                                      value: career,
+                                      child: Text(career),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                            32.heightBox,
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.blue.shade50,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(color: Colors.blue.shade200),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Master\'s Degree Recommendation',
+                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue.shade800,
+                                        ),
+                                  ),
+                                  16.heightBox,
+                                  Text(
+                                    mastersCareerSuggestion!.personalityType,
+                                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue.shade700,
+                                        ),
+                                  ),
+                                  16.heightBox,
+                                  Text(
+                                    'Analysis',
+                                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue.shade600,
+                                        ),
+                                  ),
+                                  8.heightBox,
+                                  Text(
+                                    mastersCareerSuggestion!.analysisDescription,
+                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                  16.heightBox,
+                                  Text(
+                                    'Psychological Profile',
+                                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue.shade600,
+                                        ),
+                                  ),
+                                  8.heightBox,
+                                  Text(
+                                    mastersCareerSuggestion!.psychologicalDescription,
+                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                  16.heightBox,
+                                  Text(
+                                    'Best Programs',
+                                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue.shade600,
+                                        ),
+                                  ),
+                                  8.heightBox,
+                                  ...mastersCareerSuggestion!.bestPrograms.map(
+                                    (program) => Padding(
+                                      padding: const EdgeInsets.only(bottom: 4),
                                       child: Row(
-                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Flexible(
-                                            child: Text(career),
+                                          Icon(
+                                            Icons.school,
+                                            color: Colors.blue.shade600,
+                                            size: 16,
+                                          ),
+                                          8.widthBox,
+                                          Expanded(
+                                            child: Text(
+                                              program,
+                                              style: Theme.of(context).textTheme.bodyMedium,
+                                            ),
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                )
-                                .toList(),
-                          ),
-                        ],
+                                  16.heightBox,
+                                  Text(
+                                    'Industries',
+                                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue.shade600,
+                                        ),
+                                  ),
+                                  8.heightBox,
+                                  ...mastersCareerSuggestion!.industries.map(
+                                    (industry) => Padding(
+                                      padding: const EdgeInsets.only(bottom: 4),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Icon(
+                                            Icons.business,
+                                            color: Colors.blue.shade600,
+                                            size: 16,
+                                          ),
+                                          8.widthBox,
+                                          Expanded(
+                                            child: Text(
+                                              industry,
+                                              style: Theme.of(context).textTheme.bodyMedium,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            24.heightBox,
+                            Text(
+                              'Select Your Preferred Master\'s Career Path -',
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue.shade700,
+                                  ),
+                            ),
+                            16.heightBox,
+                            FormBuilderRadioGroup<String>(
+                              name: UpdateUserConstants.mastersCareerChoice,
+                              onChanged: (value) {
+                                talker.debug('Selected master\'s career: $value');
+                              },
+                              validator: FormBuilderValidators.compose([
+                                FormBuilderValidators.required(),
+                              ]),
+                              options: mastersCareerSuggestion!.bestPrograms
+                                  .map(
+                                    (program) => FormBuilderFieldOption(
+                                      value: program,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Text(
+                                          program,
+                                          style: Theme.of(context).textTheme.bodyMedium,
+                                          maxLines: null,
+                                          softWrap: true,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ],
+                        ),
                       ),
                     )
                   : const Center(

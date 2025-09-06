@@ -14,6 +14,22 @@ class CareerSuggestion {
   });
 }
 
+class MastersDegreeCareerSuggestion {
+  final String personalityType;
+  final String analysisDescription;
+  final String psychologicalDescription;
+  final List<String> bestPrograms;
+  final List<String> industries;
+
+  MastersDegreeCareerSuggestion({
+    required this.personalityType,
+    required this.analysisDescription,
+    required this.psychologicalDescription,
+    required this.bestPrograms,
+    required this.industries,
+  });
+}
+
 class CareerSuggestionUtils {
   static CareerSuggestion? getCareerSuggestion(Map<String, String> answers) {
     
@@ -39,6 +55,33 @@ class CareerSuggestionUtils {
       strengths: ["Adaptability", "Balanced skills", "Collaborative problem-solving"],
       weaknesses: ["Risk of being 'jack of all trades'"],
       careerSuggestions: ["Business Analyst", "Management Consultant", "Operations Manager", "Corporate Strategist", "Market Researcher"],
+    );
+  }
+
+  static MastersDegreeCareerSuggestion? getMastersDegreeCareerSuggestion(Map<String, String> answers) {
+    
+    final questionAnswers = _mapAnswersToOptions(answers);
+    
+    // Check against each master's degree personality pattern
+    for (final pattern in _mastersPersonalityPatterns) {
+      if (_matchesPattern(questionAnswers, pattern['options'])) {
+        return MastersDegreeCareerSuggestion(
+          personalityType: pattern['type'],
+          analysisDescription: pattern['analysisDescription'],
+          psychologicalDescription: pattern['psychologicalDescription'],
+          bestPrograms: List<String>.from(pattern['bestPrograms']),
+          industries: List<String>.from(pattern['industries']),
+        );
+      }
+    }
+    
+    // Return default suggestion if no exact match
+    return MastersDegreeCareerSuggestion(
+      personalityType: "The Global Business Leader",
+      analysisDescription: "Thinking: Strategic + Practical\nWork: Management + People\nMotivation: Money + Recognition\nStrengths: Leadership + Communication\nInterest: Business, Trade, Management",
+      psychologicalDescription: "Naturally driven to lead, enjoys big-picture planning and influencing teams. They are motivated by recognition and financial success.",
+      bestPrograms: ["MBA in Finance / Marketing / International Business", "MSc in Economics & Global Trade", "MA in International Relations (with Economics)"],
+      industries: ["Investment Banking", "Consulting", "Corporate Strategy", "Multinationals", "Startups"],
     );
   }
 
@@ -359,6 +402,89 @@ class CareerSuggestionUtils {
       'strengths': ['Empathy', 'Teaching', 'Ability to simplify complex ideas'],
       'weaknesses': ['May lack technical focus', 'Can be emotionally drained'],
       'careers': ['Teacher / Professor', 'Career Counselor', 'Social Worker', 'Training & Development Specialist', 'Child Psychologist']
+    }
+  ];
+
+  static final List<Map<String, dynamic>> _mastersPersonalityPatterns = [
+    {
+      'type': 'The Data-Driven Innovator',
+      'options': ['1(a)', '2(a)', '6(a)', '7(a)', '8(a)', '9(a)', '12(a)', '19(c)', '22(a)'],
+      'analysisDescription': 'Thinking: Analytical + Strategic\nWork Preference: Research + Technology\nMotivation: Innovation + Impact\nStrengths: Data Handling + Problem Solving\nInterest: IT, AI, Analytics',
+      'psychologicalDescription': 'This personality thrives on structured analysis, large datasets, and using technology to drive innovation. They balance logic with creativity to find new solutions.',
+      'bestPrograms': ['MSc in Data Science / Business Analytics', 'M.Tech in Artificial Intelligence / Machine Learning', 'MBA in Business Analytics / Information Systems'],
+      'industries': ['IT services', 'Consulting', 'FinTech', 'AI Startups', 'Manufacturing (automation)']
+    },
+    {
+      'type': 'The Tech-Engineer Builder',
+      'options': ['1(c)', '2(c)', '6(c)', '7(c)', '8(c)', '15(c)', '19(c)'],
+      'analysisDescription': 'Thinking: Practical + Analytical\nWork: Lab + Technology\nMotivation: Stability + Innovation\nStrengths: Design + Problem Solving\nInterest: Engineering, Petroleum, Infrastructure',
+      'psychologicalDescription': 'Hands-on, loves designing systems and building solutions. They excel in engineering challenges and prefer tangible results.',
+      'bestPrograms': ['M.Tech in Mechanical, Civil, Electrical, Petroleum, Chemical Engineering', 'MSc in Energy Engineering / Robotics', 'MBA in Operations / Supply Chain'],
+      'industries': ['Oil & Gas', 'Renewable Energy', 'Aerospace', 'Robotics', 'Infrastructure', 'Automobiles']
+    },
+    {
+      'type': 'The Sustainability Architect',
+      'options': ['2(b)', '7(b)', '10(d)', '16(d)', '17(c)', '25(d)'],
+      'analysisDescription': 'Thinking: Creative + Strategic\nWork: Field + Research\nMotivation: Impact + Recognition\nStrengths: Problem Solving + Communication\nInterest: Environment, Climate, ESG',
+      'psychologicalDescription': 'A visionary who wants to combine problem-solving with global responsibility. They thrive on green innovation and future-proofing businesses.',
+      'bestPrograms': ['MSc in Sustainable Development / Climate Science', 'M.Tech in Environmental Engineering / Energy Systems', 'MBA in Sustainability Management', 'MA in Public Policy (Environment Focus)'],
+      'industries': ['Renewable Energy', 'ESG Consulting', 'Sustainability Policy', 'Green Finance', 'UN/NGOs']
+    },
+    {
+      'type': 'The Healthcare Strategist',
+      'options': ['1(d)', '8(d)', '20(a)', '23(d)', '25(c)'],
+      'analysisDescription': 'Thinking: Empathetic + Analytical\nWork: People + Research\nMotivation: Impact + Stability\nStrengths: Communication + Data Handling\nInterest: Healthcare, Psychology, Public Health',
+      'psychologicalDescription': 'Balances empathy with research-driven decisions. Interested in improving health systems, patient care, or mental well-being.',
+      'bestPrograms': ['Master of Public Health (MPH)', 'MSc in Health Informatics / Biotechnology', 'MA in Psychology / Counseling', 'MBA in Healthcare Management', 'MBBS → MD/MS (for clinical paths)'],
+      'industries': ['Hospitals', 'Pharma', 'Health-Tech', 'Mental Health Counseling', 'Bioinformatics']
+    },
+    {
+      'type': 'The Global Business Leader',
+      'options': ['11(d)', '25(a)', '27(a)', '29(a)'],
+      'analysisDescription': 'Thinking: Strategic + Practical\nWork: Management + People\nMotivation: Money + Recognition\nStrengths: Leadership + Communication\nInterest: Business, Trade, Management',
+      'psychologicalDescription': 'Naturally driven to lead, enjoys big-picture planning and influencing teams. They are motivated by recognition and financial success.',
+      'bestPrograms': ['MBA in Finance / Marketing / International Business', 'MSc in Economics & Global Trade', 'MA in International Relations (with Economics)'],
+      'industries': ['Investment Banking', 'Consulting', 'Corporate Strategy', 'Multinationals', 'Startups']
+    },
+    {
+      'type': 'The Creative Tech Designer',
+      'options': ['1(b)', '2(b)', '7(b)', '9(b)', '10(b)', '19(c)', '24(b)'],
+      'analysisDescription': 'Thinking: Creative + Analytical\nWork: Design + Technology\nMotivation: Innovation + Recognition\nStrengths: Design + Problem Solving\nInterest: IT, Media, Arts, Gaming',
+      'psychologicalDescription': 'Loves blending technology and creativity. They thrive in digital product design, UX/UI, gaming, and immersive technologies.',
+      'bestPrograms': ['MSc in Human-Computer Interaction', 'M.Des in Product / Graphic / Game Design', 'MA in Digital Media / Animation'],
+      'industries': ['Gaming', 'EdTech', 'Creative AI', 'UI/UX', 'Film/Media', 'AR/VR']
+    },
+    {
+      'type': 'The Policy & Law Analyst',
+      'options': ['1(a)', '8(a)', '22(a)', '25(c)'],
+      'analysisDescription': 'Thinking: Strategic + Analytical\nWork: People + Research\nMotivation: Impact + Stability\nStrengths: Communication + Data\nInterest: Policy, Law, Governance',
+      'psychologicalDescription': 'A natural policy shaper. Skilled in analyzing laws and their effects on society, they blend logic with ethical reasoning.',
+      'bestPrograms': ['MA in Public Policy / Political Science', 'LLM (for Law graduates)', 'MSc in Tech Policy / Governance', 'MBA in Public Administration'],
+      'industries': ['Government', 'Think Tanks', 'Legal-Tech', 'UN/NGOs', 'Compliance']
+    },
+    {
+      'type': 'The Finance Quant',
+      'options': ['1(a)', '3(a)', '8(a)', '25(a)'],
+      'analysisDescription': 'Thinking: Analytical + Strategic\nWork: Research + Management\nMotivation: Money + Innovation\nStrengths: Data + Problem Solving\nInterest: Finance, Economics, Markets',
+      'psychologicalDescription': 'Loves numbers, thrives on risk models, and market predictions. Prefers structured, high-stakes problem-solving.',
+      'bestPrograms': ['MSc in Finance / Quantitative Finance', 'M.Com in Banking & Insurance', 'MBA in Finance'],
+      'industries': ['Hedge Funds', 'Investment Banking', 'FinTech', 'Consulting']
+    },
+    {
+      'type': 'The Petroleum & Energy Specialist',
+      'options': ['1(c)', '6(c)', '7(c)', '25(c)'],
+      'analysisDescription': 'Thinking: Practical + Analytical\nWork: Lab + Field\nMotivation: Stability + Money\nStrengths: Problem Solving + Technical\nInterest: Petroleum, Mining, Energy',
+      'psychologicalDescription': 'Likes working with tangible resources and complex engineering processes. Motivated by stability and global energy demand.',
+      'bestPrograms': ['M.Tech in Petroleum Engineering / Chemical Engineering', 'MSc in Energy Management', 'MBA in Oil & Gas Management'],
+      'industries': ['Oil & Gas', 'Mining', 'Power', 'Energy Consulting', 'Renewables']
+    },
+    {
+      'type': 'The Social Impact Innovator',
+      'options': ['1(d)', '2(d)', '10(d)', '16(d)', '21(d)', '23(d)'],
+      'analysisDescription': 'Thinking: Empathetic + Creative\nWork: People + Field\nMotivation: Impact + Recognition\nStrengths: Leadership + Communication\nInterest: Development, Education, NGOs',
+      'psychologicalDescription': 'Socially conscious, they want to solve problems like inequality, education, and mental health using creative strategies.',
+      'bestPrograms': ['MSW (Master of Social Work)', 'MA in Development Studies / Education', 'MBA in Nonprofit Management / CSR'],
+      'industries': ['NGOs', 'UN', 'Social Enterprises', 'CSR wings of corporates']
     }
   ];
 }
