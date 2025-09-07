@@ -10,11 +10,13 @@ class NextOrSubmitButton extends ConsumerWidget {
   const NextOrSubmitButton({
     super.key,
     required this.currentStep,
-    required this.details,
+    this.details,
+    this.onPressed,
   });
 
   final int currentStep;
-  final ControlsDetails details;
+  final ControlsDetails? details;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,7 +29,7 @@ class NextOrSubmitButton extends ConsumerWidget {
                 backgroundColor: AppColors.kPrimaryColor,
                 foregroundColor: AppColors.kLightSecondaryColor,
               ),
-              onPressed: details.onStepContinue,
+              onPressed: onPressed ?? details?.onStepContinue,
               child: Text(
                 currentStep == 2 ? 'Submit' : 'Next',
               ),
@@ -55,7 +57,7 @@ class NextOrSubmitButton extends ConsumerWidget {
                 backgroundColor: AppColors.kPrimaryColor,
                 foregroundColor: AppColors.kLightSecondaryColor,
               ),
-              onPressed: details.onStepContinue,
+              onPressed: onPressed ?? details?.onStepContinue,
               child: Text(
                 currentStep == 2 ? 'Submit' : 'Next',
               ),
@@ -65,7 +67,7 @@ class NextOrSubmitButton extends ConsumerWidget {
                 backgroundColor: AppColors.kPrimaryColor,
                 foregroundColor: AppColors.kLightSecondaryColor,
               ),
-              onPressed: details.onStepContinue,
+              onPressed: onPressed ?? details?.onStepContinue,
               child: Text(
                 currentStep == 2 ? 'Submit' : 'Next',
               ),
