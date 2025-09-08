@@ -70,6 +70,7 @@ class _LoginTabState extends ConsumerState<LoginTab> with GlobalHelper {
           children: [
             30.heightBox,
             CustomTextFormField(
+              textCase: TextCase.lowercase,
               hintText: 'arnav@ExploreEd.com',
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,

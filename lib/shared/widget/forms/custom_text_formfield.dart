@@ -4,6 +4,34 @@ import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+enum TextCase { lowercase, uppercase, pascalCase }
+
+class LowerCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    return newValue.copyWith(text: newValue.text.toLowerCase());
+  }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    return newValue.copyWith(text: newValue.text.toUpperCase());
+  }
+}
+
+class PascalCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    final words = newValue.text.split(' ');
+    final pascalCaseWords = words.map((word) {
+      if (word.isEmpty) return word;
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    });
+    return newValue.copyWith(text: pascalCaseWords.join(' '));
+  }
+}
+
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
@@ -29,6 +57,7 @@ class CustomTextFormField extends StatelessWidget {
     this.letterSpacing = 0.3,
     this.isErrorText = false,
     this.isFillColor = false,
+    this.textCase,
     this.isTextCapitalization = false,
     this.islabelText = true,
     this.scrollPhysics,
@@ -67,8 +96,44 @@ class CustomTextFormField extends StatelessWidget {
   final bool? islabelText;
   final ScrollPhysics? scrollPhysics;
   final bool isTextCapitalization;
+  final TextCase? textCase;
   final List<TextInputFormatter>? textInputFormatters;
   final int? maxlen;
+  TextCapitalization _getTextCapitalization() {
+    if (textCase != null) {
+      return switch (textCase!) {
+        TextCase.lowercase => TextCapitalization.none,
+        TextCase.uppercase => TextCapitalization.characters,
+        TextCase.pascalCase => TextCapitalization.words,
+      };
+    }
+    return isTextCapitalization ? TextCapitalization.words : TextCapitalization.sentences;
+  }
+
+  List<TextInputFormatter>? _getInputFormatters() {
+    final formatters = <TextInputFormatter>[];
+    
+    if (textInputFormatters != null) {
+      formatters.addAll(textInputFormatters!);
+    }
+    
+    if (textCase != null) {
+      switch (textCase!) {
+        case TextCase.lowercase:
+          formatters.add(LowerCaseTextFormatter());
+          break;
+        case TextCase.uppercase:
+          formatters.add(UpperCaseTextFormatter());
+          break;
+        case TextCase.pascalCase:
+          formatters.add(PascalCaseTextFormatter());
+          break;
+      }
+    }
+    
+    return formatters.isEmpty ? null : formatters;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
@@ -78,15 +143,14 @@ class CustomTextFormField extends StatelessWidget {
       name: name,
       initialValue: initialValue,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      inputFormatters: textInputFormatters,
       maxLength: maxlen,
       onChanged: onChanged,
       onTap: onTap,
       readOnly: isReadOnly,
       enableSuggestions: true,
       enableInteractiveSelection: true,
-      textCapitalization:
-          isTextCapitalization ? TextCapitalization.words : TextCapitalization.sentences,
+      textCapitalization: _getTextCapitalization(),
+      inputFormatters: _getInputFormatters(),
       minLines: minLine,
       maxLines: maxLine,
       focusNode: focusNode,

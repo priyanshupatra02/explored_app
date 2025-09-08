@@ -1,6 +1,6 @@
 name: edtech_app
 description: ""
-version: 2.0.0+5
+version: 3.0.0+7
 publish_to: none
 
 environment:

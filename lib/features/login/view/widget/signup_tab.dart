@@ -84,6 +84,7 @@ class _SignupTabState extends ConsumerState<SignupTab> {
               ),
             ),
             CustomTextFormField(
+              textCase: TextCase.lowercase,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.emailAddress,
               hintText: 'Enter your email',
