@@ -433,16 +433,6 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> with GlobalHelpe
                                   );
                                 },
                               ),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    final roleFields = roleFormKey.currentState?.fields;
-                                    talker.debug(
-                                      roleFields?[UpdateUserConstants.whatDoYouDo]?.value
-                                              as String? ??
-                                          '',
-                                    );
-                                  },
-                                  child: Text('test')),
                             ],
                           ),
                         ),
@@ -463,16 +453,6 @@ class UpdateUserViewState extends ConsumerState<UpdateUserView> with GlobalHelpe
                                     .allWordsCapitilize(),
                                 style: onboardingHeaderTextStyle,
                               ),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    final roleFields = roleFormKey.currentState?.fields;
-                                    talker.debug(
-                                      roleFields?[UpdateUserConstants.whatDoYouDo]?.value
-                                              as String? ??
-                                          '',
-                                    );
-                                  },
-                                  child: Text('test 2')),
                               QuestionsHeaderWidget(
                                 questionNumber: 0,
                               ),

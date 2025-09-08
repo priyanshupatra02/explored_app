@@ -3,14 +3,12 @@ import 'dart:async';
 import 'package:edtech_app/data/model/user_response_model.dart';
 import 'package:edtech_app/data/network/api_helper_pod.dart';
 import 'package:edtech_app/data/services/login_db_service/login_db_service_pod.dart';
-import 'package:edtech_app/features/login/controller/pod/login_user_pod.dart';
 import 'package:edtech_app/features/login/controller/state/login_user_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginUserAsyncNotifier
-    extends AutoDisposeFamilyAsyncNotifier<LoginUserState, LoginUserParams> {
+class LoginUserAsyncNotifier extends AutoDisposeAsyncNotifier<LoginUserState> {
   @override
-  FutureOr<LoginUserState> build(LoginUserParams arg) {
+  FutureOr<LoginUserState> build() {
     return const InitialLoginUserState();
   }
 
@@ -22,15 +20,15 @@ class LoginUserAsyncNotifier
     state = const AsyncData(LoggingInUserState());
     state = await AsyncValue.guard(
       () async {
-        final result = await ref.watch(apiHelperProvider).loginUser(
-              email: arg.email,
-              password: arg.password,
+        final result = await ref.read(apiHelperProvider).loginUser(
+              email: email,
+              password: password,
             );
 
         return result.when(
           (loginModel) async {
             if (loginModel.jwt!.isNotEmpty) {
-              await ref.watch(loginDbProvider).saveLoginModel(userResponseModel: loginModel);
+              await ref.read(loginDbProvider).saveLoginModel(userResponseModel: loginModel);
               onUserLoggedIn(loginModel);
               return const LoggedInState();
             } else {

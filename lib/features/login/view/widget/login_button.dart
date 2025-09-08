@@ -11,13 +11,9 @@ import 'package:hugeicons/hugeicons.dart';
 
 class LoginButton extends ConsumerStatefulWidget {
   final void Function()? loginUser;
-  final String email;
-  final String password;
   const LoginButton({
     super.key,
     required this.loginUser,
-    required this.email,
-    required this.password,
   });
 
   @override
@@ -27,14 +23,7 @@ class LoginButton extends ConsumerStatefulWidget {
 class _LoginButtonState extends ConsumerState<LoginButton> {
   @override
   Widget build(BuildContext context) {
-    final loginUserStateAsync = ref.watch(
-      loginUserProvider(
-        LoginUserParams(
-          email: widget.email,
-          password: widget.password,
-        ),
-      ),
-    );
+    final loginUserStateAsync = ref.watch(loginUserProvider);
     return loginUserStateAsync.easyWhen(
       data: (loginUserState) {
         return switch (loginUserState) {

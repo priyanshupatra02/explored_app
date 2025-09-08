@@ -39,9 +39,7 @@ class _LoginTabState extends ConsumerState<LoginTab> with GlobalHelper {
           widget.loginFormKey.currentState!.fields[LoginConstants.password]!.value as String;
       ref
           .read(
-            loginUserProvider(
-              LoginUserParams(email: email, password: password),
-            ).notifier,
+            loginUserProvider.notifier,
           )
           .loginUser(
             email: email,
@@ -128,13 +126,6 @@ class _LoginTabState extends ConsumerState<LoginTab> with GlobalHelper {
             50.heightBox,
             LoginButton(
               loginUser: loginUser,
-              // Use null-aware operators with fallback to empty string
-              email: widget.loginFormKey.currentState?.fields[LoginConstants.email]?.value
-                      as String? ??
-                  '',
-              password: widget.loginFormKey.currentState?.fields[LoginConstants.password]?.value
-                      as String? ??
-                  '',
             ),
             30.heightBox,
             RichText(

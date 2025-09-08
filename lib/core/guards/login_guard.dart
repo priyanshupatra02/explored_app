@@ -23,7 +23,7 @@ class LoginGuard extends AutoRouteGuard {
       resolver.next(false);
     } else if (token != null && feedback != null) {
       talker.debug('hi 2');
-      router.replaceAll([UpdateUserRoute()]);
+      router.replaceAll([NavbarRoute()]);
       resolver.next(false);
     } else {
       talker.debug('hi 3');
